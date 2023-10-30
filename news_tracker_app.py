@@ -557,7 +557,7 @@ def document_analysis():
                     sentence_data = {'title': row['title'], 'link': row['link'], 'sentence_id': f"{index + 1}_{sentence_id}", 'sentence': sentence}
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
-                    sentence_df = sentence_df.append(sentence_data, ignore_index=True)
+                    sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
             
             except requests.RequestException:
