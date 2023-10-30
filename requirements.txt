@@ -1,5 +1,4 @@
 streamlit
-geopandas
 folium
 pandas
 requests
@@ -9,4 +8,5 @@ beautifulsoup4
 matplotlib
 FPDF
 streamlit-folium
+geopandas
 python-dotenv  # If you decide to use dotenv for environment variables
