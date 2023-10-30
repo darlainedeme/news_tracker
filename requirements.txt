@@ -1,0 +1,12 @@
+streamlit
+geopandas
+folium
+pandas
+requests
+urllib3
+openai
+beautifulsoup4
+matplotlib
+FPDF
+streamlit-folium
+python-dotenv  # If you decide to use dotenv for environment variables
