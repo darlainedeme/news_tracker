@@ -12,14 +12,26 @@ from bs4 import BeautifulSoup
 import re
 import matplotlib.pyplot as plt
 from fpdf import FPDF
+import streamlit as st
+from langchain.callbacks.base import BaseCallbackHandler
+from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.retrievers.web_research import WebResearchRetriever
+from langchain.document_loaders import WebBaseLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import Chroma, FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.docstore import InMemoryDocstore
+import pandas as pd
+import os
+import faiss
+import pdfplumber
+import logging
+from io import BytesIO
 
 # Set your OpenAI API key
-from dotenv import load_dotenv
-load_dotenv()
-
-openai.api_key = os.getenv('OPENAI_API_KEY')
-cse_id = os.getenv('CSE_ID')
-api_key = os.getenv('API_KEY')
+openai.api_key = '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'
+cse_id = "7039a981d2c8c4933"
+api_key = "AIzaSyAoD8AJu7hZVgDmb978nUT8P2cvmelXQhk"
             
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
@@ -529,39 +541,134 @@ def document_analysis():
     # Create an empty dataframe for sentence-level results
     sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
 
-    # Check for 'Run Analysis' button click
+    # Sidebar for GPT model selection
+    models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
+    selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
+
+    # Initialize the progress bar
+    progress_bar = st.sidebar.progress(0)
+
+    # Get the total number of links to process for updating the progress bar
+    total_links = len(df)
+        
     if st.sidebar.button("Run Analysis"):
         # For each keyword, create a new column initialized to 0
         for keyword in st.session_state.final_selected_keywords:
             df[keyword] = 0
         
         # Iterate through each link in the dataframe
-        for index, row in df.iterrows():
+        for index, (idx, row) in enumerate(df.iterrows()):
             try:
                 response = requests.get(row['link'])
                 response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
                 
-                # Use BeautifulSoup to parse the page content
-                soup = BeautifulSoup(response.text, 'html.parser')
-                text_content = soup.get_text().lower()
+                if row['link'].endswith('.pdf'):
+                    # Process PDF files
+                    with pdfplumber.open(BytesIO(response.content)) as pdf:
+                        text_content = ''
+                        for page in pdf.pages:
+                            text_content += page.extract_text()
+                else:
+                    # Process HTML files
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    text_content = soup.get_text().lower()
+
+                text_content = text_content.lower()
 
                 # Document-level keyword counting based on translated keywords
                 for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                     df.at[index, keyword] = text_content.count(trans_keyword.lower())
 
                 # Sentence-level keyword counting based on translated keywords
-                # sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
-                sentences = re.split(r'\n\s*\n', text_content)
+                sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
+                # sentences = re.split(r'\n\s*\n', text_content)
                 
                 for sentence_id, sentence in enumerate(sentences, 1):
                     sentence_data = {'title': row['title'], 'link': row['link'], 'sentence_id': f"{index + 1}_{sentence_id}", 'sentence': sentence}
+                    # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
+
                     sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
             
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
+
+            # Update the progress bar
+            progress = int((index + 1) / total_links * 100)
+            progress_bar.progress(progress)
+            
+        # Normalize keyword counts in sentence_df
+        for keyword in st.session_state.final_selected_keywords:
+            sentence_df[keyword] = (sentence_df[keyword] - sentence_df[keyword].min()) / (sentence_df[keyword].max() - sentence_df[keyword].min())
+            sentence_df[keyword] = pd.to_numeric(sentence_df[keyword], errors='coerce')
+
+        all_summaries = []  # List to store individual summaries
+
+        for link in df['link'].unique():
+            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(20, st.session_state.final_selected_keywords)
+            extracts = "\n".join(top_sentences['sentence'])
+            prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
+            you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
+            to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
+
+            # Call the OpenAI API
+            if selected_model == "gpt-4":
+                messages = [
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt}
+                ]
+                response = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=messages
+                )
+                summary = response['choices'][0]['message']['content']
+            else:
+                response = openai.Completion.create(
+                    model=selected_model,
+                    prompt=prompt,
+                    max_tokens=100
+                )
+                summary = response.choices[0].text.strip()
+
+            all_summaries.append(summary)
+
+        # Combine all summaries
+        combined_summaries = " ".join(all_summaries)
+        final_prompt = f"Summarize the following summaries in 10 sentences:\n{combined_summaries}"
+
+        # Call the OpenAI API for final summary
+        if selected_model == "gpt-4":
+            messages = [
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": final_prompt}
+            ]
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=messages
+            )
+            final_summary = response['choices'][0]['message']['content']
+        else:
+            response = openai.Completion.create(
+                model=selected_model,
+                prompt=final_prompt,
+                max_tokens=200
+            )
+            final_summary = response.choices[0].text.strip()
+        
+        final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
+        st.write(f"Final Summary: {final_summary}")
+
+        # Display individual summaries in an expander
+        with st.expander("See Individual Summaries"):
+            for link, summary in zip(df['link'].unique(), all_summaries):
+                title = df[df['link'] == link]['title'].values[0]
+                title = title.replace('*', '&#42;').replace('_', '&#95;')
+                st.write(f"[{title}]({link})")
+                summary = summary.replace('*', '&#42;').replace('_', '&#95;')
+                st.write(f"Summary: {summary}")
+                st.markdown("---")  # separator
 
         # Export the dataframes to CSVs
         df.to_csv('results/analyzed_results.csv', index=False, encoding='utf-8')
@@ -570,228 +677,13 @@ def document_analysis():
         st.write("Data exported to 'results/analyzed_results.csv'")
         st.write("Sentence data exported to 'results/analyzed_results_sentences.csv'")
 
-def document_results():
-    st.title("📚 Document-level Results")
-
-    # Ensure that the necessary data is in the session state
-    if 'selected_keywords' not in st.session_state:
-        st.warning("Please complete the previous steps first.")
-        return
-    
-    # Load the analyzed CSV
-    df = pd.read_csv('results/analyzed_results.csv', encoding='utf-8')
-
-    # Convert titles to hyperlinked titles
-    df['title'] = df.apply(lambda row: f'<a href="{row["link"]}">{row["title"]}</a>', axis=1)
-
-    # Drop the first column (assuming it's an index column) and 'link' column for displaying
-    df_display = df.drop(columns=['link'])
-
-    # Multiselect box with all the keywords as default
-    keywords = st.session_state.final_selected_keywords
-    selected_keywords = st.sidebar.multiselect("Select keywords:", options=keywords, default=keywords)
-
-    # Ranking system based on selected keywords
-    if len(selected_keywords) == 1:
-        df_display = df_display.sort_values(by=selected_keywords[0], ascending=False)
-    else:
-        # Create a temporary dataframe to hold normalized values
-        df_normalized = df_display[selected_keywords].copy()
-        
-        # Normalize the columns of selected keywords in the temporary dataframe
-        for keyword in selected_keywords:
-            df_normalized[keyword] = (df_normalized[keyword] - df_normalized[keyword].min()) / (df_normalized[keyword].max() - df_normalized[keyword].min())
-        
-        # Compute the average for each row across normalized columns
-        df_display['normalized_avg'] = df_normalized.mean(axis=1)
-        
-        # Sort by the ranking column
-        df_display = df_display.sort_values(by='normalized_avg', ascending=False)
-        df_display = df_display.drop(columns=['normalized_avg'])
-        
-    # Display the modified dataframe
-    st.write(df_display.to_html(escape=False), unsafe_allow_html=True)
-
-def sentence_results():
-    st.title("📚 Sentence-level Results")
-    
-    # Ensure that the necessary data is in the session state
-    if 'selected_keywords' not in st.session_state:
-        st.warning("Please complete the previous steps first.")
-        return
-    
-    # Load the analyzed CSV for sentences
-    df = pd.read_csv('results/analyzed_results_sentences.csv', encoding='utf-8')
-
-    # Remove newline characters from the 'sentence' column
-    df['sentence'] = df['sentence'].str.replace('\n', ' ')
-
-    # Truncate lengthy sentences to a certain number of characters for display
-    max_display_length = 10000000  # you can adjust this value
-    df['sentence_display'] = df['sentence'].apply(lambda x: (x[:max_display_length] + '...') if isinstance(x, str) and len(x) > max_display_length else x)
-
-    # Convert sentence IDs to hyperlinked IDs using the link column
-    # df['sentence_id'] = df.apply(lambda row: f'<a href="{row["link"]}">{row["sentence_id"]}</a>', axis=1)
-    df['sentence_id'] = df['sentence_id'].astype(str)
-
-    # Drop unnecessary columns for displaying and use 'sentence_display' instead of 'sentence'
-    df_display = df.drop(columns=['title', 'link', 'sentence'])
-    
-    # Multiselect box with all the keywords as default
-    keywords = st.session_state.final_selected_keywords
-    selected_keywords = st.sidebar.multiselect("Select keywords:", options=keywords, default=keywords)
-    
-    # Create a normalized_avg column if more than one keyword is selected
-    if len(selected_keywords) > 1:
-        df_normalized = df_display[selected_keywords].copy()
-            
-        for keyword in selected_keywords:
-            df_normalized[keyword] = (df_normalized[keyword] - df_normalized[keyword].min()) / (df_normalized[keyword].max() - df_normalized[keyword].min())
-            
-        df_display['normalized_avg'] = df_normalized.mean(axis=1)
-        histogram_column = 'normalized_avg'
-    else:
-        # If only one keyword, the histogram column will be that keyword
-        histogram_column = selected_keywords[0]
-           
-    # For top X% Slider, choose the right column
-    total_sentences = len(df_display)
-    percentage = st.sidebar.slider(f"Select top X% based on {histogram_column}:", 0, 100, 5)
-    top_x = int((percentage / 100) * total_sentences)
-    
-    # Create a matplotlib figure with desired size
-    fig, ax = plt.subplots(figsize=(8, 4))
-    ax.hist(df_display[histogram_column], bins=30, alpha=0.75)
-    ax.set_title(f"Histogram of {histogram_column}")
-    st.sidebar.pyplot(fig)
-        
-    # Display only the top X% of sentences based on the user's selection
-    df_display = df_display.sort_values(by=histogram_column, ascending=False).head(top_x)
-    
-    # If normalized_avg column exists, drop it before displaying
-    if 'normalized_avg' in df_display.columns:
-        df_display = df_display.drop(columns=['normalized_avg'])
-        
-    # Display the dataframe
-    st.dataframe(df_display)
-
-def text_processing():
-    st.title("📝 Text Processing")
-    
-    # Ensure that the necessary data is in the session state
-    if 'total_characters' not in st.session_state:
-        st.warning("Please complete the previous steps first.")
-        return
-    
-    # Sidebar for model selection
-    models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
-    selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
-
-    # Calculate tokens
-    total_characters = st.session_state.total_characters
-    tokens_estimate = total_characters / 4  # A rough estimate
-
-    # Cost estimation based on the selected model
-    if selected_model == "gpt-4":
-        cost_per_token = 0.03 if tokens_estimate <= 8000 else 0.06
-    elif selected_model in ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo"]:
-        cost_per_token = 0.0015 if tokens_estimate <= 4000 else 0.003
-    else:
-        cost_per_token = 0
-
-    estimated_cost = cost_per_token * (tokens_estimate/1000)
-    
-    st.sidebar.write(f"Estimated Tokens: {int(tokens_estimate)}")
-    st.sidebar.write(f"Estimated Cost: ${estimated_cost:.5f}")
-
-    # Information extraction preferences
-    info_extraction_options = [
-        "Summarize",
-        "Investment info",
-        "Projects info.",
-        "Enter a custom extraction request."
-    ]
-    selected_extraction = st.sidebar.selectbox("Desired Action:", info_extraction_options, key="extraction_select_key")
-    
-    custom_request = ""
-    if selected_extraction == "Enter a custom extraction request.":
-        custom_request = st.sidebar.text_area("Specify your custom extraction request:", key="custom_request_key")
-
-    # Display previously processed results if they exist
-    if "processed_results" in st.session_state:
-        for item in st.session_state.processed_results:
-            st.subheader(f"[{item['original']['title']}]({item['original']['link']})")  # Displaying the original title as a clickable link
-            st.write(f"Source: {item['original']['displayLink']}")
-            st.write(f"Published Date: {item['original'].get('pagemap', {}).get('metatags', [{}])[0].get('og:updated_time', 'N/A')}")
-            st.write(f"Processed Content: {item['processed']}")
-            st.markdown("---")  # separator
-
-
-    # When the process button is clicked
-    if st.sidebar.button("Process Text"):
-        # If results don't exist in the session state, initialize an empty list
-        if "processed_results" not in st.session_state:
-            st.session_state.processed_results = []
-
-        # Clear previous results
-        st.session_state.processed_results.clear()
-
-        # Iterate over each result and process
-        for result in st.session_state.results:
-            snippet = result['snippet']
-            
-            # Depending on the selected extraction, modify the prompt
-            if selected_extraction == info_extraction_options[0]:  # summary
-                prompt = f"Provide a summary in 3 extended and comprehensive bullet points for the following text: {snippet}"
-                prompt += f" . The resulting format MUST MUST MUST have first two bullets describing the document content. Then there bust a 3 bullet point list with key highlights. THIS IS THE FORMAT I WANT DON'T GIVE ME RESULTS IN ANY OTHER FORM. MAKE SURE YOU GO ON A NEW LINE AT EVERY BULLET POINT!!!!!!!!!!!!!!!"
-            elif selected_extraction == info_extraction_options[1]:  # energy investments
-                prompt = f"Identify and extract information related to energy investments from the following text: {snippet}"
-            elif selected_extraction == info_extraction_options[2]:  # projects
-                prompt = f"Identify and extract details of projects mentioned in the following text: {snippet}"
-            else:  # custom
-                prompt = custom_request
-            
-                        
-            # Call the OpenAI API
-            if selected_model == "gpt-4":
-                messages = [
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": prompt}
-                ]
-
-                response = openai.ChatCompletion.create(
-                    model="gpt-4",
-                    messages=messages
-                )
-                processed_text = response['choices'][0]['message']['content']
-            else:
-                response = openai.Completion.create(
-                    model=selected_model,
-                    prompt=prompt,
-                    max_tokens=200
-                )
-                processed_text = response.choices[0].text.strip()
-
-            # Storing the processed result along with the original data
-            st.session_state.processed_results.append({"original": result, "processed": processed_text})
-
-        for item in st.session_state.processed_results:
-            st.subheader(f"[{item['original']['title']}]({item['original']['link']})")   # Displaying the original title as a clickable link
-            st.write(f"Source: {item['original']['displayLink']}")
-            st.write(f"Published Date: {item['original'].get('pagemap', {}).get('metatags', [{}])[0].get('og:updated_time', 'N/A')}")
-            st.write(f"Processed Content: {item['processed']}")
-            st.markdown("---")   # separator
-
 
 pages = {
     "🌍  Area Selection": area_selection,
     "✅ Selected Area Check ": selected_area_check,
     "🛠️ Define research": define_research,
     "🔍 Research": research,
-    "🔍 Run Document Analysis": document_analysis,
-    "📚 Document-level Results": document_results,
-    "🔍 Text-level Results": sentence_results,
-    "📝 Text Processing": text_processing,
+    "📚 Run Document Analysis": document_analysis
 
 }
 
