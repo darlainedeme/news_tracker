@@ -645,7 +645,7 @@ def document_analysis():
             final_summary = response.choices[0].text.strip()
         
         final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
-        st.text(f"Final Summary: {final_summary}")
+        st.write(f"Final Summary: {final_summary}")
 
         # Display individual summaries in an expander
         with st.expander("See Individual Summaries"):
@@ -653,7 +653,7 @@ def document_analysis():
                 title = df[df['link'] == link]['title'].values[0]
                 st.write(f"[{title}]({link})")
                 summary = summary.replace('*', '&#42;').replace('_', '&#95;')
-                st.text(f"Summary: {summary}")
+                st.write(f"Summary: {summary}")
                 st.markdown("---")  # separator
 
         # Export the dataframes to CSVs
