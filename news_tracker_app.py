@@ -645,24 +645,24 @@ def document_analysis():
             final_summary = response.choices[0].text.strip()
         
         final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
-        st.write(f"Final Summary: {final_summary}")
+        st.text(f"Final Summary: {final_summary}")
 
         # Display individual summaries in an expander
         with st.expander("See Individual Summaries"):
             for link, summary in zip(df['link'].unique(), all_summaries):
                 title = df[df['link'] == link]['title'].values[0]
                 title = title.replace('*', '&#42;').replace('_', '&#95;')
-                st.write(f"[{title}]({link})")
+                st.text(f"[{title}]({link})")
                 summary = summary.replace('*', '&#42;').replace('_', '&#95;')
-                st.write(f"Summary: {summary}")
+                st.text(f"Summary: {summary}")
                 st.markdown("---")  # separator
 
         # Export the dataframes to CSVs
         df.to_csv('results/analyzed_results.csv', index=False, encoding='utf-8')
         sentence_df.to_csv('results/analyzed_results_sentences.csv', index=False, encoding='utf-8')
         
-        st.write("Data exported to 'results/analyzed_results.csv'")
-        st.write("Sentence data exported to 'results/analyzed_results_sentences.csv'")
+        # st.write("Data exported to 'results/analyzed_results.csv'")
+        # st.write("Sentence data exported to 'results/analyzed_results_sentences.csv'")
 
 
 pages = {
