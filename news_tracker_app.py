@@ -16,9 +16,9 @@ import pdfplumber
 from io import BytesIO
 
 # Set your OpenAI API key
-openai.api_key = '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'
-cse_id = "7039a981d2c8c4933"
-api_key = "AIzaSyAoD8AJu7hZVgDmb978nUT8P2cvmelXQhk"
+openai.api_key = os.getenv('OPENAI_API_KEY')
+cse_id = os.getenv('CSE_ID')
+api_key = os.getenv('API_KEY')
             
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
