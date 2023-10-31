@@ -12,20 +12,7 @@ from bs4 import BeautifulSoup
 import re
 import matplotlib.pyplot as plt
 from fpdf import FPDF
-import streamlit as st
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.chains import RetrievalQAWithSourcesChain
-from langchain.retrievers.web_research import WebResearchRetriever
-from langchain.document_loaders import WebBaseLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma, FAISS
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.docstore import InMemoryDocstore
-import pandas as pd
-import os
-import faiss
 import pdfplumber
-import logging
 from io import BytesIO
 
 # Set your OpenAI API key
