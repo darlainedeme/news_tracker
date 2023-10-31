@@ -9,5 +9,5 @@ matplotlib
 FPDF
 streamlit-folium
 geopandas
-python-dotenv  # If you decide to use dotenv for environment variables
 pdfplumber
+python-dotenv  # If you decide to use dotenv for environment variables
