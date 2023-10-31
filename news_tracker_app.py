@@ -651,7 +651,6 @@ def document_analysis():
         with st.expander("See Individual Summaries"):
             for link, summary in zip(df['link'].unique(), all_summaries):
                 title = df[df['link'] == link]['title'].values[0]
-                title = title.replace('*', '&#42;').replace('_', '&#95;')
                 st.write(f"[{title}]({link})")
                 summary = summary.replace('*', '&#42;').replace('_', '&#95;')
                 st.text(f"Summary: {summary}")
