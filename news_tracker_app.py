@@ -574,14 +574,13 @@ def document_analysis():
                 for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                     df.at[index, keyword] = text_content.count(trans_keyword.lower())
 
-
                 # Sentence-level keyword counting based on translated keywords
                 sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
                 # sentences = re.split(r'\n\s*\n', text_content)
-                
+            
                 # Initialize an empty list to collect sentence data
                 sentence_data_list = []
-                
+            
                 for sentence_id, sentence in enumerate(sentences, 1):
                     sentence_data = {
                         'title': row['title'],
@@ -591,10 +590,15 @@ def document_analysis():
                     }
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
-                        sentence_data[keyword] = sentence.count(trans_keyword.lower())
-                    
-                    # Add the sentence data to the list
+                        # Create a regex pattern for whole word match, ignoring case
+                        pattern = re.compile(rf'\b{re.escape(trans_keyword)}s?\b', re.IGNORECASE)
+                        sentence_data[keyword] = len(re.findall(pattern, sentence))
+            
                     sentence_data_list.append(sentence_data)
+            
+                # Append the collected sentence data to sentence_df
+                sentence_df = pd.concat([sentence_df, pd.DataFrame(sentence_data_list)], ignore_index=True)
+
                 
                 # Create a new DataFrame from the list
                 new_df = pd.DataFrame(sentence_data_list)
