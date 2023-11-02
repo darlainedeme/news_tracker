@@ -604,7 +604,7 @@ def document_analysis():
         all_summaries = []  # List to store individual summaries
 
         for link in df['link'].unique():
-            top_sentences = str(sentence_df[sentence_df['link'] == link].nlargest(2, "Normalized_Count").sentence)
+            top_sentences = str(list(sentence_df[sentence_df['link'] == link].nlargest(2, "Normalized_Count").sentence))
             st.write(link)
             st.write(top_sentences)
             extracts = "\n".join(top_sentences['sentence'])
