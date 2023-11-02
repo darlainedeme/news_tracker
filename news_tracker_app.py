@@ -599,10 +599,6 @@ def document_analysis():
 
         # Calculating the normalized value based on the sum of keyword counts
         sentence_df['Normalized_Count'] = sentence_df['Keyword_Sum'] / max_keyword_sum
-        # --------------------------
-
-        # Store the sentence_df in session state for later use
-        st.session_state.sentence_df = sentence_df
             
         all_summaries = []  # List to store individual summaries
 
@@ -700,7 +696,7 @@ def document_analysis():
             for link in df['link'].unique():
                 link_df = sentence_df[sentence_df['link'] == link].copy()
                 # Assuming 'Normalize count' is a column in your sentence_df
-                link_df.sort_values(by='Normalize count', ascending=False, inplace=True)
+                link_df.sort_values(by='Normalized_Count', ascending=False, inplace=True)
                 link_sheet_name = f'Link {link}'
                 link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
