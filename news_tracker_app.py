@@ -207,8 +207,7 @@ def define_research():
     st.session_state.selected_keywords = selected_keywords
     
     selected_comp_keywords = []
-    
-   
+       
     # 6. Complementary Research Keywords
     st.subheader("7. Complementary Research Keywords")
     
@@ -217,10 +216,10 @@ def define_research():
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
         selected_comp_keywords.extend(custom_comp_keywords_list)
     
-    st.session_state.include_monetary_info = False
+    # st.session_state.include_monetary_info = False
     # Include Monetary Information Button
     include_monetary_info = st.checkbox("Include monetary information?")
-
+           
     if include_monetary_info:    
         st.session_state.include_monetary_info
         # Open currencies.csv and get currencies and symbols for selected countries
@@ -230,8 +229,10 @@ def define_research():
         # Add the currency data to the complementary keywords list
         comp_keywords = sorted(comp_keywords_df['keyword'].tolist()) + list(relevant_currencies)
         
-        selected_comp_keywords = st.multiselect("Keywords:", comp_keywords,  default=comp_keywords)
-    
+        add_comp_keywords = st.multiselect("Keywords:", comp_keywords,  default=comp_keywords)
+
+    selected_comp_keywords.extend(add_comp_keywords)
+        
     st.session_state.selected_comp_keywords = selected_comp_keywords
     
     # Extract respective translations for the selected keywords
