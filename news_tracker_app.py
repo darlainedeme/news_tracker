@@ -299,9 +299,7 @@ def define_research():
 
     # Separator
     st.markdown("---")
-    
-    
-        
+            
 def research():
     st.title("Research 📚")
 
@@ -542,7 +540,7 @@ def document_analysis():
     # Get the total number of links to process for updating the progress bar
     total_links = len(df)
 
-    st.sidebar.write(st.session_state.final_selected_keywords)
+    st.sidebar.write(st.session_state.translated_trans_keywords)
     
     if st.sidebar.button("Run Analysis"):
         # For each keyword, create a new column initialized to 0
