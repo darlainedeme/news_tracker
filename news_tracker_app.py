@@ -605,6 +605,8 @@ def document_analysis():
 
         for link in df['link'].unique():
             top_sentences = sentence_df[sentence_df['link'] == link].nlargest(2, "Normalized_Count")
+            st.write(link)
+            st.write(top_sentences)
             extracts = "\n".join(top_sentences['sentence'])
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
