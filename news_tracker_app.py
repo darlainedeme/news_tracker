@@ -578,6 +578,7 @@ def document_analysis():
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
+                        st.write(sentence_data)
 
                     sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
@@ -587,7 +588,7 @@ def document_analysis():
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
 
-            st.write(sentence_df)
+            
                     
             # Update the progress bar
             progress = int((index + 1) / total_links * 100)
