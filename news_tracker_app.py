@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 from fpdf import FPDF
 import pdfplumber
 from io import BytesIO
+import openpyxl
+from openpyxl import Workbook
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -656,12 +658,47 @@ def document_analysis():
                 st.write(f"Summary: {summary}")
                 st.markdown("---")  # separator
 
-        # Export the dataframes to CSVs
-        df.to_csv('results/analyzed_results.csv', index=False, encoding='utf-8')
-        sentence_df.to_csv('results/analyzed_results_sentences.csv', index=False, encoding='utf-8')
+    if st.button('Download Results'):
+        # Create a new Excel workbook
+        workbook = Workbook()
         
-        # st.write("Data exported to 'results/analyzed_results.csv'")
-        # st.write("Sentence data exported to 'results/analyzed_results_sentences.csv'")
+        # Create a sheet for the final summary
+        summary_sheet = workbook.active
+        summary_sheet.title = "Final Summary"
+        summary_sheet.append([final_summary])  # Assuming final_summary is a string
+
+        # Create a sheet for the sources
+        sources_sheet = workbook.create_sheet(title="Sources")
+        sources_data = [{"ID": idx + 1, "Link": row['link'], "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries))]
+        sources_df = pd.DataFrame(sources_data)
+        for r_idx, row in enumerate(sources_df.values, 1):
+            for c_idx, value in enumerate(row, 1):
+                sources_sheet.cell(row=r_idx, column=c_idx, value=value)
+
+        # Create a sheet for each link
+        for link in df['link'].unique():
+            link_sheet = workbook.create_sheet(title=f"Link {link[:5]}")  # Shorten the title for Excel tab
+            link_sheet.append([link])  # Add the link to the top of the sheet
+            link_sentences_df = sentence_df[sentence_df['link'] == link].copy()
+            link_sentences_df['Normalized Count'] = link_sentences_df[st.session_state.final_selected_keywords].sum(axis=1)
+            link_sentences_df = link_sentences_df.sort_values(by='Normalized Count', ascending=False)
+            link_sentences_df.drop(columns=['title', 'link', 'sentence'], inplace=True)  # Drop unnecessary columns
+            for r_idx, row in enumerate(link_sentences_df.values, 3):  # Start from row 3 to leave a blank row after the link
+                for c_idx, value in enumerate(row, 1):
+                    link_sheet.cell(row=r_idx, column=c_idx, value=value)
+        
+        # Save the workbook to a BytesIO object
+        excel_bytesio = BytesIO()
+        workbook.save(excel_bytesio)
+        
+        # Offer the Excel file for download
+        excel_bytesio.seek(0)
+        st.download_button(
+            label="Download Results",
+            data=excel_bytesio,
+            file_name='results.xlsx',
+            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )    
 
 
 pages = {
