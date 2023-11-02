@@ -31,7 +31,7 @@ def area_selection():
     selection = st.sidebar.selectbox("Choose a category", menu_options, index=0)
     if selection == 'Country':
         countries = data['field_3'].unique().tolist()
-        selected_country = st.sidebar.multiselect('Choose countries', countries, default=['Italy'])
+        selected_country = st.sidebar.multiselect('Choose countries', countries, default=['France'])
         subset_data = data[data['field_3'].isin(selected_country)]
     elif selection == 'Continent':
         continents = data['continent'].unique().tolist()
@@ -118,10 +118,10 @@ def define_research():
     # 3. Period of Interest
     st.subheader("3. Period of Interest")
     st.write("Select the timeframe for your research.")
-    period_options = ["last 24h", "last week", "last two weeks", "last month", 
+    period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
                       "last three months", "last 6 months", "last year", "last 2y",
-                      "last 3y", "last 4y", "last 5y", "last 10y", "custom"]
-    default_index = period_options.index('last 24h')
+                      "last 3y", "last 4y", "last 5y", "last 10y"]
+    default_index = period_options.index('last week')
     selected_period = st.selectbox("", period_options, index=default_index)
 
     if selected_period == "custom":
@@ -176,7 +176,7 @@ def define_research():
     # 5. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    selected_mandatory_keywords = st.multiselect("Mandatory Keywords:", sorted(mandatory_keywords_df['keyword'].tolist()))
+    selected_mandatory_keywords = st.multiselect("Mandatory Keywords:", sorted(mandatory_keywords_df['keyword'].tolist()), , default=['electric vehicle'])
     st.session_state.selected_mandatory_keywords = selected_mandatory_keywords
     
     # Additional Mandatory Keywords
