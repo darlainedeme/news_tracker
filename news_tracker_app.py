@@ -596,10 +596,10 @@ def document_analysis():
                         pattern = re.compile(rf'\b{re.escape(trans_keyword)}s?\b', re.IGNORECASE)
                         sentence_data[keyword] = len(re.findall(pattern, sentence))
 
-                        st.write("keyword")
-                        st.write("trans_keyword")
-                        st.write("pattern")
-                        st.write("sentence_data[keyword]")
+                        st.write(keyword)
+                        st.write(trans_keyword)
+                        st.write(pattern)
+                        st.write(sentence_data[keyword])
             
                     sentence_data_list.append(sentence_data)
             
