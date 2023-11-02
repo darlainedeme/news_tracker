@@ -524,6 +524,7 @@ def document_analysis():
 
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
+    df = df[0:2]
 
     # Display the number of links in the sidebar
     st.sidebar.write(f"Total Links: {len(df)}")
