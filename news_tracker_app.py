@@ -234,7 +234,7 @@ def define_research():
         selected_comp_keywords.extend(add_comp_keywords)
         
     st.session_state.selected_comp_keywords = selected_comp_keywords
-    st.write(st.session_state.selected_comp_keywords)
+
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
     comp_selected_translations = {}
@@ -289,8 +289,8 @@ def define_research():
     final_selected_keywords.extend(st.session_state.selected_keywords)
     final_selected_keywords.extend(st.session_state.selected_comp_keywords)
 
-    #if include_monetary_info and 'selected_comp_keywords' in st.session_state:
-        #final_selected_keywords.extend(st.session_state.selected_comp_keywords)
+    # if include_monetary_info and 'selected_comp_keywords' in st.session_state:
+        # final_selected_keywords.extend(st.session_state.selected_comp_keywords)
     
     # Removing potential duplicates from selected keywords
     # final_selected_keywords = list(set(final_selected_keywords))
@@ -299,7 +299,7 @@ def define_research():
     st.session_state.translated_trans_keywords = translated_trans_keywords
     st.session_state.final_selected_keywords = final_selected_keywords
 
-    st.write(translated_trans_keywords)
+    st.write(final_selected_keywords)
 
     # Separator
     st.markdown("---")
