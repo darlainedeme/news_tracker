@@ -648,17 +648,25 @@ def document_analysis():
         
         final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
         st.write(f"Final Summary: {final_summary}")
+        # Store final_summary and all_summaries in session state
+        st.session_state.final_summary = final_summary
+        st.session_state.all_summaries = all_summaries
 
         # Display individual summaries in an expander
         with st.expander("See Individual Summaries"):
             for link, summary in zip(df['link'].unique(), all_summaries):
                 title = df[df['link'] == link]['title'].values[0]
+                title = title.replace('*', '&#42;').replace('_', '&#95;')
                 st.write(f"[{title}]({link})")
                 summary = summary.replace('*', '&#42;').replace('_', '&#95;')
                 st.write(f"Summary: {summary}")
                 st.markdown("---")  # separator
 
-    if st.button('Download Results'):
+    if st.sidebar.button('Download Results'):
+        # Access final_summary and all_summaries from session state
+        final_summary = st.session_state.get('final_summary', '')
+        all_summaries = st.session_state.get('all_summaries', [])
+
         # Create a new Excel workbook
         workbook = Workbook()
         
@@ -699,6 +707,7 @@ def document_analysis():
             file_name='results.xlsx',
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )    
+
 
 
 pages = {
