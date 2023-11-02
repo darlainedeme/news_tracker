@@ -598,7 +598,7 @@ def document_analysis():
 
                         st.write(keyword)
                         st.write(trans_keyword)
-                        st.write(pattern)
+                        st.write(sentence)
                         st.write(sentence_data[keyword])
             
                     sentence_data_list.append(sentence_data)
