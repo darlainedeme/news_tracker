@@ -200,7 +200,7 @@ def define_research():
     if custom_keywords:
         custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
         selected_keywords.extend(custom_keywords_list)
-    
+    st.write(selected_keywords)
     # Separator
     st.markdown("---")
     
