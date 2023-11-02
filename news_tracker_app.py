@@ -522,9 +522,7 @@ def document_analysis():
     if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
-    else:
-        st.write(st.session_state.final_selected_keywords)
-        
+                
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
     df = df[0:2]
@@ -545,17 +543,11 @@ def document_analysis():
     # Get the total number of links to process for updating the progress bar
     total_links = len(df)
 
-    st.sidebar.write(st.session_state.final_selected_keywords)
-    
     if st.sidebar.button("Run Analysis"):
         # For each keyword, create a new column initialized to 0
         for keyword in st.session_state.final_selected_keywords:
-            st.write("ciao")
-            st.write(keywords)
             df[keyword] = 0
-                    
-        st.write(df)
-                
+                           
         # Iterate through each link in the dataframe
         for index, (idx, row) in enumerate(df.iterrows()):
             try:
