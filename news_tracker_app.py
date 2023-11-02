@@ -596,7 +596,7 @@ def document_analysis():
         all_summaries = []  # List to store individual summaries
 
         for link in df['link'].unique():
-            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(20, st.session_state.final_selected_keywords)
+            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(5, st.session_state.final_selected_keywords)
             extracts = "\n".join(top_sentences['sentence'])
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
@@ -684,6 +684,14 @@ def document_analysis():
 
             sources_df = pd.DataFrame(sources_data)
             sources_df.to_excel(writer, sheet_name='Sources', index=False)
+                    
+            # Writing individual link data to separate sheets
+            for link in df['link'].unique():
+                link_df = sentence_df[sentence_df['link'] == link].copy()
+                # Assuming 'Normalize count' is a column in your sentence_df
+                link_df.sort_values(by='Normalize count', ascending=False, inplace=True)
+                link_sheet_name = f'Link {link}'
+                link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
 
         # Providing a download link for the generated Excel file
