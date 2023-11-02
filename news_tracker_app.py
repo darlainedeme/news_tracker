@@ -516,7 +516,7 @@ def document_analysis():
     st.title("Run Document Analysis 📚")
 
     # Ensure that the necessary data is in the session state
-    if 'selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
+    if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
 
@@ -529,7 +529,6 @@ def document_analysis():
 
     # Create an empty dataframe for sentence-level results
     sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
-    st.write(sentence_df)
 
     # Sidebar for GPT model selection
     models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
