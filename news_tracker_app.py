@@ -576,14 +576,33 @@ def document_analysis():
                 sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
                 # sentences = re.split(r'\n\s*\n', text_content)
                 
+                # Initialize an empty list to collect sentence data
+                sentence_data_list = []
+                
                 for sentence_id, sentence in enumerate(sentences, 1):
-                    sentence_data = {'title': row['title'], 'link': row['link'], 'sentence_id': f"{index + 1}_{sentence_id}", 'sentence': sentence}
+                    sentence_data = {
+                        'title': row['title'],
+                        'link': row['link'],
+                        'sentence_id': f"{index + 1}_{sentence_id}",
+                        'sentence': sentence
+                    }
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
-
-                    new_df = pd.DataFrame([sentence_data], index=[len(sentence_df)])
+                    
+                    # Add the sentence data to the list
+                    sentence_data_list.append(sentence_data)
+                
+                # Create a new DataFrame from the list
+                new_df = pd.DataFrame(sentence_data_list)
+                
+                # If sentence_df is empty (i.e., it's the first iteration), assign new_df to sentence_df
+                # Otherwise, concatenate new_df with sentence_df
+                if sentence_df.empty:
+                    sentence_df = new_df
+                else:
                     sentence_df = pd.concat([sentence_df.reset_index(drop=True), new_df], ignore_index=True)
+
                             
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
                     sentence_df['sentence'] = sentence_df['sentence'].apply(lambda x: re.sub(r'\s{2,}', '-', re.sub(r'\s+', ' ', x.replace('\n', ' ')))
