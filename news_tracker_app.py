@@ -588,11 +588,18 @@ def document_analysis():
                         'sentence_id': f"{index + 1}_{sentence_id}",
                         'sentence': sentence
                     }
+                    
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         # Create a regex pattern for whole word match, ignoring case
+                        st.write("_______")
                         pattern = re.compile(rf'\b{re.escape(trans_keyword)}s?\b', re.IGNORECASE)
                         sentence_data[keyword] = len(re.findall(pattern, sentence))
+
+                        st.write("keyword")
+                        st.write("trans_keyword")
+                        st.write("pattern")
+                        st.write("sentence_data[keyword]")
             
                     sentence_data_list.append(sentence_data)
             
