@@ -569,6 +569,8 @@ def document_analysis():
                 for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                     df.at[index, keyword] = text_content.count(trans_keyword.lower())
 
+                    st.write(df)
+
                 # Sentence-level keyword counting based on translated keywords
                 sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
                 # sentences = re.split(r'\n\s*\n', text_content)
