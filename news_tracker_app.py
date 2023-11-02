@@ -588,22 +588,23 @@ def document_analysis():
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
         
-        # Summing the keyword counts for each row
-        sentence_df['Keyword_Sum'] = sentence_df[st.session_state.final_selected_keywords].sum(axis=1)
+        # Function to normalize and sum keyword counts for a single sentence
+        def normalize_and_sum(row):
+            max_count = row.max()
+            min_count = row.min()
+            # Avoid division by zero
+            denom = max_count - min_count if max_count != min_count else 1
+            normalized_counts = (row - min_count) / denom
+            return normalized_counts.sum()
 
-        # Finding the maximum sum of keyword counts across all rows
-        max_keyword_sum = sentence_df['Keyword_Sum'].max()
+        # Apply the function to each row of the keyword count columns
+        sentence_df['Normalized_Count'] = sentence_df[st.session_state.final_selected_keywords].apply(normalize_and_sum, axis=1)
 
-        # If max_keyword_sum is 0, it means there are no keywords found. Avoid division by zero by setting max_keyword_sum to 1.
-        max_keyword_sum = max(max_keyword_sum, 1)
 
-        # Calculating the normalized value based on the sum of keyword counts
-        sentence_df['Normalized_Count'] = sentence_df['Keyword_Sum'] / max_keyword_sum
-            
         all_summaries = []  # List to store individual summaries
 
         for link in df['link'].unique():
-            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(2, st.session_state.final_selected_keywords)
+            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(2, "Normalized_Count")
             extracts = "\n".join(top_sentences['sentence'])
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
