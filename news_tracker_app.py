@@ -529,6 +529,7 @@ def document_analysis():
 
     # Create an empty dataframe for sentence-level results
     sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
+    st.write(sentence_df)
 
     # Sidebar for GPT model selection
     models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
@@ -540,7 +541,7 @@ def document_analysis():
     # Get the total number of links to process for updating the progress bar
     total_links = len(df)
 
-    st.sidebar.write(st.session_state.translated_trans_keywords)
+    st.sidebar.write(st.session_state.final_selected_keywords)
     
     if st.sidebar.button("Run Analysis"):
         # For each keyword, create a new column initialized to 0
