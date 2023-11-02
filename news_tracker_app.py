@@ -695,14 +695,14 @@ def document_analysis():
             for row_idx, value in enumerate(sources_df[col_name]):
                 sources_sheet.write(row_idx + 1, idx, value)
         
-		# Writing one sheet per link
-		for idx, link in enumerate(st.session_state.df['link'].unique(), 1):
-		    link_df = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link]
-		    link_sheet = workbook.add_worksheet(f'Link {idx}')  # Using idx for sheet name instead of link
-		    for col_idx, col_name in enumerate(link_df.columns):
-		        link_sheet.write(0, col_idx, col_name)
-		        for row_idx, value in enumerate(link_df[col_name]):
-		            link_sheet.write(row_idx + 1, col_idx, value)
+        # Writing one sheet per link
+        for idx, link in enumerate(st.session_state.df['link'].unique(), 1):
+            link_df = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link]
+            link_sheet = workbook.add_worksheet(f'Link {idx}')  # Using idx for sheet name instead of link
+            for col_idx, col_name in enumerate(link_df.columns):
+                link_sheet.write(0, col_idx, col_name)
+                for row_idx, value in enumerate(link_df[col_name]):
+                    link_sheet.write(row_idx + 1, col_idx, value)
         
         workbook.close()
 
