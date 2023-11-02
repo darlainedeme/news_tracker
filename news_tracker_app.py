@@ -580,6 +580,7 @@ def document_analysis():
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         st.write("ciao:")
+                        print("ciao")
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
                         st.write(sentence.count(trans_keyword.lower()))
 
