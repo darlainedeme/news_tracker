@@ -698,6 +698,11 @@ def document_analysis():
                 # Assuming 'Normalize count' is a column in your sentence_df
                 link_df.sort_values(by='Normalized_Count', ascending=False, inplace=True)
                 link_sheet_name = f'Link {link}'
+
+                invalid_chars = [":", "\\", "/", "?", "*", "[", "]"]
+                for char in invalid_chars:
+                    link_sheet_name = link_sheet_name.replace(char, "_")
+                            
                 link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
         # Providing a download link for the generated Excel file
