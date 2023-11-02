@@ -545,8 +545,8 @@ def document_analysis():
     if st.sidebar.button("Run Analysis"):
         # For each keyword, create a new column initialized to 0
         for keyword in st.session_state.final_selected_keywords:
-            print("ciao")
-            print(keywords)
+            st.write("ciao")
+            st.write(keywords)
             df[keyword] = 0
                     
         st.write(df)
