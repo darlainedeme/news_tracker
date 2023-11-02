@@ -232,6 +232,8 @@ def define_research():
         add_comp_keywords = st.multiselect("Keywords:", comp_keywords,  default=comp_keywords)
 
         selected_comp_keywords.extend(add_comp_keywords)
+    else:
+        st.session_state.include_monetary_info = False
         
     st.session_state.selected_comp_keywords = selected_comp_keywords
 
