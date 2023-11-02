@@ -11,4 +11,5 @@ streamlit-folium
 geopandas
 pdfplumber
 openpyxl
+xlsxwriter
 python-dotenv  # If you decide to use dotenv for environment variables
