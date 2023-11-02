@@ -10,4 +10,5 @@ FPDF
 streamlit-folium
 geopandas
 pdfplumber
+openpyxl
 python-dotenv  # If you decide to use dotenv for environment variables
