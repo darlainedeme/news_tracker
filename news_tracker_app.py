@@ -221,6 +221,7 @@ def define_research():
     include_monetary_info = st.checkbox("Include monetary information?")
            
     if include_monetary_info:    
+        st.session_state.include_monetary_info = True      
         # Open currencies.csv and get currencies and symbols for selected countries
         currencies_df = pd.read_csv('data/currencies.csv', encoding='utf-8')
         relevant_currencies = currencies_df.loc[currencies_df['country'].isin(st.session_state.selected_countries), ['currency_1', 'currency_1_symbol']].values.flatten()
