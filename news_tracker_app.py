@@ -576,11 +576,13 @@ def document_analysis():
                 # sentences = re.split(r'\n\s*\n', text_content)
                 
                 for sentence_id, sentence in enumerate(sentences, 1):
+                    st.write(sentence)
                     sentence_data = {'title': row['title'], 'link': row['link'], 'sentence_id': f"{index + 1}_{sentence_id}", 'sentence': sentence}
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
-                        sentence_data[keyword] = sentence.count(trans_keyword.lower())
                         st.write(keyword)
+                        sentence_data[keyword] = sentence.count(trans_keyword.lower())
+                        st.write(sentence.count(trans_keyword.lower()))
 
                     sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
