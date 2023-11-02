@@ -605,10 +605,7 @@ def document_analysis():
 
         for link in df['link'].unique():
             top_sentences = sentence_df[sentence_df['link'] == link].nlargest(2, "Normalized_Count")
-            st.write(link)
-            
             extracts = "\n".join(top_sentences['sentence'])
-            st.write(extracts)
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
             to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
@@ -677,45 +674,44 @@ def document_analysis():
                 st.markdown("---")  # separator
 
     if st.sidebar.button('Download Results'):
-        # Specify the file name when creating the ExcelWriter object
-        file_path = 'analysis_results.xlsx'
-        with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
-            # Writing final summary to the first sheet
-            summary_df = pd.DataFrame({'Final Summary': [final_summary]})
-            summary_df.to_excel(writer, sheet_name='Summary', index=False)
+        output = BytesIO()
 
-            # Make the first sheet visible
-            writer.sheets['Summary'].sheet_state = 'visible'
+        # Create an Excel workbook and worksheet in memory
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        
+        # Writing final summary to the first sheet
+        summary_sheet = workbook.add_worksheet('Summary')
+        summary_sheet.write('A1', 'Final Summary')
+        summary_sheet.write('A2', st.session_state.final_summary)
+        
+        # Writing one row per source to the second sheet
+        sources_sheet = workbook.add_worksheet('Sources')
+        sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} 
+                        for idx, (link, summary) in enumerate(zip(st.session_state.df['link'].unique(), st.session_state.all_summaries))]
+        sources_df = pd.DataFrame(sources_data)
+        for idx, col_name in enumerate(sources_df.columns):
+            sources_sheet.write(0, idx, col_name)
+            for row_idx, value in enumerate(sources_df[col_name]):
+                sources_sheet.write(row_idx + 1, idx, value)
+        
+        # Writing one sheet per link
+        for link in st.session_state.df['link'].unique():
+            link_df = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link]
+            link_sheet = workbook.add_worksheet(f'Link {link.replace(":", "_").replace("/", "_")}')
+            for idx, col_name in enumerate(link_df.columns):
+                link_sheet.write(0, idx, col_name)
+                for row_idx, value in enumerate(link_df[col_name]):
+                    link_sheet.write(row_idx + 1, idx, value)
+        
+        workbook.close()
 
-            # Writing one row per source to the second sheet
-            sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries))]
-            sources_df = pd.DataFrame(sources_data)
-            sources_df.to_excel(writer, sheet_name='Sources', index=False)
-
-            # Writing individual link data to separate sheets
-            for link in df['link'].unique():
-                link_df = sentence_df[sentence_df['link'] == link].copy()
-                # Assuming 'Normalized_Count' is a column in your sentence_df
-                link_df.sort_values(by='Normalized_Count', ascending=False, inplace=True)
-                link_sheet_name = f'Link {link}'
-                
-                invalid_chars = [":", "\\", "/", "?", "*", "[", "]"]
-                for char in invalid_chars:
-                    link_sheet_name = link_sheet_name.replace(char, "_")
-
-                link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
-
-        # Check if the file exists
-        if os.path.exists(file_path):
-            with open(file_path, "rb") as file:
-                st.sidebar.download_button(
-                    label="Download Results",
-                    data=file,
-                    file_name='analysis_results.xlsx',
-                    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                )
-        else:
-            st.error("File not found.")
+        # Providing a download button for the generated Excel file
+        st.sidebar.download_button(
+            label="Download Excel workbook",
+            data=output.getvalue(),
+            file_name="analysis_results.xlsx",
+            mime="application/vnd.ms-excel"
+        )
 
 pages = {
     "🌍  Area Selection": area_selection,
