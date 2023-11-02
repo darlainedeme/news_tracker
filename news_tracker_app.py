@@ -648,9 +648,12 @@ def document_analysis():
         
         final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
         st.write(f"Final Summary: {final_summary}")
-        # Store final_summary and all_summaries in session state
+                
+        # Storing necessary variables in the session state
+        st.session_state.sentence_df = sentence_df
         st.session_state.final_summary = final_summary
         st.session_state.all_summaries = all_summaries
+        st.session_state.df = df 
 
         # Display individual summaries in an expander
         with st.expander("See Individual Summaries"):
@@ -663,50 +666,39 @@ def document_analysis():
                 st.markdown("---")  # separator
 
     if st.sidebar.button('Download Results'):
-        # Access final_summary and all_summaries from session state
+        # Accessing stored data from session state
+        sentence_df = st.session_state.get('sentence_df', pd.DataFrame())
         final_summary = st.session_state.get('final_summary', '')
         all_summaries = st.session_state.get('all_summaries', [])
-
-        # Create a new Excel workbook
-        workbook = Workbook()
+        df = st.session_state.get('df', pd.DataFrame())
         
-        # Create a sheet for the final summary
-        summary_sheet = workbook.active
-        summary_sheet.title = "Final Summary"
-        summary_sheet.append([final_summary])  # Assuming final_summary is a string
-
-        # Create a sheet for the sources
-        sources_sheet = workbook.create_sheet(title="Sources")
-        sources_data = [{"ID": idx + 1, "Link": row['link'], "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries))]
-        sources_df = pd.DataFrame(sources_data)
-        for r_idx, row in enumerate(sources_df.values, 1):
-            for c_idx, value in enumerate(row, 1):
-                sources_sheet.cell(row=r_idx, column=c_idx, value=value)
-
-        # Create a sheet for each link
-        for link in df['link'].unique():
-            link_sheet = workbook.create_sheet(title=f"Link {link[:5]}")  # Shorten the title for Excel tab
-            link_sheet.append([link])  # Add the link to the top of the sheet
-            link_sentences_df = sentence_df[sentence_df['link'] == link].copy()
-            link_sentences_df['Normalized Count'] = link_sentences_df[st.session_state.final_selected_keywords].sum(axis=1)
-            link_sentences_df = link_sentences_df.sort_values(by='Normalized Count', ascending=False)
-            link_sentences_df.drop(columns=['title', 'link', 'sentence'], inplace=True)  # Drop unnecessary columns
-            for r_idx, row in enumerate(link_sentences_df.values, 3):  # Start from row 3 to leave a blank row after the link
-                for c_idx, value in enumerate(row, 1):
-                    link_sheet.cell(row=r_idx, column=c_idx, value=value)
         
-        # Save the workbook to a BytesIO object
-        excel_bytesio = BytesIO()
-        workbook.save(excel_bytesio)
-        
-        # Offer the Excel file for download
-        excel_bytesio.seek(0)
-        st.download_button(
-            label="Download Results",
-            data=excel_bytesio,
-            file_name='results.xlsx',
-            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )    
+        # Initializing an Excel writer
+        with pd.ExcelWriter('analysis_results.xlsx') as writer:
+            # Writing the final summary to a single sheet
+            summary_df = pd.DataFrame([final_summary], columns=['Summary'])
+            summary_df.to_excel(writer, sheet_name='Summary', index=False)
+
+            # Writing the sources data to a single sheet
+            sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries), start=1)]
+
+            sources_df = pd.DataFrame(sources_data)
+            sources_df.to_excel(writer, sheet_name='Sources', index=False)
+
+            # Writing individual link data to separate sheets
+            for link in df['link'].unique():
+                link_df = sentence_df[sentence_df['link'] == link].copy()
+                # Assuming 'Normalize count' is a column in your sentence_df
+                link_df.sort_values(by='Normalize count', ascending=False, inplace=True)
+                link_sheet_name = f'Link {link}'
+                link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
+
+        # Providing a download link for the generated Excel file
+        st.sidebar.markdown(
+            f'<a href="analysis_results.xlsx" target="_blank">Download Results</a>',
+            unsafe_allow_html=True
+        )
+
 
 
 
