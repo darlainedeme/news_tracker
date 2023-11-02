@@ -685,13 +685,6 @@ def document_analysis():
             sources_df = pd.DataFrame(sources_data)
             sources_df.to_excel(writer, sheet_name='Sources', index=False)
 
-            # Writing individual link data to separate sheets
-            for link in df['link'].unique():
-                link_df = sentence_df[sentence_df['link'] == link].copy()
-                # Assuming 'Normalize count' is a column in your sentence_df
-                link_df.sort_values(by='Normalize count', ascending=False, inplace=True)
-                link_sheet_name = f'Link {link}'
-                link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
         # Providing a download link for the generated Excel file
         st.sidebar.markdown(
