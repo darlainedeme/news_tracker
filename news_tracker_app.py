@@ -582,6 +582,9 @@ def document_analysis():
                 sentence_data_list = []
             
                 for sentence_id, sentence in enumerate(sentences, 1):
+                    sentence = re.sub(r'\s{2,}', '-', sentence)
+                    sentence = re.sub(r'\s+', ' ', sentence)
+                            
                     sentence_data = {
                         'title': row['title'],
                         'link': row['link'],
