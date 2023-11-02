@@ -344,14 +344,14 @@ def research():
 # =============================================================================
         
         # If the monetary information checkbox is selected, include complementary keywords in the query
-        if st.session_state.include_monetary_info:
-            comp_translations_query_parts = []
-            for language, translations in st.session_state.comp_selected_translations.items():
-                comp_translations_query = " OR ".join([f'"{translation}"' for translation in translations])
-                if comp_translations_query:  # ensure the list isn't empty
-                    comp_translations_query_parts.append(comp_translations_query)
-            if comp_translations_query_parts:
-                query_parts.append(f"({' OR '.join(comp_translations_query_parts)})")
+        
+        comp_translations_query_parts = []
+        for language, translations in st.session_state.comp_selected_translations.items():
+            comp_translations_query = " OR ".join([f'"{translation}"' for translation in translations])
+            if comp_translations_query:  # ensure the list isn't empty
+                comp_translations_query_parts.append(comp_translations_query)
+        if comp_translations_query_parts:
+            query_parts.append(f"({' OR '.join(comp_translations_query_parts)})")
     
         # Include date range
         start_date_str = st.session_state.start_date.strftime('%Y-%m-%d')
