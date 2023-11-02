@@ -545,7 +545,8 @@ def document_analysis():
         # For each keyword, create a new column initialized to 0
         for keyword in st.session_state.final_selected_keywords:
             df[keyword] = 0
-        
+                    
+        st.write(df)
         # Iterate through each link in the dataframe
         for index, (idx, row) in enumerate(df.iterrows()):
             try:
