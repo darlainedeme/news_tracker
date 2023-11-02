@@ -587,16 +587,27 @@ def document_analysis():
             # Update the progress bar
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
-            
-        # Normalize keyword counts in sentence_df
-        for keyword in st.session_state.final_selected_keywords:
-            sentence_df[keyword] = (sentence_df[keyword] - sentence_df[keyword].min()) / (sentence_df[keyword].max() - sentence_df[keyword].min())
-            sentence_df[keyword] = pd.to_numeric(sentence_df[keyword], errors='coerce')
+        
+        # Summing the keyword counts for each row
+        sentence_df['Keyword_Sum'] = sentence_df[st.session_state.final_selected_keywords].sum(axis=1)
 
+        # Finding the maximum sum of keyword counts across all rows
+        max_keyword_sum = sentence_df['Keyword_Sum'].max()
+
+        # If max_keyword_sum is 0, it means there are no keywords found. Avoid division by zero by setting max_keyword_sum to 1.
+        max_keyword_sum = max(max_keyword_sum, 1)
+
+        # Calculating the normalized value based on the sum of keyword counts
+        sentence_df['Normalized_Count'] = sentence_df['Keyword_Sum'] / max_keyword_sum
+        # --------------------------
+
+        # Store the sentence_df in session state for later use
+        st.session_state.sentence_df = sentence_df
+            
         all_summaries = []  # List to store individual summaries
 
         for link in df['link'].unique():
-            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(5, st.session_state.final_selected_keywords)
+            top_sentences = sentence_df[sentence_df['link'] == link].nlargest(2, st.session_state.final_selected_keywords)
             extracts = "\n".join(top_sentences['sentence'])
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
@@ -648,7 +659,7 @@ def document_analysis():
         
         final_summary = summary.replace('*', '&#42;').replace('_', '&#95;')
         st.write(f"Final Summary: {final_summary}")
-                
+
         # Storing necessary variables in the session state
         st.session_state.sentence_df = sentence_df
         st.session_state.final_summary = final_summary
@@ -684,7 +695,7 @@ def document_analysis():
 
             sources_df = pd.DataFrame(sources_data)
             sources_df.to_excel(writer, sheet_name='Sources', index=False)
-                    
+
             # Writing individual link data to separate sheets
             for link in df['link'].unique():
                 link_df = sentence_df[sentence_df['link'] == link].copy()
@@ -693,14 +704,11 @@ def document_analysis():
                 link_sheet_name = f'Link {link}'
                 link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
-
         # Providing a download link for the generated Excel file
         st.sidebar.markdown(
             f'<a href="analysis_results.xlsx" target="_blank">Download Results</a>',
             unsafe_allow_html=True
         )
-
-
 
 
 pages = {
@@ -714,3 +722,4 @@ pages = {
 
 selection = st.sidebar.radio("Go to", list(pages.keys()))
 pages[selection]()
+
