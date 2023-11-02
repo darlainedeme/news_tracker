@@ -294,7 +294,7 @@ def define_research():
     st.session_state.translated_trans_keywords = translated_trans_keywords
     st.session_state.final_selected_keywords = final_selected_keywords
 
-    st.write(final_selected_keywords)
+    st.write(translated_trans_keywords)
 
     # Separator
     st.markdown("---")
