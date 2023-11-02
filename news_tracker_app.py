@@ -215,9 +215,7 @@ def define_research():
     if custom_comp_keywords:
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
         selected_comp_keywords.extend(custom_comp_keywords_list)
-
-    st.write(selected_comp_keywords)
-            
+           
     # st.session_state.include_monetary_info = False
     # Include Monetary Information Button
     include_monetary_info = st.checkbox("Include monetary information?")
@@ -291,8 +289,8 @@ def define_research():
     final_selected_keywords.extend(st.session_state.selected_keywords)
     final_selected_keywords.extend(st.session_state.selected_comp_keywords)
 
-    if include_monetary_info and 'selected_comp_keywords' in st.session_state:
-        final_selected_keywords.extend(st.session_state.selected_comp_keywords)
+    #if include_monetary_info and 'selected_comp_keywords' in st.session_state:
+        #final_selected_keywords.extend(st.session_state.selected_comp_keywords)
     
     # Removing potential duplicates from selected keywords
     # final_selected_keywords = list(set(final_selected_keywords))
