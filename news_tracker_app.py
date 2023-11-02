@@ -587,6 +587,8 @@ def document_analysis():
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
 
+            st.write(sentence_df)
+                    
             # Update the progress bar
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
