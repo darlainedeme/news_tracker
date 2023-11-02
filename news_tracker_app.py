@@ -519,7 +519,9 @@ def document_analysis():
     if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
-
+    else:
+        st.write(st.session_state.final_selected_keywords)
+        
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
     df = df[0:2]
