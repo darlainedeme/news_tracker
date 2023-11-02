@@ -581,6 +581,8 @@ def document_analysis():
 
                     sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
+                    sentence_df['sentence'] = sentence_df['sentence'].apply(lambda x: re.sub(r'\s{2,}', '-', re.sub(r'\s+', ' ', x.replace('\n', ' ')))
+)        
             
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
@@ -600,8 +602,8 @@ def document_analysis():
 
         # Apply the function to each row of the keyword count columns
         sentence_df['Normalized_Count'] = sentence_df[st.session_state.final_selected_keywords].apply(normalize_and_sum, axis=1)
-
-
+        st.write(sentence_df)
+                
         all_summaries = []  # List to store individual summaries
 
         for link in df['link'].unique():
