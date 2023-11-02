@@ -680,6 +680,9 @@ def document_analysis():
             summary_df = pd.DataFrame({'Final Summary': [final_summary]})
             summary_df.to_excel(writer, sheet_name='Summary', index=False)
 
+            # Make the first sheet visible
+            writer.sheets['Summary'].sheet_state = 'visible'
+
             # Writing one row per source to the second sheet
             sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries))]
             sources_df = pd.DataFrame(sources_data)
