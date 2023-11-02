@@ -605,7 +605,6 @@ def document_analysis():
 
         # Apply the function to each row of the keyword count columns
         sentence_df['Normalized_Count'] = sentence_df[st.session_state.final_selected_keywords].apply(normalize_and_sum, axis=1)
-        st.write(sentence_df)
                 
         all_summaries = []  # List to store individual summaries
 
