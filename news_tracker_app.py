@@ -234,7 +234,7 @@ def define_research():
         selected_comp_keywords.extend(add_comp_keywords)
         
     st.session_state.selected_comp_keywords = selected_comp_keywords
-    
+    st.write(st.session_state.selected_comp_keywords)
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
     comp_selected_translations = {}
