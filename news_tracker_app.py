@@ -176,7 +176,7 @@ def define_research():
     # 5. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    selected_mandatory_keywords = st.multiselect("Mandatory Keywords:", sorted(mandatory_keywords_df['keyword'].tolist()), , default=['electric vehicle'])
+    selected_mandatory_keywords = st.multiselect("Mandatory Keywords:", sorted(mandatory_keywords_df['keyword'].tolist()), default=['electric vehicle'])
     st.session_state.selected_mandatory_keywords = selected_mandatory_keywords
     
     # Additional Mandatory Keywords
