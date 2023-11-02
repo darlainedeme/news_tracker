@@ -203,8 +203,9 @@ def define_research():
     st.write(selected_keywords)
     # Separator
     st.markdown("---")
-    
 
+    st.session_state.selected_keywords = selected_keywords
+    
     selected_comp_keywords = []
     
    
@@ -283,7 +284,10 @@ def define_research():
     translated_trans_keywords = list(set(translated_keywords))
     
     # Create a flat list of all selected keywords (main and complementary)
-    final_selected_keywords = list(selected_keywords)
+    final_selected_keywords = list(selected_mandatory_keywords)
+    final_selected_keywords.extend(st.session_state.selected_keywords)
+    final_selected_keywords.extend(st.session_state.selected_comp_keywords)
+
     if include_monetary_info and 'selected_comp_keywords' in st.session_state:
         final_selected_keywords.extend(st.session_state.selected_comp_keywords)
     
