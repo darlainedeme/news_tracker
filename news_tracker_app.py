@@ -582,7 +582,7 @@ def document_analysis():
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         sentence_data[keyword] = sentence.count(trans_keyword.lower())
 
-                    sentence_df = pd.concat([sentence_df, pd.DataFrame([sentence_data])], ignore_index=True)
+                    sentence_df = pd.concat([sentence_df.reset_index(drop=True), pd.DataFrame([sentence_data])], ignore_index=True)
                     sentence_df['sentence'] = sentence_df['sentence'].str.replace('\n', ' ')
                     sentence_df['sentence'] = sentence_df['sentence'].apply(lambda x: re.sub(r'\s{2,}', '-', re.sub(r'\s+', ' ', x.replace('\n', ' ')))
 )        
