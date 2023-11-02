@@ -673,44 +673,42 @@ def document_analysis():
                 st.markdown("---")  # separator
 
     if st.sidebar.button('Download Results'):
-        # Accessing stored data from session state
-        sentence_df = st.session_state.get('sentence_df', pd.DataFrame())
-        final_summary = st.session_state.get('final_summary', '')
-        all_summaries = st.session_state.get('all_summaries', [])
-        df = st.session_state.get('df', pd.DataFrame())
-        
-        
-        # Initializing an Excel writer
-        with pd.ExcelWriter('analysis_results.xlsx') as writer:
-            # Writing the final summary to a single sheet
-            summary_df = pd.DataFrame([final_summary], columns=['Summary'])
+        # Specify the file name when creating the ExcelWriter object
+        file_path = 'analysis_results.xlsx'
+        with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
+            # Writing final summary to the first sheet
+            summary_df = pd.DataFrame({'Final Summary': [final_summary]})
             summary_df.to_excel(writer, sheet_name='Summary', index=False)
 
-            # Writing the sources data to a single sheet
-            sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries), start=1)]
-
+            # Writing one row per source to the second sheet
+            sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} for idx, (link, summary) in enumerate(zip(df['link'].unique(), all_summaries))]
             sources_df = pd.DataFrame(sources_data)
             sources_df.to_excel(writer, sheet_name='Sources', index=False)
 
             # Writing individual link data to separate sheets
             for link in df['link'].unique():
                 link_df = sentence_df[sentence_df['link'] == link].copy()
-                # Assuming 'Normalize count' is a column in your sentence_df
+                # Assuming 'Normalized_Count' is a column in your sentence_df
                 link_df.sort_values(by='Normalized_Count', ascending=False, inplace=True)
                 link_sheet_name = f'Link {link}'
-
+                
                 invalid_chars = [":", "\\", "/", "?", "*", "[", "]"]
                 for char in invalid_chars:
                     link_sheet_name = link_sheet_name.replace(char, "_")
-                            
+
                 link_df.to_excel(writer, sheet_name=link_sheet_name, index=False)
 
-        # Providing a download link for the generated Excel file
-        st.sidebar.markdown(
-            f'<a href="analysis_results.xlsx" target="_blank">Download Results</a>',
-            unsafe_allow_html=True
-        )
-
+        # Check if the file exists
+        if os.path.exists(file_path):
+            with open(file_path, "rb") as file:
+                st.sidebar.download_button(
+                    label="Download Results",
+                    data=file,
+                    file_name='analysis_results.xlsx',
+                    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
+        else:
+            st.error("File not found.")
 
 pages = {
     "🌍  Area Selection": area_selection,
