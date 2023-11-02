@@ -200,7 +200,6 @@ def define_research():
     if custom_keywords:
         custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
         selected_keywords.extend(custom_keywords_list)
-    st.session_state.selected_keywords = selected_keywords
     
     # Separator
     st.markdown("---")
@@ -304,7 +303,7 @@ def research():
     st.title("Research 📚")
 
     # Ensure that the necessary data is in the session state
-    if 'selected_keywords' not in st.session_state:
+    if 'final_selected_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
     
