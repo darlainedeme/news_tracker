@@ -289,7 +289,7 @@ def define_research():
         final_selected_keywords.extend(st.session_state.selected_comp_keywords)
     
     # Removing potential duplicates from selected keywords
-    final_selected_keywords = list(set(final_selected_keywords))
+    # final_selected_keywords = list(set(final_selected_keywords))
     
     # Add to session_state
     st.session_state.translated_trans_keywords = translated_trans_keywords
