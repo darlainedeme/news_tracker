@@ -155,16 +155,42 @@ def define_research():
 
     # 3. Period of Interest
     st.subheader("3. Period of Interest")
-    period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", "last three months", "last 6 months", "last year", "last 2y", "last 3y", "last 4y", "last 5y", "last 10y"]
-    selected_period = st.selectbox("", period_options, index=period_options.index(st.session_state.selected_period))
+    period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
+                      "last three months", "last 6 months", "last year", "last 2y",
+                      "last 3y", "last 4y", "last 5y", "last 10y"]
+    if 'selected_period' not in st.session_state:
+        st.session_state.selected_period = 'last week'
+    st.session_state.selected_period = st.selectbox("", period_options, index=period_options.index(st.session_state.selected_period))
 
-    if selected_period == "custom":
+    if st.session_state.selected_period == "custom":
         st.session_state.start_date = st.date_input("Start Date", value=st.session_state.start_date)
         st.session_state.end_date = st.date_input("End Date", value=st.session_state.end_date)
     else:
         st.session_state.end_date = datetime.date.today()
-        # Calculate the start date based on the selected period
-        # ...
+        if st.session_state.selected_period == "last 24h":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(days=1)
+        elif st.session_state.selected_period == "last week":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=1)
+        elif st.session_state.selected_period == "last two weeks":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=2)
+        elif st.session_state.selected_period == "last month":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=4)
+        elif st.session_state.selected_period == "last three months":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=12)
+        elif st.session_state.selected_period == "last 6 months":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=26)
+        elif st.session_state.selected_period == "last year":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=52)
+        elif st.session_state.selected_period == "last 2y":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=104)
+        elif st.session_state.selected_period == "last 3y":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=156)
+        elif st.session_state.selected_period == "last 4y":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=208)
+        elif st.session_state.selected_period == "last 5y":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=260)
+        elif st.session_state.selected_period == "last 10y":
+            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(days=3650)
 
     # Separator
     st.markdown("---")
