@@ -55,16 +55,16 @@ def area_selection():
         st.session_state.subset_data = subset_data
         st.session_state.selected_countries = selected_country
 
-    # Read the CSV
-    tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
-    # Extracting the TLDs based on selected countries
-    selected_tlds = tld_data[tld_data['country'].isin(selected_country)]['tld'].tolist()
-    
-    st.session_state.country_codes = selected_tlds
+        # Read the CSV
+        tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
+        # Extracting the TLDs based on selected countries
+        selected_tlds = tld_data[tld_data['country'].isin(selected_country)]['tld'].tolist()
+        
+        st.session_state.country_codes = selected_tlds
 
-    m = folium.Map(location=[20, 0], zoom_start=2, tiles="cartodbpositron")
-    folium.GeoJson(subset_data).add_to(m)
-    folium_static(m) #, width=1500, height=800)
+        m = folium.Map(location=[20, 0], zoom_start=2, tiles="cartodbpositron")
+        folium.GeoJson(subset_data).add_to(m)
+        folium_static(m) #, width=1500, height=800)
 
 def selected_area_check():
     st.write("### Check the table below, and confirm it's the region you are interested in.")
