@@ -28,8 +28,8 @@ data = data[data['field_3'].notna()]
 
 def area_selection():
     # Initialize session state variables if they don't exist
-    if 'selected_country' not in st.session_state:
-        st.session_state.selected_country = []
+    if 'selected_countries' not in st.session_state:
+        st.session_state.selected_countries = []
     if 'subset_data' not in st.session_state:
         st.session_state.subset_data = None
     if 'country_codes' not in st.session_state:
@@ -43,36 +43,36 @@ def area_selection():
 
     if selection == 'Country':
         countries = data['field_3'].unique().tolist()
-        selected_country = st.sidebar.multiselect('Choose countries', countries, default=st.session_state.selected_country)
-        st.session_state.selected_country = selected_country
-        subset_data = data[data['field_3'].isin(selected_country)]
+        selected_countries = st.sidebar.multiselect('Choose countries', countries, default=st.session_state.selected_countries)
+        st.session_state.selected_countries = selected_countries
+        subset_data = data[data['field_3'].isin(selected_countries)]
 
     elif selection == 'Continent':
         continents = data['continent'].unique().tolist()
         selected_continent = st.sidebar.selectbox('Choose a continent', continents, index=continents.index('Europe'))
         subset_countries = data[data['continent'] == selected_continent]['field_3'].unique().tolist()
-        selected_country = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
-        subset_data = data[data['field_3'].isin(selected_country)]
-        st.session_state.selected_country = selected_country
+        selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
+        subset_data = data[data['field_3'].isin(selected_countries)]
+        st.session_state.selected_countries = selected_countries
 
     elif selection == 'WEO Region':
         weo_regions = data['Code_Region'].unique().tolist()
         selected_weo = st.sidebar.selectbox('Choose a WEO Region', weo_regions, index=weo_regions.index('EUA'))
         subset_countries = data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist()
-        selected_country = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
-        subset_data = data[data['field_3'].isin(selected_country)]
-        st.session_state.selected_country = selected_country
+        selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
+        subset_data = data[data['field_3'].isin(selected_countries)]
+        st.session_state.selected_countries = selected_countries
 
     elif selection == 'World':
         subset_data = data
-        st.session_state.selected_country = list(data.field_3)
+        st.session_state.selected_countries = list(data.field_3)
 
     st.session_state.subset_data = subset_data
 
     # Read the CSV
     tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
     # Extracting the TLDs based on selected countries
-    selected_tlds = tld_data[tld_data['country'].isin(st.session_state.selected_country)]['tld'].tolist()
+    selected_tlds = tld_data[tld_data['country'].isin(st.session_state.selected_countries)]['tld'].tolist()
     
     st.session_state.country_codes = selected_tlds
 
