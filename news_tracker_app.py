@@ -216,22 +216,26 @@ def define_research():
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
     if additional_mandatory_keywords:
         additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
-        st.session_state.selected_mandatory_keywords.extend(additional_keywords_list)
+        for kw in additional_keywords_list:
+            if kw not in st.session_state.selected_mandatory_keywords:
+                st.session_state.selected_mandatory_keywords.append(kw)
 
     st.markdown("---")
     
     # 6. Topic Keywords
     st.subheader("6. Topic Keywords")
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    filtered_topic_keywords = [k for k in keywords_df['keyword'].tolist() if k not in st.session_state.selected_mandatory_keywords]
     if 'selected_keywords' not in st.session_state:
         st.session_state.selected_keywords = []
+    filtered_topic_keywords = [k for k in keywords_df['keyword'].tolist() if k not in st.session_state.selected_mandatory_keywords]
     st.session_state.selected_keywords = st.multiselect("Keywords:", sorted(filtered_topic_keywords), default=st.session_state.selected_keywords)
 
     custom_keywords = st.text_input("Add additional topic keywords (comma separated):")
     if custom_keywords:
         custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
-        st.session_state.selected_keywords.extend(custom_keywords_list)
+        for kw in custom_keywords_list:
+            if kw not in st.session_state.selected_keywords:
+                st.session_state.selected_keywords.append(kw)
 
     st.markdown("---")
 
@@ -242,7 +246,9 @@ def define_research():
     custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
     if custom_comp_keywords:
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
-        st.session_state.selected_comp_keywords.extend(custom_comp_keywords_list)
+        for kw in custom_comp_keywords_list:
+            if kw not in st.session_state.selected_comp_keywords:
+                st.session_state.selected_comp_keywords.append(kw)
 
     if 'include_monetary_info' not in st.session_state:
         st.session_state.include_monetary_info = False
@@ -253,8 +259,6 @@ def define_research():
         relevant_currencies = currencies_df.loc[currencies_df['country'].isin(st.session_state.selected_countries), ['currency_1', 'currency_1_symbol']].values.flatten()
         comp_keywords = sorted(comp_keywords_df['keyword'].tolist()) + list(relevant_currencies)
         st.session_state.selected_comp_keywords = st.multiselect("Keywords:", comp_keywords, default=st.session_state.selected_comp_keywords)
-
-    # Continue with the translation process and other operations...
 
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
