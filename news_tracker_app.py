@@ -31,8 +31,6 @@ def area_selection():
         st.session_state['selected_countries'] = []
     
     else:
-
-
         menu_options = ['Country', 'Continent', 'WEO Region', 'World', 'No specific area']
         selection = st.sidebar.selectbox("Choose a category", menu_options, index=0)
         if selection == 'Country':
