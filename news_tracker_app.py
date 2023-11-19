@@ -28,7 +28,7 @@ data = data[data['field_3'].notna()]
 
 def area_selection():
     if 'selected_country' not in st.session_state:
-    st.session_state['selected_country'] = []
+        st.session_state['selected_country'] = []
 
     menu_options = ['Country', 'Continent', 'WEO Region', 'World', 'No specific area']
     selection = st.sidebar.selectbox("Choose a category", menu_options, index=0)
