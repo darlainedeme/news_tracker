@@ -289,12 +289,11 @@ def define_research():
             for keyword in st.session_state.selected_keywords
         ]
 
-        # Translations for complementary keywords if monetary info is selected
-        if st.session_state.include_monetary_info:
-            comp_selected_translations[language] = [
-                comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else keyword 
-                for keyword in st.session_state.selected_comp_keywords
-            ]
+        # Translations for complementary keywords
+        comp_selected_translations[language] = [
+            comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else keyword 
+            for keyword in st.session_state.selected_comp_keywords
+        ]
 
     # Store translations in session state
     st.session_state.main_selected_translations = main_selected_translations
@@ -334,6 +333,7 @@ def define_research():
 
     # Separator
     st.markdown("---")
+
 
 
 def research():
