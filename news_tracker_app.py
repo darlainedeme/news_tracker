@@ -242,6 +242,9 @@ def define_research():
     if 'selected_keywords' not in st.session_state:
         st.session_state.selected_keywords = []
 
+    if 'selected_keywords' in st.session_state:
+        all_topic_keywords = list(set(list(all_topic_keywords) + list(st.session_state.selected_keywords)))
+        
     custom_keywords = st.text_input("Add additional topic keywords (comma separated):")
     if custom_keywords:
         custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
