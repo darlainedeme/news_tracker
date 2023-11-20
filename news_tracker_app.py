@@ -208,23 +208,25 @@ def define_research():
     # 5. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
 
-    # Session state initialization
     if 'selected_mandatory_keywords' not in st.session_state:
         st.session_state.selected_mandatory_keywords = ['electric vehicle']
 
-    # Additional Mandatory Keywords
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
     if additional_mandatory_keywords:
         additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
         for kw in additional_keywords_list:
-            if kw not in all_mandatory_keywords:
-                all_mandatory_keywords.append(kw)
+            if kw not in mandatory_keywords_df['keyword'].tolist():
+                mandatory_keywords_df = mandatory_keywords_df.append({'keyword': kw}, ignore_index=True)
             if kw not in st.session_state.selected_mandatory_keywords:
                 st.session_state.selected_mandatory_keywords.append(kw)
 
-    st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:", all_mandatory_keywords, default=st.session_state.selected_mandatory_keywords)
+    mandatory_keywords_df.to_csv('data/keywords.csv', index=False, encoding='utf-8')
+    st.session_state.selected_mandatory_keywords = st.multiselect(
+        "Mandatory Keywords:", 
+        sorted(mandatory_keywords_df['keyword'].tolist()), 
+        default=st.session_state.selected_mandatory_keywords
+    )
 
     st.markdown("---")
     
@@ -233,7 +235,6 @@ def define_research():
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_topic_keywords = sorted(set(keywords_df['keyword'].tolist()))
 
-    # Session state initialization for topic keywords
     if 'selected_keywords' not in st.session_state:
         st.session_state.selected_keywords = []
 
@@ -243,9 +244,11 @@ def define_research():
         for kw in custom_keywords_list:
             if kw not in all_topic_keywords:
                 all_topic_keywords.append(kw)
+                keywords_df = keywords_df.append({'keyword': kw}, ignore_index=True)
             if kw not in st.session_state.selected_keywords:
                 st.session_state.selected_keywords.append(kw)
 
+    keywords_df.to_csv('data/keywords.csv', index=False, encoding='utf-8')
     filtered_topic_keywords = [k for k in all_topic_keywords if k not in st.session_state.selected_mandatory_keywords]
     st.session_state.selected_keywords = st.multiselect("Keywords:", filtered_topic_keywords, default=st.session_state.selected_keywords)
 
@@ -256,7 +259,6 @@ def define_research():
     comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
     all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
 
-    # Session state initialization for complementary keywords
     if 'selected_comp_keywords' not in st.session_state:
         st.session_state.selected_comp_keywords = []
 
@@ -266,9 +268,11 @@ def define_research():
         for kw in custom_comp_keywords_list:
             if kw not in all_comp_keywords:
                 all_comp_keywords.append(kw)
+                comp_keywords_df = comp_keywords_df.append({'keyword': kw}, ignore_index=True)
             if kw not in st.session_state.selected_comp_keywords:
                 st.session_state.selected_comp_keywords.append(kw)
 
+    comp_keywords_df.to_csv('data/complementary_keywords.csv', index=False, encoding='utf-8')
     st.session_state.selected_comp_keywords = st.multiselect("Keywords:", all_comp_keywords, default=st.session_state.selected_comp_keywords)
 
     # Extract respective translations for the selected keywords
