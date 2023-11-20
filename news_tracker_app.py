@@ -205,18 +205,6 @@ def define_research():
     # Separator
     st.markdown("---")
 
-
-Certainly! If you prefer to append the additional keywords directly to the lists used by the multiselect widgets without modifying the CSV files each time, here's how you can revise the code:
-
-python
-Copy code
-import pandas as pd
-import datetime
-import streamlit as st
-
-def define_research():
-    st.title("Research Customization")
-
     # 5. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
