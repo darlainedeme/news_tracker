@@ -267,6 +267,9 @@ def define_research():
     if 'selected_comp_keywords' not in st.session_state:
         st.session_state.selected_comp_keywords = []
 
+    if 'selected_comp_keywords' in st.session_state:
+        all_comp_keywords = list(set(list(all_comp_keywords) + list(st.session_state.selected_comp_keywords)))
+        
     custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
     if custom_comp_keywords:
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
