@@ -426,6 +426,9 @@ def research():
         if 'results' in st.session_state:
             del st.session_state.results
 
+            # Reset the session state for results to ensure new results overwrite previous ones
+            st.session_state.results = []
+
         links_list = []
         # Clear previous results
         query = construct_query()
