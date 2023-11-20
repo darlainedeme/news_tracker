@@ -269,17 +269,6 @@ def define_research():
             if kw not in st.session_state.selected_comp_keywords:
                 st.session_state.selected_comp_keywords.append(kw)
 
-    if 'include_monetary_info' not in st.session_state:
-        st.session_state.include_monetary_info = False
-    st.session_state.include_monetary_info = st.checkbox("Include monetary information?", value=st.session_state.include_monetary_info)
-
-    if st.session_state.include_monetary_info:
-        currencies_df = pd.read_csv('data/currencies.csv', encoding='utf-8')
-        relevant_currencies = currencies_df.loc[currencies_df['country'].isin(st.session_state.selected_countries), ['currency_1', 'currency_1_symbol']].values.flatten()
-        for currency in relevant_currencies:
-            if currency not in all_comp_keywords:
-                all_comp_keywords.append(currency)
-
     st.session_state.selected_comp_keywords = st.multiselect("Keywords:", all_comp_keywords, default=st.session_state.selected_comp_keywords)
 
     # Extract respective translations for the selected keywords
