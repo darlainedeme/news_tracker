@@ -349,6 +349,11 @@ def define_research():
 def research():
     st.title("Research 📚")
 
+    # Initialize a key in the session state to manage results display
+    if 'refresh_results' not in st.session_state:
+        st.session_state.refresh_results = True
+
+
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
@@ -422,12 +427,8 @@ def research():
     
     
     if st.sidebar.button("Run Research"):
-        # Clear previous results if button is clicked
-        if 'results' in st.session_state:
-            del st.session_state.results
-
-            # Reset the session state for results to ensure new results overwrite previous ones
-            st.session_state.results = []
+        # Toggle the refresh state to reset the display area
+        st.session_state.refresh_results = not st.session_state.refresh_results
 
         links_list = []
         # Clear previous results
@@ -567,9 +568,9 @@ def research():
         # Save the results in session_state
         st.session_state.results = results
 
-    if 'results' in st.session_state:
-        # Display the results
-        total_characters = 0  # Initialize a counter for total characters in all snippets
+    # Display the results if they exist in the session state
+    if 'results' in st.session_state and st.session_state.refresh_results:
+        total_characters = 0
         for result in st.session_state.results:
             st.subheader(f"[{result['title']}]({result['link']})")
             st.write(f"Source: {result['displayLink']}")
@@ -583,13 +584,8 @@ def research():
             st.write(f"Snippet: {snippet}")
             snippet_length = len(snippet)
             st.write(f"Length in Characters: {snippet_length}")
-            total_characters += snippet_length  # Update the total characters count
+            total_characters += len(result.get('snippet', ''))
 
-            # Optionally, you could add additional information here
-
-            st.markdown("---")  # Add a separator
-
-        # Display the total character count
         st.write(f"Total Characters in all Snippets: {total_characters}")
 
         # More code can follow if needed
