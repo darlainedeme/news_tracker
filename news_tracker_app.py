@@ -211,7 +211,7 @@ def define_research():
     all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
 
     if 'selected_mandatory_keywords' not in st.session_state:
-        st.session_state.selected_mandatory_keywords = ['electric vehicle']
+        st.session_state.selected_mandatory_keywords = []
 
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
     if additional_mandatory_keywords:
