@@ -214,7 +214,7 @@ def define_research():
         st.session_state.selected_mandatory_keywords = []
 
     if 'selected_mandatory_keywords' in st.session_state:
-        all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(session_state.selected_mandatory_keywords)))
+        all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(st.session_state.selected_mandatory_keywords)))
         
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
 
