@@ -205,9 +205,22 @@ def define_research():
     # Separator
     st.markdown("---")
 
+
+Certainly! If you prefer to append the additional keywords directly to the lists used by the multiselect widgets without modifying the CSV files each time, here's how you can revise the code:
+
+python
+Copy code
+import pandas as pd
+import datetime
+import streamlit as st
+
+def define_research():
+    st.title("Research Customization")
+
     # 5. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+    all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
 
     if 'selected_mandatory_keywords' not in st.session_state:
         st.session_state.selected_mandatory_keywords = ['electric vehicle']
@@ -215,14 +228,15 @@ def define_research():
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
     if additional_mandatory_keywords:
         additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
-        new_keywords = pd.DataFrame([kw for kw in additional_keywords_list if kw not in mandatory_keywords_df['keyword'].tolist()], columns=['keyword'])
-        mandatory_keywords_df = pd.concat([mandatory_keywords_df, new_keywords]).drop_duplicates().reset_index(drop=True)
-        st.session_state.selected_mandatory_keywords.extend(additional_keywords_list)
+        for kw in additional_keywords_list:
+            if kw not in all_mandatory_keywords:
+                all_mandatory_keywords.append(kw)
+            if kw not in st.session_state.selected_mandatory_keywords:
+                st.session_state.selected_mandatory_keywords.append(kw)
 
-    mandatory_keywords_df.to_csv('data/keywords.csv', index=False, encoding='utf-8')
     st.session_state.selected_mandatory_keywords = st.multiselect(
         "Mandatory Keywords:", 
-        sorted(mandatory_keywords_df['keyword'].tolist()), 
+        all_mandatory_keywords, 
         default=st.session_state.selected_mandatory_keywords
     )
 
@@ -239,11 +253,12 @@ def define_research():
     custom_keywords = st.text_input("Add additional topic keywords (comma separated):")
     if custom_keywords:
         custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
-        new_topic_keywords = pd.DataFrame([kw for kw in custom_keywords_list if kw not in all_topic_keywords], columns=['keyword'])
-        keywords_df = pd.concat([keywords_df, new_topic_keywords]).drop_duplicates().reset_index(drop=True)
-        st.session_state.selected_keywords.extend(custom_keywords_list)
+        for kw in custom_keywords_list:
+            if kw not in all_topic_keywords:
+                all_topic_keywords.append(kw)
+            if kw not in st.session_state.selected_keywords:
+                st.session_state.selected_keywords.append(kw)
 
-    keywords_df.to_csv('data/keywords.csv', index=False, encoding='utf-8')
     filtered_topic_keywords = [k for k in all_topic_keywords if k not in st.session_state.selected_mandatory_keywords]
     st.session_state.selected_keywords = st.multiselect("Keywords:", filtered_topic_keywords, default=st.session_state.selected_keywords)
 
@@ -260,11 +275,12 @@ def define_research():
     custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
     if custom_comp_keywords:
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
-        new_comp_keywords = pd.DataFrame([kw for kw in custom_comp_keywords_list if kw not in all_comp_keywords], columns=['keyword'])
-        comp_keywords_df = pd.concat([comp_keywords_df, new_comp_keywords]).drop_duplicates().reset_index(drop=True)
-        st.session_state.selected_comp_keywords.extend(custom_comp_keywords_list)
+        for kw in custom_comp_keywords_list:
+            if kw not in all_comp_keywords:
+                all_comp_keywords.append(kw)
+            if kw not in st.session_state.selected_comp_keywords:
+                st.session_state.selected_comp_keywords.append(kw)
 
-    comp_keywords_df.to_csv('data/complementary_keywords.csv', index=False, encoding='utf-8')
     st.session_state.selected_comp_keywords = st.multiselect("Keywords:", all_comp_keywords, default=st.session_state.selected_comp_keywords)
 
     # Extract respective translations for the selected keywords
