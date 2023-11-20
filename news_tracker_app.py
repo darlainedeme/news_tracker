@@ -253,6 +253,10 @@ def define_research():
 
     # 7. Complementary Research Keywords
     st.subheader("7. Complementary Research Keywords")
+    comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
+    all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
+
+    # Session state initialization for complementary keywords
     if 'selected_comp_keywords' not in st.session_state:
         st.session_state.selected_comp_keywords = []
 
@@ -260,6 +264,8 @@ def define_research():
     if custom_comp_keywords:
         custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
         for kw in custom_comp_keywords_list:
+            if kw not in all_comp_keywords:
+                all_comp_keywords.append(kw)
             if kw not in st.session_state.selected_comp_keywords:
                 st.session_state.selected_comp_keywords.append(kw)
 
@@ -270,8 +276,11 @@ def define_research():
     if st.session_state.include_monetary_info:
         currencies_df = pd.read_csv('data/currencies.csv', encoding='utf-8')
         relevant_currencies = currencies_df.loc[currencies_df['country'].isin(st.session_state.selected_countries), ['currency_1', 'currency_1_symbol']].values.flatten()
-        comp_keywords = sorted(comp_keywords_df['keyword'].tolist()) + list(relevant_currencies)
-        st.session_state.selected_comp_keywords = st.multiselect("Keywords:", comp_keywords, default=st.session_state.selected_comp_keywords)
+        for currency in relevant_currencies:
+            if currency not in all_comp_keywords:
+                all_comp_keywords.append(currency)
+
+    st.session_state.selected_comp_keywords = st.multiselect("Keywords:", all_comp_keywords, default=st.session_state.selected_comp_keywords)
 
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
