@@ -422,6 +422,10 @@ def research():
     
     
     if st.sidebar.button("Run Research"):
+        # Clear previous results if button is clicked
+        if 'results' in st.session_state:
+            del st.session_state.results
+
         links_list = []
         # Clear previous results
         query = construct_query()
@@ -556,7 +560,37 @@ def research():
             
         folder_path = "results/results"
         # download_links_as_pdfs(links_list, folder_path)
+
+        # Save the results in session_state
+        st.session_state.results = results
+
+    if 'results' in st.session_state:
+        # Display the results
+        total_characters = 0  # Initialize a counter for total characters in all snippets
+        for result in st.session_state.results:
+            st.subheader(f"[{result['title']}]({result['link']})")
+            st.write(f"Source: {result['displayLink']}")
             
+            # Handle the publication date, if available
+            pub_date = result.get('pagemap', {}).get('metatags', [{}])[0].get('og:updated_time', 'N/A')
+            st.write(f"Published Date: {pub_date}")
+
+            # Display the snippet and calculate its length
+            snippet = result.get('snippet', '')
+            st.write(f"Snippet: {snippet}")
+            snippet_length = len(snippet)
+            st.write(f"Length in Characters: {snippet_length}")
+            total_characters += snippet_length  # Update the total characters count
+
+            # Optionally, you could add additional information here
+
+            st.markdown("---")  # Add a separator
+
+        # Display the total character count
+        st.write(f"Total Characters in all Snippets: {total_characters}")
+
+        # More code can follow if needed
+
 
 def document_analysis():
     st.title("Run Document Analysis 📚")
