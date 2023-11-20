@@ -349,11 +349,6 @@ def define_research():
 def research():
     st.title("Research 📚")
 
-    # Initialize a key in the session state to manage results display
-    if 'refresh_results' not in st.session_state:
-        st.session_state.refresh_results = True
-
-
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
@@ -427,9 +422,6 @@ def research():
     
     
     if st.sidebar.button("Run Research"):
-        # Toggle the refresh state to reset the display area
-        st.session_state.refresh_results = not st.session_state.refresh_results
-
         links_list = []
         # Clear previous results
         query = construct_query()
@@ -565,31 +557,7 @@ def research():
         folder_path = "results/results"
         # download_links_as_pdfs(links_list, folder_path)
 
-        # Save the results in session_state
-        st.session_state.results = results
-
-    # Display the results if they exist in the session state
-    if 'results' in st.session_state and st.session_state.refresh_results:
-        total_characters = 0
-        for result in st.session_state.results:
-            st.subheader(f"[{result['title']}]({result['link']})")
-            st.write(f"Source: {result['displayLink']}")
             
-            # Handle the publication date, if available
-            pub_date = result.get('pagemap', {}).get('metatags', [{}])[0].get('og:updated_time', 'N/A')
-            st.write(f"Published Date: {pub_date}")
-
-            # Display the snippet and calculate its length
-            snippet = result.get('snippet', '')
-            st.write(f"Snippet: {snippet}")
-            snippet_length = len(snippet)
-            st.write(f"Length in Characters: {snippet_length}")
-            total_characters += len(result.get('snippet', ''))
-
-        st.write(f"Total Characters in all Snippets: {total_characters}")
-
-        # More code can follow if needed
-
 
 def document_analysis():
     st.title("Run Document Analysis 📚")
