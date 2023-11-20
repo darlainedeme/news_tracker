@@ -213,7 +213,11 @@ def define_research():
     if 'selected_mandatory_keywords' not in st.session_state:
         st.session_state.selected_mandatory_keywords = []
 
+    if 'selected_mandatory_keywords' in st.session_state:
+        all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(session_state.selected_mandatory_keywords)))
+        
     additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
+
     if additional_mandatory_keywords:
         additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
         for kw in additional_keywords_list:
