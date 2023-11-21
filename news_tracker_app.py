@@ -557,9 +557,86 @@ def research():
         folder_path = "results/results"
         # download_links_as_pdfs(links_list, folder_path)
 
-            
+def run_preprocessing():
+    st.title("Run Preprocessing 🔄")
 
-def document_analysis():
+    # Ensure that the necessary data is in the session state
+    if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
+        st.warning("Please complete the previous steps first.")
+        return
+
+    # Load the CSV
+    df = pd.read_csv(st.session_state.filename, encoding='utf-8')
+    df = df[0:2]
+
+    # Display the number of links in the sidebar
+    st.sidebar.write(f"Total Links: {len(df)}")
+
+    # Create an empty dataframe for sentence-level results
+    sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
+
+    if st.sidebar.button("Run Preprocessing"):
+        # For each keyword, create a new column initialized to 0
+        for keyword in st.session_state.final_selected_keywords:
+            df[keyword] = 0
+
+        # Iterate through each link in the dataframe
+        for index, row in df.iterrows():
+            try:
+                response = requests.get(row['link'])
+                response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+                
+                # Process different file types
+                if row['link'].endswith('.pdf'):
+                    # Process PDF files
+                    with pdfplumber.open(BytesIO(response.content)) as pdf:
+                        text_content = ''
+                        for page in pdf.pages:
+                            text_content += page.extract_text()
+                else:
+                    # Process HTML files
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    text_content = soup.get_text().lower()
+
+                text_content = text_content.lower()
+
+                # Document-level keyword counting based on translated keywords
+                for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
+                    df.at[index, keyword] = text_content.count(trans_keyword.lower())
+
+                # Sentence-level keyword counting based on translated keywords
+                sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text_content)
+
+                # Initialize an empty list to collect sentence data
+                sentence_data_list = []
+
+                for sentence_id, sentence in enumerate(sentences, 1):
+                    sentence_data = {
+                        'title': row['title'],
+                        'link': row['link'],
+                        'sentence_id': f"{index + 1}_{sentence_id}",
+                        'sentence': sentence
+                    }
+
+                    # Count keywords in each sentence
+                    for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
+                        pattern = re.compile(rf'\b{re.escape(trans_keyword)}s?\b', re.IGNORECASE)
+                        sentence_data[keyword] = len(re.findall(pattern, sentence))
+
+                    sentence_data_list.append(sentence_data)
+
+                # Append the collected sentence data to sentence_df
+                new_df = pd.DataFrame(sentence_data_list)
+                sentence_df = pd.concat([sentence_df, new_df], ignore_index=True)
+
+            except requests.RequestException:
+                st.write(f"Error accessing {row['link']}")
+
+        # Storing necessary variables in the session state
+        st.session_state.sentence_df = sentence_df
+        st.session_state.df = df
+
+        st.write("Preprocessing completed successfully.")
     st.title("Run Document Analysis 📚")
 
     # Ensure that the necessary data is in the session state
@@ -800,12 +877,108 @@ def document_analysis():
             mime="application/vnd.ms-excel"
         )
 
+def document_analysis():
+    st.title("Run Document Analysis 📚")
+
+    # Check if preprocessing has been done
+    if 'sentence_df' not in st.session_state or 'df' not in st.session_state:
+        st.warning("Please run preprocessing first.")
+        return
+
+    # Sidebar for GPT model selection
+    models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
+    selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
+
+    # Initialize the progress bar
+    progress_bar = st.sidebar.progress(0)
+
+    # Get the total number of links to process for updating the progress bar
+    total_links = len(st.session_state.df)
+
+    if st.sidebar.button("Run Analysis"):
+        all_summaries = []  # List to store individual summaries
+
+        # For each link, process and summarize
+        for index, link in enumerate(st.session_state.df['link'].unique()):
+            top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "Normalized_Count")
+            extracts = "\n".join(top_sentences['sentence'])
+            prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
+            you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
+            to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
+
+            # Call the OpenAI API
+            if selected_model == "gpt-4":
+                messages = [
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt}
+                ]
+                response = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=messages
+                )
+                summary = response['choices'][0]['message']['content']
+            else:
+                response = openai.Completion.create(
+                    model=selected_model,
+                    prompt=prompt,
+                    max_tokens=100
+                )
+                summary = response.choices[0].text.strip()
+
+            all_summaries.append(summary)
+
+            # Update the progress bar
+            progress = int((index + 1) / total_links * 100)
+            progress_bar.progress(progress)
+
+        # Combine all summaries for final summary
+        combined_summaries = " ".join(all_summaries)
+        final_prompt = f"Summarize the following summaries in 10 sentences:\n{combined_summaries}"
+
+        # Call the OpenAI API for final summary
+        if selected_model == "gpt-4":
+            messages = [
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": final_prompt}
+            ]
+            response = openai.ChatCompletion.create(
+                model="gpt-4",
+                messages=messages
+            )
+            final_summary = response['choices'][0]['message']['content']
+        else:
+            response = openai.Completion.create(
+                model=selected_model,
+                prompt=final_prompt,
+                max_tokens=200
+            )
+            final_summary = response.choices[0].text.strip()
+        
+        # Display the final summary
+        st.write(f"Final Summary: {final_summary}")
+
+        # Download button for results
+        if st.sidebar.button('Download Results'):
+            output = BytesIO()
+            workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+            # [Excel workbook creation logic here...]
+            workbook.close()
+
+            # Download button
+            st.sidebar.download_button(
+                label="Download Excel workbook",
+                data=output.getvalue(),
+                file_name="analysis_results.xlsx",
+                mime="application/vnd.ms-excel"
+            )
+            
 pages = {
     "🌍  Area Selection": area_selection,
     "✅ Selected Area Check ": selected_area_check,
     "🛠️ Define research": define_research,
     "🔍 Research": research,
-    "📚 Run Document Analysis": document_analysis
+    "🔍 Pre-processing": run_preprocessing,
+    "📚 Document Analysis": document_analysis
 
 }
 
