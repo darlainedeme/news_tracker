@@ -636,7 +636,7 @@ def document_analysis():
                     # Ensure that keyword counts are stored as integers
                     for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                         # Create a regex pattern for whole word match, ignoring case
-                        st.write("_______")
+                        # st.write("_______")
                         pattern = re.compile(rf'\b{re.escape(trans_keyword)}s?\b', re.IGNORECASE)
                         sentence_data[keyword] = len(re.findall(pattern, sentence))
 
@@ -697,24 +697,18 @@ def document_analysis():
             to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
 
             # Call the OpenAI API
-            if selected_model == "gpt-4":
-                messages = [
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": prompt}
-                ]
-                response = openai.ChatCompletion.create(
-                    model="gpt-4",
-                    messages=messages
-                )
-                summary = response['choices'][0]['message']['content']
-            else:
+            # Creating a completion (for both GPT-3.5 and GPT-4)
+            try:
+                model = "gpt-3.5-turbo" if selected_model in ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo"] else "gpt-4"
                 response = openai.Completion.create(
-                    model=selected_model,
+                    model=model,
                     prompt=prompt,
                     max_tokens=100
                 )
                 summary = response.choices[0].text.strip()
-
+            except openai.error.OpenAIError as e:
+                print(f"An error occurred: {e}")
+                
             all_summaries.append(summary)
 
         # Combine all summaries
