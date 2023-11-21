@@ -643,6 +643,10 @@ def run_preprocessing():
                     # Sum of normalized counts
                     new_df['Normalized_Count'] = new_df[st.session_state.final_selected_keywords].sum(axis=1)
 
+                    # Sum of normalized counts for the document
+                    df.at[index, 'Normalized_Count'] = new_df['Normalized_Count'].sum()
+
+
                 sentence_df = pd.concat([sentence_df, new_df], ignore_index=True)
 
             except requests.RequestException:
