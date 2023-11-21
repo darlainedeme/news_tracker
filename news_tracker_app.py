@@ -658,7 +658,7 @@ def run_preprocessing():
 
         # Sorting the columns
         keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count', 'Normalized_Count']])
-        st.wrtite(keyword_columns)
+        st.write(keyword_columns)
         df = df[['title', 'word_count','Normalized_Count'] + keyword_columns + ['link']]
 
         # Display the results in a table
