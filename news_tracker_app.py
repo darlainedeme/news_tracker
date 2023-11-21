@@ -636,11 +636,14 @@ def run_preprocessing():
         st.session_state.sentence_df = sentence_df
         st.session_state.df = df
 
-        st.write("Preprocessing completed successfully.")
+        # Sorting the columns
+        keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count']])
+        df = df[['title', 'word_count'] + keyword_columns + ['link']]
 
         # Display the results in a table
         st.write("Preprocessing completed successfully. Here are the results:")
         st.dataframe(df)  # You can use st.table(df) for a static table
+
         
 def document_analysis():
     st.title("Run Document Analysis 📚")
