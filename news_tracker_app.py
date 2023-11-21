@@ -697,17 +697,23 @@ def document_analysis():
             to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
 
             # Call the OpenAI API
-            # Creating a completion (for both GPT-3.5 and GPT-4)
-            try:
-                model = "gpt-3.5-turbo" if selected_model in ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo"] else "gpt-4"
+            if selected_model == "gpt-4":
+                messages = [
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt}
+                ]
+                response = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=messages
+                )
+                summary = response['choices'][0]['message']['content']
+            else:
                 response = openai.Completion.create(
-                    model=model,
+                    model=selected_model,
                     prompt=prompt,
                     max_tokens=100
                 )
                 summary = response.choices[0].text.strip()
-            except openai.APIError as e:
-                print(f"An error occurred: {e}")
 
             all_summaries.append(summary)
 
