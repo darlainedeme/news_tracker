@@ -630,7 +630,7 @@ def run_preprocessing():
                     sentence_data_list.append(sentence_data)
 
                 # Append the collected sentence data to sentence_df
-                
+
                 new_df = pd.DataFrame(sentence_data_list)
                 if not new_df.empty:
                     # Normalization of keyword counts in sentences
@@ -654,7 +654,7 @@ def run_preprocessing():
 
         # Sorting the columns
         keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count']])
-        df = df[['title', 'word_count'] + keyword_columns + ['link']]
+        df = df[['title', 'word_count','Normalized_Count'] + keyword_columns + ['link']]
 
         # Display the results in a table
         st.write("Preprocessing completed successfully. Here are the results:")
