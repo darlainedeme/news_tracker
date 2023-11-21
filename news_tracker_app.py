@@ -657,7 +657,7 @@ def run_preprocessing():
         st.session_state.df = df
 
         # Sorting the columns
-        keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count']])
+        keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count']]).remove('Normalized_Count')
         df = df[['title', 'word_count','Normalized_Count'] + keyword_columns + ['link']]
 
         # Display the results in a table
