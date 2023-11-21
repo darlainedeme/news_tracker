@@ -600,6 +600,10 @@ def run_preprocessing():
 
                 text_content = text_content.lower()
 
+                # Calculate word count
+                word_count = len(text_content.split())
+                df.at[index, 'word_count'] = word_count
+
                 # Document-level keyword counting based on translated keywords
                 for keyword, trans_keyword in zip(st.session_state.final_selected_keywords, st.session_state.translated_trans_keywords):
                     df.at[index, keyword] = text_content.count(trans_keyword.lower())
@@ -642,7 +646,7 @@ def run_preprocessing():
 
         # Display the results in a table
         st.write("Preprocessing completed successfully. Here are the results:")
-        st.dataframe(df)  # You can use st.table(df) for a static table
+        st.dataframe(df)
 
         
 def document_analysis():
