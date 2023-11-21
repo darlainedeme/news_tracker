@@ -638,10 +638,9 @@ def run_preprocessing():
 
         st.write("Preprocessing completed successfully.")
 
-        # Display the results in a table with hyperlinks
-        st.write("Preprocessing completed successfully. Here are the results with hyperlinks:")
-        st.markdown(df.to_html(escape=False, index=False), unsafe_allow_html=True)
-
+        # Display the results in a table
+        st.write("Preprocessing completed successfully. Here are the results:")
+        st.dataframe(df)  # You can use st.table(df) for a static table
         
 def document_analysis():
     st.title("Run Document Analysis 📚")
