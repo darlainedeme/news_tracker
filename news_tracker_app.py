@@ -683,8 +683,6 @@ def document_analysis():
     # Get the total number of links to process for updating the progress bar
     total_links = len(st.session_state.df)
 
-    st.write(st.session_state.df)
-
     if st.sidebar.button("Run Analysis"):
         all_summaries = []  # List to store individual summaries
 
