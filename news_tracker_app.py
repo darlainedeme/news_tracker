@@ -706,9 +706,9 @@ def document_analysis():
                     max_tokens=100
                 )
                 summary = response.choices[0].text.strip()
-            except openai.error.OpenAIError as e:
+            except openai.APIError as e:
                 print(f"An error occurred: {e}")
-                
+
             all_summaries.append(summary)
 
         # Combine all summaries
