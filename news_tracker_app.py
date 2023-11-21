@@ -630,7 +630,19 @@ def run_preprocessing():
                     sentence_data_list.append(sentence_data)
 
                 # Append the collected sentence data to sentence_df
+                
                 new_df = pd.DataFrame(sentence_data_list)
+                if not new_df.empty:
+                    # Normalization of keyword counts in sentences
+                    for keyword in st.session_state.final_selected_keywords:
+                        max_count = new_df[keyword].max()
+                        min_count = new_df[keyword].min()
+                        denom = max_count - min_count if max_count != min_count else 1
+                        new_df[keyword] = (new_df[keyword] - min_count) / denom if denom else 0
+                    
+                    # Sum of normalized counts
+                    new_df['Normalized_Count'] = new_df[st.session_state.final_selected_keywords].sum(axis=1)
+
                 sentence_df = pd.concat([sentence_df, new_df], ignore_index=True)
 
             except requests.RequestException:
@@ -672,7 +684,7 @@ def document_analysis():
 
         # For each link, process and summarize
         for index, link in enumerate(st.session_state.df['link'].unique()):
-            top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "word_count")
+            top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "Normalized_Count")
             extracts = "\n".join(top_sentences['sentence'])
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
