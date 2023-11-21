@@ -763,7 +763,8 @@ def document_analysis():
         output = BytesIO()
 
         # Create an Excel workbook and worksheet in memory
-        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True, 'nan_inf_to_errors': True})
+
         
         # Writing final summary to the first sheet
         summary_sheet = workbook.add_worksheet('Summary')
