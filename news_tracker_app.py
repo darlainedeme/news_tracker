@@ -638,6 +638,10 @@ def run_preprocessing():
 
         st.write("Preprocessing completed successfully.")
 
+        # Display the results in a table
+        st.write("Preprocessing completed successfully. Here are the results:")
+        st.dataframe(df)  # You can use st.table(df) for a static table
+        
 def document_analysis():
     st.title("Run Document Analysis 📚")
 
