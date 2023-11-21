@@ -3,7 +3,7 @@ folium
 pandas
 requests
 urllib3
-openai=4.0.0
+openai==4.0.0
 beautifulsoup4
 matplotlib
 FPDF
