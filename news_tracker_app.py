@@ -567,7 +567,7 @@ def run_preprocessing():
 
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
-    df = df[0:2]
+    # df = df[0:2]
 
     # Display the number of links in the sidebar
     st.sidebar.write(f"Total Links: {len(df)}")
@@ -638,9 +638,10 @@ def run_preprocessing():
 
         st.write("Preprocessing completed successfully.")
 
-        # Display the results in a table
-        st.write("Preprocessing completed successfully. Here are the results:")
-        st.dataframe(df)  # You can use st.table(df) for a static table
+        # Display the results in a table with hyperlinks
+        st.write("Preprocessing completed successfully. Here are the results with hyperlinks:")
+        st.markdown(df.to_html(escape=False, index=False), unsafe_allow_html=True)
+
         
 def document_analysis():
     st.title("Run Document Analysis 📚")
