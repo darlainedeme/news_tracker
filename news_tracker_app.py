@@ -677,16 +677,18 @@ def run_preprocessing():
                                    options=df.index.tolist(),
                                    default=df.index.tolist())
 
-    # Filter the dataframes based on selected rows
+    # Filter the main dataframe based on selected rows
     filtered_df = df.loc[row_selection]
-    filtered_sentence_df = sentence_df[sentence_df.index.isin(row_selection)]
+
+    # Update the sentence-level dataframe based on the selected documents
+    selected_links = filtered_df['link'].tolist()
+    filtered_sentence_df = sentence_df[sentence_df['link'].isin(selected_links)]
 
     # Update session state
     st.session_state.df = filtered_df
     st.session_state.sentence_df = filtered_sentence_df
 
     # Display updated tables
-    st.write("Updated Dataframes based on selected rows:")
     st.dataframe(filtered_df)
 
 def document_analysis():
