@@ -672,11 +672,19 @@ def run_preprocessing():
         st.write("Preprocessing completed successfully. Here are the results:")
         st.dataframe(df)
 
-          # Multi-select box for row selection
-        row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
-                                       options=df.index.tolist(),
-                                       default=df.index.tolist())
-        st.session_state.selected_rows = row_selection
+    if st.button("Update Analysis with Selected Rows"):
+        # Filter the dataframes based on selected rows
+        filtered_df = df.loc[row_selection]
+        filtered_sentence_df = sentence_df[sentence_df.index.isin(row_selection)]
+
+        # Update session state
+        st.session_state.df = filtered_df
+        st.session_state.sentence_df = filtered_sentence_df
+
+        # Display updated tables
+        st.write("Updated Dataframes based on selected rows:")
+        st.dataframe(filtered_df)
+        st.dataframe(filtered_sentence_df)
 
 def document_analysis():
     st.title("Run Document Analysis 📚")
