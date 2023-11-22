@@ -816,44 +816,44 @@ def document_analysis():
                 mime="application/vnd.ms-excel"
             )       
 
-    # Email sending feature
-    smtp_user = os.environ.get('GMAIL_USER')
-    smtp_password = os.environ.get('GMAIL_PASSWORD')
-    def send_email(to_email, subject, content):
-        smtp_server = "smtp.gmail.com"
-        smtp_port = 587
-        smtp_user = smtp_user
-        smtp_password = smtp_password
+        # Email sending feature
+        smtp_user = os.environ.get('GMAIL_USER')
+        smtp_password = os.environ.get('GMAIL_PASSWORD')
+        def send_email(to_email, subject, content):
+            smtp_server = "smtp.gmail.com"
+            smtp_port = 587
+            smtp_user = smtp_user
+            smtp_password = smtp_password
 
-        # Create the message
-        msg = MIMEMultipart()
-        msg['From'] = smtp_user
-        msg['To'] = to_email
-        msg['Subject'] = subject
+            # Create the message
+            msg = MIMEMultipart()
+            msg['From'] = smtp_user
+            msg['To'] = to_email
+            msg['Subject'] = subject
 
-        # Attach the content
-        msg.attach(MIMEText(content, 'plain'))
+            # Attach the content
+            msg.attach(MIMEText(content, 'plain'))
 
-        # Send the email
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(smtp_user, smtp_password)
-        server.send_message(msg)
-        server.quit()
+            # Send the email
+            server = smtplib.SMTP(smtp_server, smtp_port)
+            server.starttls()
+            server.login(smtp_user, smtp_password)
+            server.send_message(msg)
+            server.quit()
 
-    # Email sending feature
-    st.sidebar.write("Enter your email to receive the analysis:")
-    user_email = st.sidebar.text_input("Email")
-    if st.sidebar.button("Send Email"):
-        if user_email and final_summary:
-            try:
-                send_email(user_email, "Document Analysis Results", final_summary)
-                st.sidebar.success("Email sent successfully!")
-            except Exception as e:
-                st.sidebar.error(f"An error occurred: {e}")
-        else:
-            st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
-            
+        # Email sending feature
+        st.sidebar.write("Enter your email to receive the analysis:")
+        user_email = st.sidebar.text_input("Email")
+        if st.sidebar.button("Send Email"):
+            if user_email and final_summary:
+                try:
+                    send_email(user_email, "Document Analysis Results", final_summary)
+                    st.sidebar.success("Email sent successfully!")
+                except Exception as e:
+                    st.sidebar.error(f"An error occurred: {e}")
+            else:
+                st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
+
 pages = {
     "🏠 Welcome": welcome_page,
     "🌍  Area Selection": area_selection,
