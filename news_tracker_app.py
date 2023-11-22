@@ -157,14 +157,20 @@ def define_research():
 
     # 1. Kind of Research
     st.subheader("1. Research Type")
-    st.session_state.research_type = st.radio("", ["policies", "news", "projects"], index=["policies", "news", "projects"].index(st.session_state.research_type))
+    st.session_state.research_type = st.radio("",
+                                              ["policies", "news", "projects"],
+                                              index=["policies", "news", "projects"].index(st.session_state.research_type),
+                                              help="Select the type of research you're interested in. Options include policies, news, and projects.")
 
     # Separator
     st.markdown("---")
 
     # 2. Sources of Information
     st.subheader("2. Information Sources")
-    st.session_state.sources = st.radio("Choose a source:", ["predefined sources search", "general google search", "general twitter search", "general linkedin search"], index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources))
+    st.session_state.sources = st.radio("Choose a source:",
+                                    ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
+                                    index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
+                                    help="Select your preferred sources of information.")
 
     # Limit research to country-specific domains
     if st.session_state.sources == "general google search":
@@ -173,8 +179,11 @@ def define_research():
     # 2.1 Official Sources (if selected)
     if st.session_state.sources == "predefined sources search":
         types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
-        st.session_state.official_sources = st.multiselect("", types_list, default=st.session_state.official_sources)
-        
+        st.session_state.official_sources = st.multiselect("",
+                                                           types_list,
+                                                           default=st.session_state.official_sources,
+                                                           help="Select official sources for predefined sources search.")
+
         source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
         st.write(source_counts)
         st.session_state.selected_predefined_links = list(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link)
@@ -187,7 +196,10 @@ def define_research():
     selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
     default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
     all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
-    st.session_state.selected_language = st.multiselect("Language(s):", sorted(all_languages), default=default_languages)
+    st.session_state.selected_language = st.multiselect("Language(s):",
+                                                        sorted(all_languages),
+                                                        default=default_languages,
+                                                        help="Choose the languages for your research. This will filter content based on the selected languages.")
 
     # Separator
     st.markdown("---")
@@ -213,11 +225,11 @@ def define_research():
             if kw not in st.session_state.selected_mandatory_keywords:
                 st.session_state.selected_mandatory_keywords.append(kw)
 
-    st.session_state.selected_mandatory_keywords = st.multiselect(
-        "Mandatory Keywords:", 
-        all_mandatory_keywords, 
-        default=st.session_state.selected_mandatory_keywords
-    )
+    st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:",
+                                                                  all_mandatory_keywords,
+                                                                  default=st.session_state.selected_mandatory_keywords,
+                                                                  help="Select mandatory keywords. These are essential terms that must appear in the research results.")
+
 
     st.markdown("---")
     
@@ -242,7 +254,10 @@ def define_research():
                 st.session_state.selected_keywords.append(kw)
 
     filtered_topic_keywords = [k for k in all_topic_keywords if k not in st.session_state.selected_mandatory_keywords]
-    st.session_state.selected_keywords = st.multiselect("Keywords:", filtered_topic_keywords, default=st.session_state.selected_keywords)
+    st.session_state.selected_keywords = st.multiselect("Keywords:",
+                                                        filtered_topic_keywords,
+                                                        default=st.session_state.selected_keywords,
+                                                        help="Choose your topic keywords. These are the main terms related to your research topic.")
 
     st.markdown("---")
 
@@ -266,7 +281,10 @@ def define_research():
             if kw not in st.session_state.selected_comp_keywords:
                 st.session_state.selected_comp_keywords.append(kw)
 
-    st.session_state.selected_comp_keywords = st.multiselect("Keywords:", all_comp_keywords, default=st.session_state.selected_comp_keywords)
+    st.session_state.selected_comp_keywords = st.multiselect("Keywords:",
+                                                             all_comp_keywords,
+                                                             default=st.session_state.selected_comp_keywords,
+                                                             help="Select complementary keywords. These are additional terms that can enhance your research scope.")
 
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
