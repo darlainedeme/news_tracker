@@ -576,9 +576,12 @@ def run_preprocessing():
     sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
 
     if st.sidebar.button("Run Preprocessing"):
-        # For each keyword, create a new column initialized to 0
+        progress_bar = st.sidebar.progress(0)
+        total_links = len(df)
         for keyword in st.session_state.final_selected_keywords:
             df[keyword] = 0
+        df['word_count'] = 0
+        df['Normalized_Count'] = 0
 
         # Iterate through each link in the dataframe
         for index, row in df.iterrows():
@@ -649,6 +652,11 @@ def run_preprocessing():
 
                 sentence_df = pd.concat([sentence_df, new_df], ignore_index=True)
 
+
+                # Update the progress bar
+                progress = int((index + 1) / total_links * 100)
+                progress_bar.progress(progress)
+
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
 
@@ -664,7 +672,12 @@ def run_preprocessing():
         st.write("Preprocessing completed successfully. Here are the results:")
         st.dataframe(df)
 
-        
+          # Multi-select box for row selection
+        row_selection = st.multiselect('Select rows to include in further analysis:',
+                                       options=df.index.tolist(),
+                                       default=df.index.tolist())
+        st.session_state.selected_rows = row_selection
+              
 def document_analysis():
     st.title("Run Document Analysis 📚")
 
