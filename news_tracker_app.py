@@ -702,7 +702,7 @@ def document_analysis():
                 ]
                 response = openai.ChatCompletion.create(
                     model="gpt-4",
-                    messages=messages
+                    messages=messages,
                     max_tokens=5000
                 )
                 summary = response['choices'][0]['message']['content']
