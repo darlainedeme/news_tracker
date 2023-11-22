@@ -678,7 +678,7 @@ def run_preprocessing():
                                        default=df.index.tolist())
         st.session_state.selected_rows = row_selection
 
-    if st.button("Update Analysis with Selected Rows"):
+    if st.sidebar.button("Update Analysis with Selected Rows"):
         # Filter the dataframes based on selected rows
         filtered_df = df.loc[row_selection]
         filtered_sentence_df = sentence_df[sentence_df.index.isin(row_selection)]
@@ -691,7 +691,7 @@ def run_preprocessing():
         st.write("Updated Dataframes based on selected rows:")
         st.dataframe(filtered_df)
         st.dataframe(filtered_sentence_df)
-        
+
 def document_analysis():
     st.title("Run Document Analysis 📚")
 
