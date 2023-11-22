@@ -672,24 +672,21 @@ def run_preprocessing():
         st.write("Preprocessing completed successfully. Here are the results:")
         st.dataframe(df)
 
-    # Multi-select box for row selection
+    # Multi-select box in the sidebar for row selection
+    row_ids = df.index.tolist()
     row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
-                                   options=df.index.tolist(),
-                                   default=df.index.tolist())
+                                           options=row_ids,
+                                           default=row_ids)
 
-    # Filter the main dataframe based on selected rows
-    filtered_df = df.loc[row_selection]
+    # Directly update df by removing unselected rows
+    df = df.loc[row_selection]
 
-    # Update the sentence-level dataframe based on the selected documents
-    selected_links = filtered_df['link'].tolist()
-    filtered_sentence_df = sentence_df[sentence_df['link'].isin(selected_links)]
+    # Display the updated dataframe
+    st.write("Dataframe updated based on selected rows:")
+    st.dataframe(df)
 
     # Update session state
-    st.session_state.df = filtered_df
-    st.session_state.sentence_df = filtered_sentence_df
-
-    # Display updated tables
-    st.dataframe(filtered_df)
+    st.session_state.df = df
 
 def document_analysis():
     st.title("Run Document Analysis 📚")
