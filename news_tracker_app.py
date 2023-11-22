@@ -719,6 +719,14 @@ def document_analysis():
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
 
+        # Display individual summaries in an expander
+        with st.expander("See Individual Summaries"):
+            for link, summary in zip(st.session_state.df['link'].unique(), all_summaries):
+                title = st.session_state.df[st.session_state.df['link'] == link]['title'].values[0]
+                st.write(f"**{title}**")
+                st.write(f"Summary: {summary}")
+                st.markdown("---")  # separator
+                
         # Combine all summaries for final summary
         combined_summaries = " ".join(all_summaries)
         final_prompt = f"Summarize the following summaries in 10 sentences:\n{combined_summaries}"
