@@ -703,14 +703,14 @@ def document_analysis():
                 response = openai.ChatCompletion.create(
                     model="gpt-4",
                     messages=messages,
-                    max_tokens=5000
+                    max_tokens=4097 
                 )
                 summary = response['choices'][0]['message']['content']
             else:
                 response = openai.Completion.create(
                     model=selected_model,
                     prompt=prompt,
-                    max_tokens=5000
+                    max_tokens=4097 
                 )
                 summary = response.choices[0].text.strip()
 
