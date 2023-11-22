@@ -21,46 +21,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def document_analysis():
-    # [Your existing document_analysis code...]
-
-    # At the end of the document_analysis function
-    # Email sending feature
-    st.sidebar.write("Enter your email to receive the analysis:")
-    user_email = st.sidebar.text_input("Email")
-    if st.sidebar.button("Send Email"):
-        if user_email:
-            try:
-                send_email(user_email, "Document Analysis Results", final_summary)
-                st.sidebar.success("Email sent successfully!")
-            except Exception as e:
-                st.sidebar.error(f"An error occurred: {e}")
-        else:
-            st.sidebar.error("Please enter a valid email.")
-
-def send_email(to_email, subject, content):
-    # Configure your email server and credentials
-    smtp_server = "smtp.yourserver.com"
-    smtp_port = 587
-    smtp_user = "your@email.com"
-    smtp_password = "yourpassword"
-
-    # Create the message
-    msg = MIMEMultipart()
-    msg['From'] = smtp_user
-    msg['To'] = to_email
-    msg['Subject'] = subject
-
-    # Attach the content
-    msg.attach(MIMEText(content, 'plain'))
-
-    # Send the email
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    server.login(smtp_user, smtp_password)
-    server.send_message(msg)
-    server.quit()
-
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
 cse_id = os.getenv('CSE_ID')
@@ -856,6 +816,41 @@ def document_analysis():
                 mime="application/vnd.ms-excel"
             )       
 
+    # Email sending feature
+    def send_email(to_email, subject, content):
+        # Configure your email server and credentials
+        smtp_server = "smtp.yourserver.com"
+        smtp_port = 587
+        smtp_user = "your@email.com"
+        smtp_password = "yourpassword"
+
+        # Create the message
+        msg = MIMEMultipart()
+        msg['From'] = smtp_user
+        msg['To'] = to_email
+        msg['Subject'] = subject
+
+        # Attach the content
+        msg.attach(MIMEText(content, 'plain'))
+
+        # Send the email
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(smtp_user, smtp_password)
+        server.send_message(msg)
+        server.quit()
+
+    st.sidebar.write("Enter your email to receive the analysis:")
+    user_email = st.sidebar.text_input("Email")
+    if st.sidebar.button("Send Email"):
+        if user_email:
+            try:
+                send_email(user_email, "Document Analysis Results", final_summary)
+                st.sidebar.success("Email sent successfully!")
+            except Exception as e:
+                st.sidebar.error(f"An error occurred: {e}")
+        else:
+            st.sidebar.error("Please enter a valid email.")
 
 pages = {
     "🏠 Welcome": welcome_page,
