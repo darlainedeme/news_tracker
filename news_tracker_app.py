@@ -817,11 +817,13 @@ def document_analysis():
             )       
 
     # Email sending feature
+    smtp_user = os.environ.get('GMAIL_USER')
+    smtp_password = os.environ.get('GMAIL_PASSWORD')
     def send_email(to_email, subject, content):
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
-        smtp_user = "darlainedeme@gmail.com"
-        smtp_password = "your-app-password"  # Use the app password generated or your Gmail password
+        smtp_user = smtp_user
+        smtp_password = smtp_password
 
         # Create the message
         msg = MIMEMultipart()
