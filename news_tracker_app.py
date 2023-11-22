@@ -26,6 +26,21 @@ api_key = os.getenv('API_KEY')
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
 
+def welcome_page():
+    st.title("Welcome to the Energy, Policy, and News Tracker")
+    st.markdown("""
+    This application assists in tracking energy policies and news across different regions. Here's a guide to each section:
+
+    - **🌍 Area Selection**: Select the geographical area for your research.
+    - **✅ Selected Area Check**: Verify the selected areas.
+    - **🛠️ Define Research**: Customize your research parameters.
+    - **🔍 Research**: Conduct the research based on your parameters.
+    - **🔍 Pre-processing**: Process the gathered data for analysis.
+    - **📚 Document Analysis**: Analyze the processed data.
+
+    Navigate through each section using the sidebar. Begin by selecting the area in '🌍 Area Selection'.
+    """)
+
 def area_selection():
     # Initialize session state variables if they don't exist
     if 'selected_countries' not in st.session_state:
@@ -780,6 +795,7 @@ def document_analysis():
 
 
 pages = {
+    "🏠 Welcome": welcome_page,
     "🌍  Area Selection": area_selection,
     "✅ Selected Area Check ": selected_area_check,
     "🛠️ Define research": define_research,
@@ -791,5 +807,9 @@ pages = {
 
 
 selection = st.sidebar.radio("Go to", list(pages.keys()))
-pages[selection]()
 
+# Sidebar information box
+st.sidebar.info("If you have any issues, contact Darlain at darlain.edeme@iea.org")
+
+# Run the selected page
+pages[selection]()
