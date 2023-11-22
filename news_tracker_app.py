@@ -353,7 +353,37 @@ def research():
     if 'final_selected_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
-    
+
+
+    # Sidebar for selecting time period
+    period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
+                      "last three months", "last 6 months", "last year", "last 2y", 
+                      "last 3y", "last 4y", "last 5y", "last 10y"]
+    st.session_state.selected_period = st.sidebar.selectbox("Select Time Period", period_options)
+
+    # Date input based on the selected time period
+    if st.session_state.selected_period == "custom":
+        st.session_state.start_date = st.sidebar.date_input("Start Date", value=st.session_state.start_date)
+        st.session_state.end_date = st.sidebar.date_input("End Date", value=st.session_state.end_date)
+    else:
+        st.session_state.end_date = datetime.date.today()
+        # Define time deltas for each predefined period
+        time_deltas = {
+            "last 24h": datetime.timedelta(days=1),
+            "last week": datetime.timedelta(weeks=1),
+            "last two weeks": datetime.timedelta(weeks=2),
+            "last month": datetime.timedelta(weeks=4),
+            "last three months": datetime.timedelta(weeks=12),
+            "last 6 months": datetime.timedelta(weeks=26),
+            "last year": datetime.timedelta(weeks=52),
+            "last 2y": datetime.timedelta(weeks=104),
+            "last 3y": datetime.timedelta(weeks=156),
+            "last 4y": datetime.timedelta(weeks=208),
+            "last 5y": datetime.timedelta(weeks=260),
+            "last 10y": datetime.timedelta(days=3650)
+        }
+        st.session_state.start_date = st.session_state.end_date - time_deltas[st.session_state.selected_period]
+
     def construct_query():
         query_parts = []
     
