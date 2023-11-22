@@ -153,49 +153,7 @@ def define_research():
     # Separator
     st.markdown("---")
 
-    # 3. Period of Interest
-    st.subheader("3. Period of Interest")
-    period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
-                      "last three months", "last 6 months", "last year", "last 2y",
-                      "last 3y", "last 4y", "last 5y", "last 10y"]
-    if 'selected_period' not in st.session_state:
-        st.session_state.selected_period = 'last week'
-    st.session_state.selected_period = st.selectbox("", period_options, index=period_options.index(st.session_state.selected_period))
-
-    if st.session_state.selected_period == "custom":
-        st.session_state.start_date = st.date_input("Start Date", value=st.session_state.start_date)
-        st.session_state.end_date = st.date_input("End Date", value=st.session_state.end_date)
-    else:
-        st.session_state.end_date = datetime.date.today()
-        if st.session_state.selected_period == "last 24h":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(days=1)
-        elif st.session_state.selected_period == "last week":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=1)
-        elif st.session_state.selected_period == "last two weeks":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=2)
-        elif st.session_state.selected_period == "last month":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=4)
-        elif st.session_state.selected_period == "last three months":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=12)
-        elif st.session_state.selected_period == "last 6 months":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=26)
-        elif st.session_state.selected_period == "last year":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=52)
-        elif st.session_state.selected_period == "last 2y":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=104)
-        elif st.session_state.selected_period == "last 3y":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=156)
-        elif st.session_state.selected_period == "last 4y":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=208)
-        elif st.session_state.selected_period == "last 5y":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(weeks=260)
-        elif st.session_state.selected_period == "last 10y":
-            st.session_state.start_date = st.session_state.end_date - datetime.timedelta(days=3650)
-
-    # Separator
-    st.markdown("---")
-
-    # 4. Language
+    # 3. Language
     st.subheader("4. Language")
     selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
     default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
@@ -205,7 +163,7 @@ def define_research():
     # Separator
     st.markdown("---")
 
-    # 5. Mandatory Keywords
+    # 4. Mandatory Keywords
     st.subheader("5. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
@@ -234,7 +192,7 @@ def define_research():
 
     st.markdown("---")
     
-    # 6. Topic Keywords
+    # 5. Topic Keywords
     st.subheader("6. Topic Keywords")
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_topic_keywords = sorted(set(keywords_df['keyword'].tolist()))
@@ -259,7 +217,7 @@ def define_research():
 
     st.markdown("---")
 
-    # 7. Complementary Research Keywords
+    # 6. Complementary Research Keywords
     st.subheader("7. Complementary Research Keywords")
     comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
     all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
@@ -510,9 +468,7 @@ def research():
             
             # st.write(result)
             st.markdown("---")  # separator
-        
-        st.write(links_list)
-        
+              
         # Save the accumulated value to st.session_state
         st.session_state.total_characters = total_characters
         
