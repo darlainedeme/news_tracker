@@ -846,9 +846,9 @@ def document_analysis():
     st.sidebar.write("Enter your email to receive the analysis:")
     user_email = st.sidebar.text_input("Email")
     if st.sidebar.button("Send Email"):
-        if user_email and st.session_state.final_summary:
+        if user_email:
             try:
-                send_email(user_email, "Document Analysis Results", st.session_state.final_summary)
+                send_email(user_email, "Document Analysis Results", "ciao")
                 st.sidebar.success("Email sent successfully!")
             except Exception as e:
                 st.sidebar.error(f"An error occurred: {e}")
