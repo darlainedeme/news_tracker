@@ -42,6 +42,10 @@ def welcome_page():
     """)
 
 def area_selection():
+    st.markdown("""
+    This section allows you to select the geographical area for your research. Choose from various categories such as Country, Continent, WEO Region, or World. Your selection will determine the scope of the data and information that the application will gather and analyze in later steps.
+    """)
+
     # Initialize session state variables if they don't exist
     if 'selected_countries' not in st.session_state:
         st.session_state.selected_countries = []
@@ -97,6 +101,10 @@ def area_selection():
 
 
 def selected_area_check():
+    st.markdown("""
+    Here, you can review the geographical areas you have selected. This step is crucial to ensure that the regions of interest are correctly chosen before proceeding with the research. If the selected areas don't match your criteria, you can return to the 'Area Selection' step to adjust your choices.
+    """)
+
     st.write("### Check the table below, and confirm it's the region you are interested in.")
     st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
 
@@ -107,6 +115,9 @@ def selected_area_check():
 
 def define_research():
     st.title("Research Customization")
+    st.markdown("""
+    Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
+    """)
 
     # Initialize session state variables if not already set
     if 'research_type' not in st.session_state:
@@ -321,6 +332,9 @@ def define_research():
 
 def research():
     st.title("Research 📚")
+    st.markdown("""
+    Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
+    """)
 
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state:
@@ -559,8 +573,11 @@ def research():
         # download_links_as_pdfs(links_list, folder_path)
 
 def run_preprocessing():
-    st.title("Run Preprocessing 🔄")
-
+    st.title("Run Preprocessing 💻")
+    st.markdown("""
+    Analyze the processed data in this final step. Utilize advanced AI models to summarize and extract key insights from the collected information. This section helps in understanding the broader context and significance of the data, providing valuable conclusions and takeaways from your research.
+    """)
+    
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
@@ -800,7 +817,7 @@ pages = {
     "✅ Selected Area Check ": selected_area_check,
     "🛠️ Define research": define_research,
     "🔍 Research": research,
-    "🔍 Pre-processing": run_preprocessing,
+    "💻 Pre-processing": run_preprocessing,
     "📚 Document Analysis": document_analysis
 
 }
