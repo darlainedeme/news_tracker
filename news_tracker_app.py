@@ -154,7 +154,7 @@ def define_research():
     st.markdown("---")
 
     # 3. Language
-    st.subheader("4. Language")
+    st.subheader("3. Language")
     selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
     default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
     all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
@@ -164,7 +164,7 @@ def define_research():
     st.markdown("---")
 
     # 4. Mandatory Keywords
-    st.subheader("5. Mandatory Keywords")
+    st.subheader("4. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
 
@@ -193,7 +193,7 @@ def define_research():
     st.markdown("---")
     
     # 5. Topic Keywords
-    st.subheader("6. Topic Keywords")
+    st.subheader("5. Topic Keywords")
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_topic_keywords = sorted(set(keywords_df['keyword'].tolist()))
 
@@ -218,7 +218,7 @@ def define_research():
     st.markdown("---")
 
     # 6. Complementary Research Keywords
-    st.subheader("7. Complementary Research Keywords")
+    st.subheader("6. Complementary Research Keywords")
     comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
     all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
 
