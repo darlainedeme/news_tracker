@@ -60,7 +60,7 @@ def send_email(to_email, subject, content):
     server.login(smtp_user, smtp_password)
     server.send_message(msg)
     server.quit()
-    
+
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
 cse_id = os.getenv('CSE_ID')
@@ -78,7 +78,7 @@ def welcome_page():
     - **✅ Selected Area Check**: Verify the selected areas.
     - **🛠️ Define Research**: Customize your research parameters.
     - **🔍 Research**: Conduct the research based on your parameters.
-    - **🔍 Pre-processing**: Process the gathered data for analysis.
+    - **💻 Pre-processing**: Process the gathered data for analysis.
     - **📚 Document Analysis**: Analyze the processed data.
 
     Navigate through each section using the sidebar. Begin by selecting the area in '🌍 Area Selection'.
