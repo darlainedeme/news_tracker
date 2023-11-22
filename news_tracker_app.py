@@ -823,8 +823,8 @@ def document_analysis():
     def send_email(to_email, subject, content):
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
-        smtp_user = smtp_user
-        smtp_password = smtp_password
+        smtp_user = os.getenv('smtp_user')
+        smtp_password = os.getenv('smtp_password')
 
         # Create the message
         msg = MIMEMultipart()
