@@ -719,11 +719,11 @@ def document_analysis():
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
 
-        # Display individual summaries in an expander
+        # Display individual summaries with hyperlinked titles
         with st.expander("See Individual Summaries"):
             for link, summary in zip(st.session_state.df['link'].unique(), all_summaries):
                 title = st.session_state.df[st.session_state.df['link'] == link]['title'].values[0]
-                st.write(f"**{title}**")
+                st.markdown(f"[**{title}**]({link})")  # Title as a hyperlink
                 st.write(f"Summary: {summary}")
                 st.markdown("---")  # separator
                 
