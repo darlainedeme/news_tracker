@@ -818,11 +818,10 @@ def document_analysis():
 
     # Email sending feature
     def send_email(to_email, subject, content):
-        # Configure your email server and credentials
-        smtp_server = "smtp.yourserver.com"
+        smtp_server = "smtp.gmail.com"
         smtp_port = 587
-        smtp_user = "your@email.com"
-        smtp_password = "yourpassword"
+        smtp_user = "darlainedeme@gmail.com"
+        smtp_password = "your-app-password"  # Use the app password generated or your Gmail password
 
         # Create the message
         msg = MIMEMultipart()
