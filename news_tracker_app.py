@@ -333,7 +333,7 @@ def define_research():
 def research():
     st.title("Research 📚")
     st.markdown("""
-    Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
+    Conduct your research based on the parameters set in the previous steps. This section utilizes custom search engines to gather data and information from various sources. You can review the total results, check individual entries, and gather insights relevant to your selected areas and research criteria.
     """)
 
     # Ensure that the necessary data is in the session state
@@ -575,9 +575,9 @@ def research():
 def run_preprocessing():
     st.title("Run Preprocessing 💻")
     st.markdown("""
-    Analyze the processed data in this final step. Utilize advanced AI models to summarize and extract key insights from the collected information. This section helps in understanding the broader context and significance of the data, providing valuable conclusions and takeaways from your research.
+    Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
     """)
-    
+
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
@@ -708,7 +708,10 @@ def run_preprocessing():
 
 def document_analysis():
     st.title("Run Document Analysis 📚")
-
+    st.markdown("""
+    Analyze the processed data in this final step. Utilize advanced AI models to summarize and extract key insights from the collected information. This section helps in understanding the broader context and significance of the data, providing valuable conclusions and takeaways from your research.
+    """)
+    
     # Check if preprocessing has been done
     if 'sentence_df' not in st.session_state or 'df' not in st.session_state:
         st.warning("Please run preprocessing first.")
