@@ -673,11 +673,11 @@ def run_preprocessing():
         st.dataframe(df)
 
           # Multi-select box for row selection
-        row_selection = st.multiselect('Select rows to include in further analysis:',
+        row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
                                        options=df.index.tolist(),
                                        default=df.index.tolist())
         st.session_state.selected_rows = row_selection
-              
+
 def document_analysis():
     st.title("Run Document Analysis 📚")
 
