@@ -796,7 +796,7 @@ def document_analysis():
                 prompt=final_prompt,
                 max_tokens=200
             )
-            final_summary = response.choices[0].text.strip()
+            final_summary = response['choices'][0]['message']['content'] if selected_model == "gpt-4" else response.choices[0].text.strip()
         
         # Display the final summary
         st.write(f"Final Summary: {final_summary}")
@@ -841,18 +841,19 @@ def document_analysis():
         server.send_message(msg)
         server.quit()
 
+    # Email sending feature
     st.sidebar.write("Enter your email to receive the analysis:")
     user_email = st.sidebar.text_input("Email")
     if st.sidebar.button("Send Email"):
-        if user_email:
+        if user_email and final_summary:
             try:
                 send_email(user_email, "Document Analysis Results", final_summary)
                 st.sidebar.success("Email sent successfully!")
             except Exception as e:
                 st.sidebar.error(f"An error occurred: {e}")
         else:
-            st.sidebar.error("Please enter a valid email.")
-
+            st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
+            
 pages = {
     "🏠 Welcome": welcome_page,
     "🌍  Area Selection": area_selection,
