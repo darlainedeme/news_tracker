@@ -809,7 +809,7 @@ def document_analysis():
                 response = openai.Completion.create(
                     model=selected_model,
                     prompt=prompt,
-                    max_tokens=2000 
+                    max_tokens=1000 
                 )
                 summary = response.choices[0].text.strip()
 
