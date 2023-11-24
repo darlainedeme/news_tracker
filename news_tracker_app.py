@@ -165,7 +165,7 @@ def define_research():
 
 
     # 0. Administrative division
-    if 'selected_countries' in st.session_state and st.session_state.subset_data != None:
+    if 'selected_countries' in st.session_state and st.session_state.subset_data:
         # Check if only one country is selected
         if len(st.session_state.selected_countries) == 1:
             selected_country = st.session_state.selected_countries[0]
