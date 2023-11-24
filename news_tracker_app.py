@@ -286,6 +286,40 @@ def define_research():
                                                              default=st.session_state.selected_comp_keywords,
                                                              help="Select complementary keywords. These are additional terms that can enhance your research scope.")
 
+
+    def translate_word(word, selected_language):
+        """
+        Translates a given word into the specified language.
+
+        Args:
+        word (str): The word to be translated.
+        selected_language (str): The target language for translation.
+
+        Returns:
+        str: The translated word.
+        """
+
+        # Constructing the prompt for translation
+        translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD"
+
+        # Preparing the messages for the API call
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": translation_prompt}
+        ]
+
+        # Making the API call
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=messages,
+            max_tokens=4097
+        )
+
+    # Extracting the translation from the response
+    translated_word = response['choices'][0]['message']['content']
+
+    return translated_word
+
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
     comp_selected_translations = {}
@@ -294,19 +328,19 @@ def define_research():
     for language in st.session_state.selected_language:
         # Translations for mandatory keywords
         mandatory_selected_translations[language] = [
-            mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else keyword 
+            mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
             for keyword in st.session_state.selected_mandatory_keywords
         ]
 
         # Translations for main keywords
         main_selected_translations[language] = [
-            keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else keyword 
+            keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
             for keyword in st.session_state.selected_keywords
         ]
 
         # Translations for complementary keywords
         comp_selected_translations[language] = [
-            comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else keyword 
+            comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
             for keyword in st.session_state.selected_comp_keywords
         ]
 
