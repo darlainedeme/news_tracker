@@ -575,8 +575,6 @@ def research():
         # Store the results in session_state, overwriting any previous results
         st.session_state.results = results
 
-        st.write(results)
-    
         # Display the results
         total_characters = 0  # Initialize a counter
         for result in results:
