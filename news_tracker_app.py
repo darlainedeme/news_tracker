@@ -498,7 +498,7 @@ def research():
     # Check if the checkbox is checked
     if exact_keywords and query:
         # Remove all apostrophes from the query
-        query_without_apostrophes = query.replace("'", "")
+        query_without_apostrophes = query.replace('"', '')
         st.sidebar.write(f"Modified Query: {query_without_apostrophes}")
 
     st.write(query)
