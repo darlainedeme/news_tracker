@@ -580,9 +580,19 @@ def research():
         # Display the results
         total_characters = 0  # Initialize a counter
         for result in results:
+            # Extract the date from the snippet
+            date_text = result['snippet'].split(' ... ')[0]
+
+            # Determine the document type
+            if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
+                doc_type = result['link'].split('.')[-1]  # Get the file extension
+            else:
+                doc_type = "webpage"
+
+            # Display the formatted results
             st.subheader(f"[{result['title']}]({result['link']})")
-            st.write(f"Source: {result['displayLink']}")
-            links_list.append(result['displayLink'])
+            st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+            st.write(f"Snippet: {result['snippet']}")
             
 # =============================================================================
 #             try:
