@@ -94,7 +94,8 @@ def area_selection():
         st.session_state.selected_countries = []
         st.write("You didn't select any area, so the following research will be a general Google search on the topics you'll select.")
 
-    st.session_state.subset_data = subset_data
+    if selection != 'No specific area':
+        st.session_state.subset_data = subset_data
 
     # Read the CSV
     tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
