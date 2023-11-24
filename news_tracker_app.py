@@ -312,7 +312,7 @@ def define_research():
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=messages,
-            max_tokens=4097
+            max_tokens=100
         )
 
         # Extracting the translation from the response
