@@ -195,7 +195,7 @@ def define_research():
 
     # 2. Sources of Information
     st.subheader("2. Information Sources")
-    if st.session_state.subset_data != None:
+    if not st.session_state.subset_data.empty:
         st.session_state.sources = st.radio("Choose a source:",
                                         ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
                                         index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
