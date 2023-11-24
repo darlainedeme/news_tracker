@@ -498,10 +498,10 @@ def research():
     # Check if the checkbox is checked
     if exact_keywords and query:
         # Remove all apostrophes from the query
-        query_without_apostrophes = query.replace('"', '')
-        st.sidebar.write(f"Modified Query: {query_without_apostrophes}")
+        query = query.replace('"', '')
+        st.sidebar.write(f"Modified Query: {query}")
 
-    st.write(query)
+    st.sidebar.write(query)
 
     if st.sidebar.button("Run Research"):
         links_list = []
