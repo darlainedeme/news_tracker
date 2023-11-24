@@ -155,6 +155,27 @@ def define_research():
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
 
+
+    # 0. Administrative division
+    # Assuming st.session_state.selected_countries is already set in your app
+    if 'selected_countries' in st.session_state:
+        # Check if only one country is selected
+        if len(st.session_state.selected_countries) == 1:
+            selected_country = st.session_state.selected_countries[0]
+
+            # Filter the DataFrame for the selected country
+            country_df = links_df[links_df['Country'] == selected_country]
+
+            # Extract unique regions from the DataFrame
+            unique_regions = country_df['Region'].unique()
+
+            # Create a dropdown menu for regions
+            selected_region = st.selectbox("Select a Region", unique_regions)
+
+            # Update links_df to filter by the selected region
+            links_df = country_df[country_df['Region'] == selected_region]
+
+
     # 1. Kind of Research
     st.subheader("1. Research Type")
     st.session_state.research_type = st.radio("",
