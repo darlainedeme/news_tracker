@@ -300,7 +300,7 @@ def define_research():
         """
 
         # Constructing the prompt for translation
-        translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD"
+        translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR"
 
         # Preparing the messages for the API call
         messages = [
