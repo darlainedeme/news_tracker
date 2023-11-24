@@ -201,21 +201,22 @@ def define_research():
                                     help="Select your preferred sources of information.")
 
     # Limit research to country-specific domains
-    if st.session_state.sources == "general google search":
-        st.session_state.limit_to_country = st.checkbox("Limit research to country-specific domains?", value=st.session_state.limit_to_country, help="This might provide precise results for country-specific information but will exclude international sources with .com, .org, etc.")
+    if st.session_state.subset_data != None:
+        if st.session_state.sources == "general google search":
+            st.session_state.limit_to_country = st.checkbox("Limit research to country-specific domains?", value=st.session_state.limit_to_country, help="This might provide precise results for country-specific information but will exclude international sources with .com, .org, etc.")
 
-    # 2.1 Official Sources (if selected)
-    if st.session_state.sources == "predefined sources search":
-        types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
-        st.session_state.official_sources = st.multiselect("",
-                                                           types_list,
-                                                           default=st.session_state.official_sources,
-                                                           help="Select official sources for predefined sources search.")
+        # 2.1 Official Sources (if selected)
+        if st.session_state.sources == "predefined sources search":
+            types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
+            st.session_state.official_sources = st.multiselect("",
+                                                            types_list,
+                                                            default=st.session_state.official_sources,
+                                                            help="Select official sources for predefined sources search.")
 
-        source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
-        st.write(source_counts)
-        st.session_state.selected_predefined_links = list(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link)
-            
+            source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
+            st.write(source_counts)
+            st.session_state.selected_predefined_links = list(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link)
+                
     # Separator
     st.markdown("---")
 
