@@ -89,6 +89,11 @@ def area_selection():
         subset_data = data
         st.session_state.selected_countries = list(data.field_3)
 
+    elif selection == 'No specific area':
+        st.session_state.subset_data = None
+        st.session_state.selected_countries = []
+        st.write("You didn't select any area, so the following research will be a general Google search on the topics you'll select.")
+
     st.session_state.subset_data = subset_data
 
     # Read the CSV
@@ -98,9 +103,11 @@ def area_selection():
     
     st.session_state.country_codes = selected_tlds
 
-    m = folium.Map(location=[20, 0], zoom_start=2, tiles="cartodbpositron")
-    folium.GeoJson(subset_data).add_to(m)
-    folium_static(m)
+    # You should include this part outside the `elif` statements
+    if selection != 'No specific area':
+        m = folium.Map(location=[20, 0], zoom_start=2, tiles="cartodbpositron")
+        folium.GeoJson(subset_data).add_to(m)
+        folium_static(m)
 
 
 def selected_area_check():
