@@ -315,10 +315,10 @@ def define_research():
             max_tokens=4097
         )
 
-    # Extracting the translation from the response
-    translated_word = response['choices'][0]['message']['content']
+        # Extracting the translation from the response
+        translated_word = response['choices'][0]['message']['content']
 
-    return translated_word
+        return translated_word
 
     # Extract respective translations for the selected keywords
     main_selected_translations = {}
