@@ -491,13 +491,21 @@ def research():
         # Join the query parts using ' AND ' separator
         return ' AND '.join(query_parts)
     
-    
-    
+    # Create a sidebar with a checkbox
+    exact_keywords = st.sidebar.checkbox('Do you want exact keywords?')
+    query = construct_query()
+
+    # Check if the checkbox is checked
+    if exact_keywords and query:
+        # Remove all apostrophes from the query
+        query_without_apostrophes = query.replace("'", "")
+        st.sidebar.write(f"Modified Query: {query_without_apostrophes}")
+
+    st.write(query)
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
-        query = construct_query()
-        st.write(query)
          
         # Define the endpoint URL (replace with your own endpoint and API key)
         url = "https://www.googleapis.com/customsearch/v1"
