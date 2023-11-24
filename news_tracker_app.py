@@ -195,13 +195,13 @@ def define_research():
 
     # 2. Sources of Information
     st.subheader("2. Information Sources")
-    st.session_state.sources = st.radio("Choose a source:",
-                                    ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
-                                    index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
-                                    help="Select your preferred sources of information.")
-
-    # Limit research to country-specific domains
     if st.session_state.subset_data != None:
+        st.session_state.sources = st.radio("Choose a source:",
+                                        ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
+                                        index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
+                                        help="Select your preferred sources of information.")
+
+        # Limit research to country-specific domains
         if st.session_state.sources == "general google search":
             st.session_state.limit_to_country = st.checkbox("Limit research to country-specific domains?", value=st.session_state.limit_to_country, help="This might provide precise results for country-specific information but will exclude international sources with .com, .org, etc.")
 
