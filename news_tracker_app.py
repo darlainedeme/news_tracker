@@ -499,7 +499,6 @@ def research():
     if not exact_keywords and query:
         # Remove all apostrophes from the query
         query = query.replace('"', '')
-        st.sidebar.write(f"Modified Query: {query}")
 
     if st.sidebar.button("Run Research"):
         links_list = []
