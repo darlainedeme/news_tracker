@@ -497,6 +497,7 @@ def research():
         links_list = []
         # Clear previous results
         query = construct_query()
+        st.write(query)
          
         # Define the endpoint URL (replace with your own endpoint and API key)
         url = "https://www.googleapis.com/customsearch/v1"
@@ -773,7 +774,7 @@ def document_analysis():
         return
 
     # Sidebar for GPT model selection
-    models = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo", "gpt-4"]
+    models = ["gpt-3.5-turbo-instruct", "gpt-4"]
     selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
 
     # Initialize the progress bar
