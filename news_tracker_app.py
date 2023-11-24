@@ -228,7 +228,7 @@ def define_research():
 
     # 3. Language
     st.subheader("3. Language")
-    if st.session_state.subset_data != None:
+    if not st.session_state.subset_data.empty:
         selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
         default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
         all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
