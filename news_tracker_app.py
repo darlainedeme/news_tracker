@@ -228,13 +228,19 @@ def define_research():
 
     # 3. Language
     st.subheader("3. Language")
-    selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
-    default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
-    all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
-    st.session_state.selected_language = st.multiselect("Language(s):",
-                                                        sorted(all_languages),
-                                                        default=default_languages,
-                                                        help="Choose the languages for your research. This will filter content based on the selected languages.")
+    if st.session_state.subset_data != None:
+        selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
+        default_languages = selected_country_languages.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
+        all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
+        st.session_state.selected_language = st.multiselect("Language(s):",
+                                                            sorted(all_languages),
+                                                            default=default_languages,
+                                                            help="Choose the languages for your research. This will filter content based on the selected languages.")
+    else:
+        st.session_state.selected_language = st.multiselect("Language(s):",
+                                                            sorted(all_languages),
+                                                            default=["English"],
+                                                            help="Choose the languages for your research. This will filter content based on the selected languages.")
 
     # Separator
     st.markdown("---")
