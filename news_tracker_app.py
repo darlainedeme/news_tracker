@@ -501,8 +501,6 @@ def research():
         query = query.replace('"', '')
         st.sidebar.write(f"Modified Query: {query}")
 
-    st.sidebar.write(query)
-
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
