@@ -219,7 +219,7 @@ def define_research():
 
     else:
         st.session_state.sources = st.radio("Choose a source:",
-                                        [""general google search", "general twitter search", "general linkedin search"],
+                                        ["general google search", "general twitter search", "general linkedin search"],
                                         index=["general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
                                         help="Select your preferred sources of information.")
 
