@@ -237,6 +237,7 @@ def define_research():
                                                             default=default_languages,
                                                             help="Choose the languages for your research. This will filter content based on the selected languages.")
     else:
+        all_languages = languages_df.melt(id_vars=['Country'], value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']).dropna()['value'].unique().tolist()
         st.session_state.selected_language = st.multiselect("Language(s):",
                                                             sorted(all_languages),
                                                             default=["English"],
