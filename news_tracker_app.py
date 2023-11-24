@@ -216,7 +216,13 @@ def define_research():
             source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
             st.write(source_counts)
             st.session_state.selected_predefined_links = list(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link)
-                
+
+    else:
+        st.session_state.sources = st.radio("Choose a source:",
+                                        [""general google search", "general twitter search", "general linkedin search"],
+                                        index=["general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
+                                        help="Select your preferred sources of information.")
+
     # Separator
     st.markdown("---")
 
