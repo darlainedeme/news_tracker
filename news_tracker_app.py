@@ -492,7 +492,7 @@ def research():
         return ' AND '.join(query_parts)
     
     # Create a sidebar with a checkbox
-    exact_keywords = st.sidebar.checkbox('Do you want exact keywords?')
+    exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
     query = construct_query()
 
     # Check if the checkbox is checked
