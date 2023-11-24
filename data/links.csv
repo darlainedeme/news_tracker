@@ -1,692 +1,738 @@
-﻿Link_ID,Country,Region,Type,Link
-1,Argentina,Country,Official Gazette,https://www.argentina.gob.ar/normativa  
-2,Argentina,Country,Official Press Releases,https://www.argentina.gob.ar/comunicacion-y-prensa/noticias
-3,Argentina,Country,Official Ministry website,https://www.argentina.gob.ar/economia/energia
-4,Argentina,Country,Official Ministry website,https://www.argentina.gob.ar/ambiente
-5,Argentina,Country,Official Ministry website,https://www.argentina.gob.ar/
-6,Argentina,Country,Disbursment / annual statements,https://www.presupuestoabierto.gob.ar/sici/quien-gasta
-7,Argentina,Country,Official initial budget document,https://www.argentina.gob.ar/sites/default/files/presupuesto_2023_j50.pdf
-8,Argentina,Country,Official initial budget document,https://www.argentina.gob.ar/economia/transparencia/presupuesto
-9,Argentina,Country,Official social media,https://twitter.com/Energia_Ar 
-10,Australia,Country,Official Gazette,https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results
-11,Australia,Country,Official Press Releases,https://www.aph.gov.au/News_and_Events
-12,Australia,Country,Official Ministry website,https://www.australia.gov.au/
-13,Australia,Country,Official Ministry website,https://www.energy.gov.au/ 
-14,Australia,Country,Official Ministry website,https://www.finance.gov.au/
-15,Australia,Country,Disbursment / annual statements,https://archive.budget.gov.au/
-16,Australia,Country,Official initial budget document,https://archive.budget.gov.au/
-17,Australia,Country,Other budget documents,https://budget.gov.au/index.htm
-18,Australia,New South Wales,Official Gazette,https://legislation.nsw.gov.au/
-19,Australia,New South Wales,Official Press Releases,https://www.nsw.gov.au/media-releases
-20,Australia,New South Wales,Official Ministry website,https://www.nsw.gov.au/ 
-21,Australia,New South Wales,Official Ministry website,https://www.energy.nsw.gov.au/ 
-22,Australia,New South Wales,Official Ministry website,https://www.treasury.nsw.gov.au/
-23,Australia,New South Wales,Disbursement / annual statements,https://www.treasury.nsw.gov.au/documents-resources/documents-library
-24,Australia,New South Wales,Official initial budget document,https://www.budget.nsw.gov.au/budget-papers
-25,Australia,Western Australia,Official Gazette,https://www.legislation.wa.gov.au/legislation/statutes.nsf/gazettes.html
-26,Australia,Western Australia,Official Ministry website,https://www.wa.gov.au/
-27,Australia,Western Australia,Official Press Releases,https://www.mediastatements.wa.gov.au/
-28,Australia,Western Australia,Official Ministry website,https://www.wa.gov.au/organisation/energy-policy-wa
-29,Australia,Western Australia,Official Ministry website,https://www.wa.gov.au/organisation/department-of-treasury
-30,Australia,Western Australia,Official initial budget document,https://www.ourstatebudget.wa.gov.au/budget-papers.html
-31,Australia,Western Australia,Other budget documents,https://www.ourstatebudget.wa.gov.au/previous-budgets.html
-32,Australia,Western Australia,Disbursement / annual statements,https://www.wa.gov.au/government/document-collections/annual-report-state-finances
-33,Australia,Queensland,Official Gazette,https://www.legislation.qld.gov.au/
-34,Australia,Queensland,Official Press Releases,https://statements.qld.gov.au/
-35,Australia,Queensland,Official Ministry website,https://www.qld.gov.au/
-36,Australia,Queensland,Official Ministry website,https://www.epw.qld.gov.au/
-37,Australia,Queensland,Official Ministry website,https://www.treasury.qld.gov.au/
-38,Australia,Queensland,Disbursement / annual statements,https://www.treasury.qld.gov.au/resource/report-state-finances/
-39,Australia,Queensland,Official initial budget document,https://www.treasury.qld.gov.au/resources/?fwp_tags=budget-papers&fwp_search=budget
-40,Australia,Queensland,Other budget documents,https://budget.qld.gov.au/
-41,Australia,Tasmania,Official Gazette,https://www.legislation.tas.gov.au/
-42,Australia,Tasmania,Official Ministry website,https://www.tas.gov.au/
-43,Australia,Tasmania,Official Ministry website,https://recfit.tas.gov.au/home
-44,Australia,Tasmania,Official Ministry website,https://www.treasury.tas.gov.au/
-45,Australia,Tasmania,Official Press Releases,https://www.premier.tas.gov.au/
-46,Australia,Tasmania,Disbursement / annual statements,https://www.treasury.tas.gov.au/budget-and-financial-management/financial-reports/treasurers-annual-financial-reports
-47,Australia,Tasmania,Official initial budget document,https://www.treasury.tas.gov.au/budget-and-financial-management/2022-23-tasmanian-budget/budget-papers-archive
-48,Australia,Victoria,Official Gazette,https://www.legislation.vic.gov.au/legislative-information
-49,Australia,Victoria,Official Press Releases,https://www.vic.gov.au/media-events-and-publications#media-releases
-50,Australia,Victoria,Official Ministry website,https://www.vic.gov.au/
-51,Australia,Victoria,Official Ministry website,https://www.energy.vic.gov.au/
-52,Australia,Victoria,Official Ministry website,https://www.dtf.vic.gov.au/home
-53,Australia,Victoria,Disbursement / annual statements,https://www.dtf.vic.gov.au/economic-and-financial-updates/state-financial-reports
-54,Australia,Victoria,Official initial budget document,https://www.budget.vic.gov.au/budget-papers
-55,Australia,Victoria,Other budget documents,https://www.dtf.vic.gov.au/state-budget/previous-budgets
-56,Australia,South Australia,Official Gazette,https://www.legislation.sa.gov.au/
-57,Australia,South Australia,Official Press Releases,https://www.dpc.sa.gov.au/news
-58,Australia,South Australia,Official Ministry website,https://www.sa.gov.au/
-59,Australia,South Australia,Official Ministry website,https://www.energymining.sa.gov.au/
-60,Australia,South Australia,Official Ministry website,https://www.treasury.sa.gov.au/
-61,Australia,South Australia,Disbursement / annual statements,https://www.treasury.sa.gov.au/budget/current-budget/previous-budgets
-62,Australia,South Australia,Official initial budget document,https://www.statebudget.sa.gov.au/budget-papers
-63,Australia,South Australia,Other budget documents,https://www.treasury.sa.gov.au/budget/current-budget/previous-budgets
-64,Australia,Northern Territory,Official Gazette,https://legislation.nt.gov.au/
-65,Australia,Northern Territory,Official Press Releases,https://nt.gov.au/news
-66,Australia,Northern Territory,Official Ministry website,https://nt.gov.au/
-67,Australia,Northern Territory,Official Ministry website,https://industry.nt.gov.au/
-68,Australia,Northern Territory,Official Ministry website,https://treasury.nt.gov.au/
-69,Australia,Northern Territory,Disbursement / annual statements,https://treasury.nt.gov.au/publications/annual-reports
-70,Australia,Northern Territory,Official initial budget document,https://budget.nt.gov.au/budget-papers
-71,Australia,Northern Territory,Other budget documents,https://treasury.nt.gov.au/dtf/financial-management-group/previous-budget-papers
-72,Australia,Australian Capital Territory,Official Gazette,https://www.legislation.act.gov.au/
-73,Australia,Australian Capital Territory,Official Press Releases,https://www.cmtedd.act.gov.au/open_government/inform/act_government_media_releases
-74,Australia,Australian Capital Territory,Official Ministry website,https://www.act.gov.au/
-75,Australia,Australian Capital Territory,Official Ministry website,https://www.environment.act.gov.au/energy
-76,Australia,Australian Capital Territory,Official Ministry website,https://www.treasury.act.gov.au/
-77,Australia,Australian Capital Territory,Disbursement / annual statements,https://www.treasury.act.gov.au/publications#Budget%20reviews
-78,Australia,Australian Capital Territory,Official initial budget document,https://www.treasury.act.gov.au/budget/previous-act-budgets
-79,Austria,Country,Official Gazette,https://www.parlament.gv.at/recherchieren/gegenstaende/gesetzesinitiativen
-80,Austria,Country,Official Press Releases,https://www.bundeskanzleramt.gv.at/bundeskanzleramt/nachrichten-der-bundesregierung.html
-81,Austria,Country,Official Ministry website,https://www.bmk.gv.at/
-82,Austria,Country,Official Ministry website,https://www.bundeskanzleramt.gv.at/public.html
-83,Austria,Country,Official Ministry website,https://www.bmf.gv.at/
-84,Austria,Country,Official initial budget document,https://www.bmf.gv.at/themen/budget/das-budget.html
-85,Austria,Country,Disbursment / annual statements,https://www.bmf.gv.at/themen/budget/aktuelle-berichte.html
-86,Belgium,Country,Official Gazette,https://www.belgielex.be/fr
-87,Belgium,Country,Official Press Releases,https://news.belgium.be/en
-88,Belgium,Country,Official Ministry website,https://economie.fgov.be/fr/themes/energie
-89,Belgium,Country,Official Ministry website,https://www.belgium.be/fr
-90,Belgium,Country,Official Ministry website,https://finances.belgium.be/fr/asbl
-91,Belgium,Country,Disbursment / annual statements,https://www.nbb.be/fr/archives-des-publications-statistiques?PubID=89
-92,Belgium,Country,Official initial budget document,https://bosa.belgium.be/fr/themes/budget-et-comptabilite/le-budget-federal/chiffres-et-analyse/budget-initial
-93,Belgium,Country,Other budget documents,https://bosa.belgium.be/fr/themes/budget-et-comptabilite/le-budget-federal/chiffres-et-analyse/budget-ajuste
-94,Belgium,Flemish Region,Official Press Releases,https://www.vlaanderen.be/nieuwsberichten
-95,Belgium,Flemish Region,Official Ministry website,https://www.vlaanderen.be/
-96,Belgium,Flemish Region,Official initial budget document,https://fin.vlaanderen.be/begroting-archief/
-97,Belgium,Flemish Region,Disbursement / annual statements,https://fin.vlaanderen.be/rekening-vlaamse-gemeenschap-archief/
-98,Belgium,Wallonie,Official Ministry website,https://www.wallonie.be/fr
-99,Belgium,Wallonie,Official Press Releases,https://www.wallonie.be/fr/actualites
-100,Belgium,Wallonie,Official Ministry website,https://energie.wallonie.be/fr/index.html?IDC=6018
-101,Belgium,Wallonie,Official Ministry website,https://finances.wallonie.be/home.html
-102,Belgium,Wallonie,Official initial budget document,https://finances.wallonie.be/home/finances-wallonnes/budget-wallon/budget-2022.html
-103,Bulgaria,Country,Official Gazette,https://dv.parliament.bg/DVWeb/index.faces
-104,Bulgaria,Country,Official Press Releases,https://www.gov.bg/bg/prestsentar/novini
-105,Bulgaria,Country,Official Ministry website,https://www.gov.bg/bg
-106,Bulgaria,Country,Official Ministry website,https://www.minfin.bg/
-107,Bulgaria,Country,Official Ministry website,https://www.me.government.bg/
-108,Bulgaria,Country,Disbursment / annual statements,https://www.minfin.bg/bg/247
-109,Bulgaria,Country,Official initial budget document,https://www.minfin.bg/bg/4
-110,Bulgaria,Country,Other budget documents,https://www.gov.bg/bg/administratsia/byudzhet/kasovo-izpalnenie-na-darzhavniya-byudzhet?page=1
-111,Brazil,Country,Official Ministry website,https://www.gov.br/ 
-112,Brazil,Country,Official Ministry website,www.planalto.gov.br 
-113,Brazil,Country,Official Ministry website,https://www.in.gov.br/ 
-114,Brazil,Country,Official Ministry website,https://www.bndes.gov.br
-115,Brazil,Country,Official Ministry website,https://eletrobras.com/ 
-116,Brazil,Country,Official Ministry website,https://www.eletronuclear.gov.br/ 
-117,Brazil,Country,Official Gazette,http://www4.planalto.gov.br/legislacao/
-118,Canada,Country,Official Gazette,https://www.gazette.gc.ca/accueil-home-eng.html
-119,Canada,Country,Official Press Releases,https://www.canada.ca/en/department-finance/news/news-releases.html
-120,Canada,Country,Official Ministry website,https://www.canada.ca/en/department-finance.html
-121,Canada,Country,Official Ministry website,https://natural-resources.canada.ca/home
-122,Canada,Country,Official Ministry website,https://www.canada.ca/en.html
-123,Canada,Country,Disbursement / annual statements,https://www.canada.ca/en/department-finance/services/publications/annual-financial-report.html
-124,Canada,Country,Official initial budget document,https://www.canada.ca/en/department-finance/services/publications/federal-budget.html
-125,Canada,Country,Other budget documents,https://www.canada.ca/en/department-finance/services/publications.html
-126,Canada,Alberta,Official Gazette,https://www.alberta.ca/laws-online-catalogue.aspx
-127,Canada,Alberta,Official Press Releases,https://www.alberta.ca/news.aspx
-128,Canada,Alberta,Official Ministry website,https://www.alberta.ca/index.aspx
-129,Canada,Alberta,Official Ministry website,https://www.alberta.ca/energy.aspx
-130,Canada,Alberta,Official Ministry website,https://www.alberta.ca/treasury-board-and-finance.aspx
-131,Canada,Alberta,Official initial budget document,https://www.alberta.ca/budget-documents.aspx
-132,Canada,British Columbia,Official Gazette,https://www.bclaws.gov.bc.ca/
-133,Canada,British Columbia,Official Press Releases,https://news.gov.bc.ca/
-134,Canada,British Columbia,Official Ministry website,https://www2.gov.bc.ca/gov/content/home
-135,Canada,British Columbia,Official Ministry website,https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/energy-mines-and-petroleum-resources
-136,Canada,British Columbia,Official initial budget document,https://www.bcbudget.gov.bc.ca/default.htm 
-137,Canada,Manitoba,Official Gazette,https://web2.gov.mb.ca/laws/index.php 
-138,Canada,Manitoba,Official Press Releases,https://news.gov.mb.ca/news/index.html
-139,Canada,Manitoba,Official Ministry website,https://www.gov.mb.ca/government/index.html
-140,Canada,Manitoba,Official Ministry website,https://www.gov.mb.ca/finance/index.html
-141,Canada,Manitoba,Official Ministry website,https://www.gov.mb.ca/sd/index.html
-142,Canada,Manitoba,Disbursement / annual statements,https://www.gov.mb.ca/finance/publications/ararchive.html
-143,Canada,Manitoba,Official initial budget document,https://www.gov.mb.ca/budget2021/index.html
-144,Canada,New Brunswick,Official Gazette,https://www.legnb.ca/en/legislation/bills 
-145,Canada,New Brunswick,Official Press Releases,https://www2.gnb.ca/content/gnb/en/news.html
-146,Canada,New Brunswick,Official Ministry website,https://www2.gnb.ca/
-147,Canada,New Brunswick,Official Ministry website,https://www2.gnb.ca/content/gnb/en/departments/finance.html
-148,Canada,New Brunswick,Official Ministry website,https://www2.gnb.ca/content/gnb/en/departments/erd.html
-149,Canada,New Brunswick,Official initial budget document,https://www2.gnb.ca/content/gnb/en/departments/finance/budget.html
-150,Canada,New Brunswick,Disbursement / annual statements,https://www2.gnb.ca/content/gnb/en/departments/finance/comptroller/content/public_accounts.html
-151,Canada,Newfoundland and Labrador,Official Gazette,https://www.assembly.nl.ca/legislation/
-152,Canada,Newfoundland and Labrador,Official Press Releases,https://www.gov.nl.ca/releases/
-153,Canada,Newfoundland and Labrador,Other budget documents,https://www.gov.nl.ca/publications/archive/
-154,Canada,Newfoundland and Labrador,Official initial budget document,https://www.gov.nl.ca/fin/budget/budget/
-155,Canada,Newfoundland and Labrador,Disbursement / annual statements,https://www.gov.nl.ca/exec/tbs/publications/public-accounts/
-156,Canada,Northwest Territories,Official Press Releases,https://www.justice.gov.nt.ca/en/legislation/
-157,Canada,Northwest Territories,Official Press Releases,https://www.gov.nt.ca/en/newsroom
-158,Canada,Northwest Territories,Official Ministry website,https://www.gov.nt.ca/
-159,Canada,Northwest Territories,Official Ministry website,https://www.fin.gov.nt.ca/en
-160,Canada,Northwest Territories,Official Ministry website,https://www.inf.gov.nt.ca/en/services/energy
-161,Canada,Northwest Territories,Disbursement / annual statements,https://www.fin.gov.nt.ca/en/resources?f%5B0%5D=field_resource_category_legacy%3A349&f%5B1%5D=field_resource_category_legacy%3A359
-162,Canada,Northwest Territories,Official initial budget document,https://www.fin.gov.nt.ca/en/document-category/budget
-163,Canada,Nova Scotia,Official Gazette,https://nslegislature.ca/legislative-business/bills-statutes
-164,Canada,Nova Scotia,Official Press Releases,https://novascotia.ca/news/
-165,Canada,Nova Scotia,Official Ministry website,https://beta.novascotia.ca/
-166,Canada,Nova Scotia,Official Ministry website,https://energy.novascotia.ca/
-167,Canada,Nova Scotia,Official Ministry website,https://beta.novascotia.ca/government/finance-and-treasury-board
-168,Canada,Nova Scotia,Disbursement / annual statements,https://beta.novascotia.ca/public-accounts
-169,Canada,Nova Scotia,Official initial budget document,https://beta.novascotia.ca/programs-and-services/publications-budget-documents
-170,Canada,Nunavut,Official Gazette,https://www.nunavutlegislation.ca/en
-171,Canada,Nunavut,Official Press Releases,https://www.gov.nu.ca/news
-172,Canada,Nunavut,Official Ministry website,https://www.gov.nu.ca/
-173,Canada,Nunavut,Official Ministry website,http://www.energy.gov.nu.ca/en/home.aspx
-174,Canada,Nunavut,Official Ministry website,https://www.gov.nu.ca/finance
-175,Canada,Nunavut,Disbursement / annual statements,https://gov.nu.ca/finance/information/public-accounts
-176,Canada,Nunavut,Official initial budget document,https://www.gov.nu.ca/information/budgets-and-business-plans
-177,Canada,Ontario,Official Gazette,https://www.ontario.ca/laws
-178,Canada,Ontario,Official Press Releases,https://news.ontario.ca/newsroom/en
-179,Canada,Ontario,Official Ministry website,https://www.ontario.ca/page/government-ontario
-180,Canada,Ontario,Official Ministry website,https://www.ontario.ca/page/ministry-finance
-181,Canada,Ontario,Official Ministry website,https://www.ontario.ca/page/ministry-energy
-182,Canada,Ontario,Disbursement / annual statements,https://www.ontario.ca/page/public-accounts-ontario-past-editions
-183,Canada,Ontario,Official initial budget document,https://budget.ontario.ca/2022/index.html
-184,Canada,Prince Edward Island,Official Gazette,https://www.princeedwardisland.ca/en/legislation/all/all/a
-185,Canada,Prince Edward Island,Official Press Releases,https://www.princeedwardisland.ca/en/news
-186,Canada,Prince Edward Island,Official Ministry website,https://www.princeedwardisland.ca/en
-187,Canada,Prince Edward Island,Official Ministry website,https://www.princeedwardisland.ca/en/topic/finance
-188,Canada,Prince Edward Island,Official Ministry website,https://www.princeedwardisland.ca/en/topic/environment-energy-and-climate-action
-189,Canada,Prince Edward Island,Disbursement / annual statements,https://www.princeedwardisland.ca/en/topic/previous-years-public-accounts
-190,Canada,Prince Edward Island,Official initial budget document,https://www.princeedwardisland.ca/en/topic/provincial-budget
-191,Canada,Quebec,Official Gazette,https://www.legisquebec.gouv.qc.ca/fr/accueil
-192,Canada,Quebec,Official Press Releases,https://www.quebec.ca/nouvelles/rechercher?sr=0&tx_solr%5Bfilter%5D%5B0%5D=news_type%3ACommuniqu%C3%A9&tx_solr%5Bfilter%5D%5B1%5D=news_type%3AInvitation%20aux%20m%C3%A9dias&tx_solr%5Bfilter%5D%5B2%5D=&tx_solr%5Bq%5D=&tx_solr%5Bsort%5D=newest%20desc&cHash=442866258f8fdc014799d2701dbe0ddf
-193,Canada,Quebec,Official Ministry website,https://www.quebec.ca/en
-194,Canada,Quebec,Official Ministry website,https://www.economie.gouv.qc.ca/
-195,Canada,Quebec,Official Ministry website,http://www.finances.gouv.qc.ca/index_en.asp
-196,Canada,Quebec,Disbursement / annual statements,https://www.quebec.ca/en/government/ministere/finances/publications#c52445
-197,Canada,Quebec,Official initial budget document,http://www.budget.finances.gouv.qc.ca/budget/archives_en/index.asp
-198,Canada,Saskatchewan,Official Gazette,https://publications.saskatchewan.ca/#/categories/295
-199,Canada,Saskatchewan,Official Press Releases,https://www.saskatchewan.ca/government/news-and-media
-200,Canada,Saskatchewan,Official Ministry website,https://www.saskatchewan.ca/
-201,Canada,Saskatchewan,Official Ministry website,https://www.saskatchewan.ca/government/government-structure/ministries/finance
-202,Canada,Saskatchewan,Official Ministry website,https://www.saskatchewan.ca/government/government-structure/ministries/energy-and-resources
-203,Canada,Saskatchewan,Official initial budget document,https://publications.saskatchewan.ca/#/categories/886
-204,Canada,Saskatchewan,Disbursement / annual statements,https://publications.saskatchewan.ca/#/categories/893
-205,Canada,Yukon,Official Gazette,https://laws.yukon.ca/cms/
-206,Canada,Yukon,Official Press Releases,https://yukon.ca/en/news
-207,Canada,Yukon,Official Ministry website,https://yukon.ca/
-208,Canada,Yukon,Official Ministry website,https://yukon.ca/en/department-energy-mines-resources
-209,Canada,Yukon,Official Ministry website,https://yukon.ca/en/department-finance
-210,Canada,Yukon,Disbursement / annual statements,https://yukon.ca/en/public-accounts
-211,Canada,Yukon,Official initial budget document,https://yukon.ca/en/budget
-212,China,Country,Official Press Releases,http://www.gov.cn/xinwen/index.htm
-213,China,Country,Official Ministry website,http://www.gov.cn/ 
-214,China,Country,Official Ministry website,https://www.mee.gov.cn/
-215,China,Country,Official Ministry website,http://www.nea.gov.cn/ 
-216,China,Country,Official Ministry website,http://www.mof.gov.cn/index.htm
-217,China,Country,Official Ministry website,https://wap.miit.gov.cn/
-218,China,Country,Disbursment / annual statements,http://www.mof.gov.cn/zyyjsgkpt/zyzfyjs/zyys_8128/ysbb/
-219,China,Country,Official initial budget document,http://www.mof.gov.cn/zyyjsgkpt/zyzfyjs/zyys/
-220,China,Country,Other budget documents,http://www.mof.gov.cn/zyyjsgkpt/
-221,Croatia,Country,Official Gazette,https://narodne-novine.nn.hr/search.aspx
-222,Croatia,Country,Official Press Releases,https://vlada.gov.hr/vijesti/8
-223,Croatia,Country,Official Ministry website,https://mingor.gov.hr/
-224,Croatia,Country,Official Ministry website,https://mfin.gov.hr/
-225,Croatia,Country,Official Ministry website,https://vlada.gov.hr/
-226,Croatia,Country,Official initial budget document,https://mfin.gov.hr/proracun-86/86
-227,Cyprus,Country,Official Gazette,http://www.cylaw.org/nomoi/
-228,Cyprus,Country,Official Press Releases,https://www.pio.gov.cy/en/press-releases/
-229,Cyprus,Country,Official Ministry website,https://www.gov.cy/gr/
-230,Cyprus,Country,Official Ministry website,https://mof.gov.cy/gr/
-231,Cyprus,Country,Official Ministry website,https://ypen.gov.gr/
-232,Cyprus,Country,Official initial budget document,https://mof.gov.cy/gr/%CE%B4%CE%B9%CE%B5%CF%85%CE%B8%CF%8D%CE%BD%CF%83%CE%B5%CE%B9%CF%82-%CE%BA%CE%B1%CE%B9-%CE%BC%CE%BF%CE%BD%CE%AC%CE%B4%CE%B5%CF%82/%CE%B4-%CE%BD%CF%83%CE%B7-%CF%80%CF%81%CE%BF%CF%8B%CF%80%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CF%83%CE%BC%CE%BF%CF%8D
-233,Czech Republic,Country,Official Gazette,https://odok.cz/portal/veklep/materialy
-234,Czech Republic,Country,Official Press Releases,https://www.vlada.cz/cz/media-centrum/
-235,Czech Republic,Country,Official Ministry website,https://www.mfcr.cz/ 
-236,Czech Republic,Country,Official Ministry website2,www.mpo.cz
-237,Czech Republic,Country,Official Ministry website2,www.vlada.cz
-238,Czech Republic,Country,Disbursment / annual statements,https://www.mfcr.cz/cs/verejny-sektor/statni-rozpocet/plneni-statniho-rozpoctu
-239,Czech Republic,Country,Official initial budget document,https://www.mfcr.cz/cs/verejny-sektor/statni-rozpocet/legislativa-statniho-rozpoctu
-240,Czech Republic,Country,Other budget documents,https://www.mfcr.cz/cs/o-ministerstvu/vzdelavani/rozpocet-v-kostce
-241,Denmark,Country,Official Ministry website,https://fm.dk/
-242,Denmark,Country,Official Ministry website,https://www.regeringen.dk/
-243,Denmark,Country,Official Ministry website,https://ens.dk/
-244,Denmark,Country,Official Ministry website,https://kefm.dk/
-245,Denmark,Country,Disbursment / annual statements,https://fm.dk/udgivelser/
-246,Denmark,Country,Official initial budget document,https://fm.dk/udgivelser/
-247,Denmark,Country,Other budget documents,https://fm.dk/udgivelser/
-248,Estonia,Country,Official Gazette,https://www.riigiteataja.ee/tervikteksti_otsing.html
-249,Estonia,Country,Official Press Releases,https://www.mkm.ee/
-250,Estonia,Country,Official Ministry website,https://www.fin.ee/
-251,Estonia,Country,Official Ministry website,https://valitsus.ee/
-252,Estonia,Country,Official Ministry website,https://envir.ee/
-253,Estonia,Country,Disbursment / annual statements,https://www.fin.ee/riigi-rahandus-ja-maksud/riigi-raamatupidamine/riigi-raamatupidamise-koondaruanded
-254,Estonia,Country,Official initial budget document,https://www.fin.ee/riigi-rahandus-ja-maksud/riigieelarve-ja-eelarvestrateegia/riigieelarve
-255,Estonia,Country,Official Ministry website,https://kik.ee/et
-256,Finland,Country,Official Gazette,https://finlex.fi/fi/laki/ajantasa/
-257,Finland,Country,Official Press Releases,https://julkaisut.valtioneuvosto.fi/
-258,Finland,Country,Official Ministry website,https://vm.fi/etusivu
-259,Finland,Country,Official Ministry website,https://tem.fi/energia
-260,Finland,Country,Official Ministry website,https://valtioneuvosto.fi/etusivu
-261,Finland,Country,Official initial budget document,https://budjetti.vm.fi/indox/tae/frame_year.jsp?year=2023&lang=fi
-262,Finland,Country,Other budget documents,https://vtv.visualisoinnit.fi/valtiontaloudentarkastuspuu/
-263,France,Country,Official Gazette,https://www.legifrance.gouv.fr/jorfr
-264,France,Country,Official Press Releases,https://www.gouvernement.fr/espace-presse
-265,France,Country,Official Ministry website,https://www.ecologie.gouv.fr/
-266,France,Country,Official Ministry website,https://www.gouvernement.fr/
-267,France,Country,Official Ministry website,https://www.economie.gouv.fr/
-268,France,Country,Official initial budget document,https://www.budget.gouv.fr/documentation/documents-budgetaires
-269,France,Country,Disbursment / annual statements,https://www.budget.gouv.fr/documentation/comptes-de-letat
-270,France,Country,Other budget documents,https://www.budget.gouv.fr/
-271,Germany,Country,Official Gazette,http://www.gesetze-im-internet.de/aktuell.html
-272,Germany,Country,Official Press Releases,https://www.bundesfinanzministerium.de/Web/DE/Presse/Pressemitteilungen/pressemitteilungen.html
-273,Germany,Country,Official Ministry website,https://www.bafa.de/DE/Energie/energie_node.html
-274,Germany,Country,Official Ministry website,https://www.bundesregierung.de/breg-de
-275,Germany,Country,Official Ministry website,https://www.bundesfinanzministerium.de
-276,Germany,Country,Official initial budget document,https://www.bundeshaushalt.de/DE/Download-Portal/download-portal.html
-277,Germany,Baden-Württemberg,Official Gazette,https://www.baden-wuerttemberg.de/de/service/gesetze-und-verordnungen
-278,Germany,Baden-Württemberg,Official Press Releases,https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilungen
-279,Germany,Baden-Württemberg,Official Ministry website,https://www.baden-wuerttemberg.de/de/startseite
-280,Germany,Baden-Württemberg,Official Ministry website,https://um.baden-wuerttemberg.de/de/startseite
-281,Germany,Baden-Württemberg,Official Ministry website,https://fm.baden-wuerttemberg.de/de/startseite
-282,Germany,Baden-Württemberg,Disbursement / annual statements,https://fm.baden-wuerttemberg.de/de/finanzen/haushalt/haushaltsrechnung
-283,Germany,Baden-Württemberg,Official initial budget document,https://www.statistik-bw.de/shp/
-284,Germany,Bavaria,Official Gazette,https://www.gesetze-bayern.de/
-285,Germany,Bavaria,Official Press Releases,https://www.bayern.de/presse/pressemitteilungen/
-286,Germany,Bavaria,Official Ministry website,https://www.bayern.de/
-287,Germany,Bavaria,Official Ministry website,https://www.stmfh.bayern.de/
-288,Germany,Bavaria,Official Ministry website,https://www.stmwi.bayern.de/
-289,Germany,Bavaria,Disbursement / annual statements,https://www.stmfh.bayern.de/haushalt/haushaltsrechnungen/
-290,Germany,Bavaria,Official initial budget document,https://www.stmfh.bayern.de/haushalt/haushaltsplaene/
-291,Germany,Berlin,Official Gazette,https://gesetze.berlin.de/bsbe/search
-292,Germany,Berlin,Official Press Releases,https://www.berlin.de/presse/
-293,Germany,Berlin,Official Ministry website,https://www.berlin.de/
-294,Germany,Berlin,Official Ministry website,https://www.berlin.de/sen/finanzen/
-295,Germany,Berlin,Official Ministry website,https://www.berlin.de/sen/wirtschaft/
-296,Germany,Berlin,Official initial budget document,https://www.berlin.de/sen/finanzen/haushalt/downloads/haushaltsplan-2022-23/artikel.1232802.php
-297,Germany,Brandenburg,Official Gazette,https://www.landesrecht.brandenburg.de/dislservice/public/gvbl.jsp
-298,Germany,Brandenburg,Official Ministry website,https://www.brandenburg.de/de/landesregierung
-299,Germany,Brandenburg,Official Ministry website,https://mdfe.brandenburg.de/mdfe/de/
-300,Germany,Brandenburg,Official Ministry website,https://mwae.brandenburg.de/de/ministerium-f%C3%BCr-wirtschaft-arbeit-und-energie/bb1.c.478848.de
-301,Germany,Brandenburg,Official initial budget document,https://mdfe.brandenburg.de/mdfe/de/themen/haushalt-und-finanzen/landeshaushalt/landeshaushalte-haushaltsplaene-und-rechnungen/
-302,Germany,Bremen,Official Gazette,https://www.gesetzblatt.bremen.de/
-303,Germany,Bremen,Official Press Releases,https://www.amtliche-bekanntmachungen.bremen.de/
-304,Germany,Bremen,Official Ministry website,https://landesportal.bremen.de/
-305,Germany,Bremen,,https://www.bauumwelt.bremen.de/
-306,Germany,Bremen,Official initial budget document,https://www.finanzen.bremen.de/haushalt/haushalt/aktuelle-haushaltsplaene-und-haushaltsportraet-1692
-307,Germany,Hamburg,Official Gazette,https://www.landesrecht-hamburg.de/bsha/search
-308,Germany,Hamburg,Official Ministry website,https://www.hamburg.de/bwi/pressemitteilungen/
-309,Germany,Hamburg,Official Ministry website,https://www.hamburg.de/senat/
-310,Germany,Hamburg,Official Ministry website,https://www.hamburg.de/bukea/
-311,Germany,Hamburg,Other budget documents,https://primary.axians-ikvs.de/sj/Produkthaushalt.xhtml?jahr=2023&kid=185b18jl185b185b18jh18jh185b185b185b185b185b185b185b185b18jl18jl185b185b18jh185b&typ=19x61air1aij19xg&dswid=-5428
-312,Germany,Hesse,Official Gazette,https://starweb.hessen.de/starweb/LIS/amtsblaetter.htm
-313,Germany,Hesse,Official Ministry website,https://hessen.de/Presse
-314,Germany,Hesse,Official Ministry website,https://hessen.de/regierung
-315,Germany,Hesse,Official initial budget document,https://finanzen.hessen.de/haushalt/haushaltsplaene
-316,Germany,Mecklenburg-Western Pomerania,Official Gazette,https://www.landesrecht-mv.de/bsmv/search
-317,Germany,Mecklenburg-Western Pomerania,Official Ministry website,https://www.regierung-mv.de/
-318,Germany,Mecklenburg-Western Pomerania,Official Ministry website,https://www.regierung-mv.de/Landesregierung/lm/
-319,Germany,Mecklenburg-Western Pomerania,Official Ministry website,https://www.regierung-mv.de/Landesregierung/fm/
-320,Germany,Mecklenburg-Western Pomerania,Official initial budget document,https://www.regierung-mv.de/Landesregierung/fm/Haushalt/Haushaltsplan/2022-2023/
-321,Germany,Lower Saxony,Official Gazette,https://voris.wolterskluwer-online.de/search?query=&publicationtype=publicationform-ats-filter%21ATS_Rechtsvorschriften
-322,Germany,Lower Saxony,Official Press Releases,https://www.niedersachsen.de/startseite/service/presse/presseinformationen/
-323,Germany,Lower Saxony,Official Ministry website,https://www.niedersachsen.de/politik_staat/landesregierung_ministerien/die-niedersaechsische-landesregierung-20076.html
-324,Germany,Lower Saxony,Official Ministry website,https://www.umwelt.niedersachsen.de/startseite/
-325,Germany,Lower Saxony,Official initial budget document,https://www.mf.niedersachsen.de/startseite/themen/haushalt/haushaltsrecht_inklusive_haushaltsplane/archiv_haushaltsplane/archiv-der-haushaltsplane-ab-1999-181859.html
-326,Germany,North Rhine-Westphalia,Official Gazette,https://recht.nrw.de/lmi/owa/br_vbl_liste?anw_nr=6&jahr=2023&sg=0&val=&ver=2&menu=0
-327,Germany,North Rhine-Westphalia,Official Press Releases,https://www.land.nrw/pressemitteilungen
-328,Germany,North Rhine-Westphalia,Official Ministry website,https://www.land.nrw/
-329,Germany,North Rhine-Westphalia,Official Ministry website,https://www.wirtschaft.nrw/ministerium
-330,Germany,North Rhine-Westphalia,Official Ministry website,https://www.finanzverwaltung.nrw.de/dienststellen/ministerium-der-finanzen-nordrhein-westfalen
-331,Germany,North Rhine-Westphalia,Official initial budget document,https://www.haushalt.fm.nrw.de//daten/html/hhp.html
-332,Germany,Rhineland-Palatinate,Official Gazette,https://www.landesrecht.rlp.de/bsrp/search
-333,Germany,Rhineland-Palatinate,Official Press Releases,https://www.rlp.de/de/service/pressemeldungen/
-334,Germany,Rhineland-Palatinate,Official Ministry website,https://www.rlp.de/de/startseite/
-335,Germany,Rhineland-Palatinate,Official Ministry website,https://fm.rlp.de/de/startseite/
-336,Germany,Rhineland-Palatinate,Official Ministry website,https://mkuem.rlp.de/de/startseite/
-337,Germany,Rhineland-Palatinate,Disbursement / annual statements,https://fm.rlp.de/de/themen/finanzen/landeshaushalt/
-338,Germany,Rhineland-Palatinate,Official initial budget document,https://fm.rlp.de/de/themen/finanzen/landeshaushalt/haushaltsplaene/
-339,Germany,Saarland,Official Gazette,https://recht.saarland.de/bssl/search
-340,Germany,Saarland,Official Press Releases,https://www.saarland.de/DE/presse-informationen/medienservice/medieninfos/medieninfos_node.html
-341,Germany,Saarland,Official Ministry website,https://www.saarland.de/DE/home/home_node.html
-342,Germany,Saarland,Official Ministry website,https://www.saarland.de/mfw/DE/home/home_node.html
-343,Germany,Saarland,Official Ministry website,https://www.saarland.de/mwide/DE/home/home_node.html
-344,Germany,Saarland,Other budget documents,https://www.saarland.de/mfw/DE/portale/haushaltundfinanzen/home/home_node.html
-345,Germany,Saxony-Anhalt,Official Gazette,https://www.landesrecht.sachsen-anhalt.de/bsst/search
-346,Germany,Saxony-Anhalt,Official Press Releases,https://www.sachsen-anhalt.de/bs/pressemitteilungen/ministerien/?no_cache=1
-347,Germany,Saxony-Anhalt,Official Ministry website,https://www.sachsen-anhalt.de/startseite
-348,Germany,Saxony-Anhalt,Official Ministry website,https://mwu.sachsen-anhalt.de/
-349,Germany,Saxony-Anhalt,Official Ministry website,https://mf.sachsen-anhalt.de/ministerium-der-finanzen
-350,Germany,Saxony-Anhalt,Other budget documents,https://mf.sachsen-anhalt.de/finanzen/haushalt#c324213
-351,Germany,Schleswig-Holstein,Official Gazette,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/gvobl_node.html
-352,Germany,Schleswig-Holstein,Official Press Releases,https://www.schleswig-holstein.de/DE/landesportal/presse/pressemitteilungen/pressemitteilungen_node.html
-353,Germany,Schleswig-Holstein,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/I/Staatskanzlei/staatskanzlei_node.html
-354,Germany,Schleswig-Holstein,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/VI/vi_node.html
-355,Germany,Schleswig-Holstein,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/V/v_node.html
-356,Germany,Schleswig-Holstein,Disbursement / annual statements,https://www.schleswig-holstein.de/DE/fachinhalte/H/haushalt_landeshaushalt/haushaltsrechnung.html?nn=da3ce3a3-f500-4307-9bc5-aaf8ff8d084e
-357,Germany,Schleswig-Holstein,Official initial budget document,https://www.schleswig-holstein.de/DE/fachinhalte/H/haushalt_landeshaushalt/haushaltsplaene_Archiv.html?nn=da3ce3a3-f500-4307-9bc5-aaf8ff8d084e
-358,Germany,Thuringia,Official Gazette,https://landesrecht.thueringen.de/bsth/search
-359,Germany,Thuringia,Official Press Releases,https://www.landesregierung-thueringen.de/medien/medieninformationen
-360,Germany,Thuringia,Official Ministry website,https://www.landesregierung-thueringen.de/
-361,Germany,Thuringia,Official Ministry website,https://umwelt.thueringen.de/
-362,Germany,Thuringia,Official Ministry website,https://finanzen.thueringen.de/
-363,Germany,Thuringia,Official initial budget document,https://finanzen.thueringen.de/themen/haushalt/haushaltsplaene/haushalt-2023
-364,Greece,Country,Official Press Releases,https://government.gov.gr/eidos/epikerotita/
-365,Greece,Country,Official Ministry website,https://ypen.gov.gr/category/anakoinoseis-typou/
-366,Greece,Country,Official Ministry website,https://government.gov.gr/
-367,Greece,Country,Official Ministry website,https://www.minfin.gr/web/guest/epikoinonia
-368,Greece,Country,Disbursement / annual statements,https://www.minfin.gr/web/guest/apologismos-isologismos-kai-loipes-chrematooikonomikes-katastaseis
-369,Greece,Country,Official initial budget document,https://www.minfin.gr/proupologismos
-370,Hungary,Country,Official Gazette,https://njt.hu/
-371,Hungary,Country,Official Press Releases,https://abouthungary.hu/
-372,Hungary,Country,Official Ministry website,https://kormany.hu/energiaugyi-miniszterium
-373,Hungary,Country,Official Ministry website,https://kormany.hu/penzugyminiszterium
-374,Hungary,Country,Official Ministry website,https://kormany.hu/
-375,Hungary,Country,Official initial budget document,https://www.allamkincstar.gov.hu/hu/koltsegvetesi-informaciok/koltsegvetes_merleg_1/222/
-376,India,Country,Official Gazette,https://egazette.nic.in/(S(g43ajlgvjctglbezip0skzue))/RecentUploads.aspx?Category=1
-377,India,Country,Official Ministry website,https://powermin.gov.in/
-378,India,Country,Official Ministry website,https://mnre.gov.in/
-379,India,Country,Official Ministry website,https://mopng.gov.in/en
-380,India,Country,Official initial budget document,https://www.india.gov.in/spotlight/union-budget-2023-2024
-381,India,Country,Official social media,https://twitter.com/mnreindia
-382,India,Country,Official social media,https://twitter.com/power_pib
-383,India,Country,Official social media,https://twitter.com/PetroleumMin
-384,India,Country,Official social media,https://twitter.com/officeofrksingh?lang=en
-385,India,Country,Official Press Releases,https://pib.gov.in/
-387,Indonesia,Country,Official Gazette,https://peraturan.bpk.go.id/
-388,Indonesia,Country,Official Press Releases,https://indonesia.go.id/
-389,Indonesia,Country,Official Ministry website,https://setkab.go.id/
-390,Indonesia,Country,Official Ministry website,https://jdih.kemenkeu.go.id/in/home
-391,Indonesia,Country,Official Ministry website,https://www.esdm.go.id/
-392,Indonesia,Country,Official initial budget document,https://www.kemenkeu.go.id/informasi-publik/keuangan-negara/uu-apbn-dan-nota-keuangan
-393,Indonesia,Country,Official social media,https://twitter.com/KementerianESDM
-394,Ireland,Country,Official Gazette,https://www.oireachtas.ie/en/bills/find-bills-and-acts/
-395,Ireland,Country,Official Press Releases,https://www.gov.ie/en/publications/
-396,Ireland,Country,Official Ministry website,https://www.gov.ie/en/organisation/department-of-the-environment-climate-and-communications/
-397,Ireland,Country,Official Ministry website,https://www.gov.ie/en/
-398,Ireland,Country,Official Ministry website,https://www.gov.ie/en/organisation/department-of-finance/
-399,Ireland,Country,Disbursement / annual statements,https://www.gov.ie/en/publication/eb6ec-budget-2023-expenditure-reports/
-400,Ireland,Country,Official initial budget document,https://www.gov.ie/en/collection/34556-previous-budgets/
-401,Ireland,Country,Official social media,https://twitter.com/Dept_ECC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor
-402,Italy,Country,Official Gazette,https://www.normattiva.it/
-403,Italy,Country,Official Press Releases,https://www.governo.it/it/tipologie-contenuto/comunicati-stampa
-404,Italy,Country,Official Ministry website,https://www.governo.it/it
-405,Italy,Country,Official Ministry website,https://www.mase.gov.it/
-406,Italy,Country,Official Ministry website,https://www.mef.gov.it/
-407,Italy,Country,Official Ministry website,https://www.rgs.mef.gov.it/VERSIONE-I/pubblicazioni/pubblicazioni_statistiche/la_spesa_delle_amministrazioni_centrali_dello_stato/2021/
-408,Italy,Country,Disbursement / annual statements,https://www.rgs.mef.gov.it/VERSIONE-I/archivio/risultato.html?tipologia=Pubblicazioni&ambito=Attivit%C3%A0+istituzionali&argomento=Bilancio+di+previsione&titolo=Budget+Economico&circolareNumero=&cerca_text=
-409,Italy,Country,Official initial budget document,https://www.rgs.mef.gov.it/VERSIONE-I/attivita_istituzionali/formazione_e_gestione_del_bilancio/bilancio_di_previsione/bilancio_finanziario/index.html#link2
-410,Italy,Country,Official social media,https://twitter.com/MASE_IT
-411,Japan,Country,Official Gazette,https://elaws.e-gov.go.jp/
-412,Japan,Country,Official Press Releases,https://www.meti.go.jp/press/index.html
-413,Japan,Country,Official Ministry website,https://www.meti.go.jp/
-414,Japan,Country,Official Ministry website,https://www.kantei.go.jp/
-415,Japan,Country,Official Ministry website,https://www.japan.go.jp/
-416,Japan,Country,Disbursement / annual statements,https://www.mof.go.jp/policy/budget/budger_workflow/account/index.html
-417,Japan,Country,Official initial budget document,https://www.mof.go.jp/policy/budget/index.html
-418,Japan,Country,Other budget documents,https://www.bb.mof.go.jp/hdocs/bxsselect.html
-419,Japan,Country,Official social media,https://twitter.com/meti_NIPPON
-420,Korea,Country,Official Gazette,https://www.law.go.kr/LSW/lsAstSc.do?menuId=391&subMenuId=397&tabMenuId=437&lsFdCd=00000000&eventGubun=060102#lsFd00000000
-421,Korea,Country,Official Press Releases,https://www.moj.go.kr/moj/252/subview.do
-422,Korea,Country,Official Ministry website,http://www.motie.go.kr/www/main.do
-423,Korea,Country,Official Ministry website,https://www.gov.kr/portal/main
-424,Korea,Country,Official Ministry website,https://www.moef.go.kr/
-425,Korea,Country,Official initial budget document,https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000031&nttId=89880
-426,Korea,Country,Other budget documents,https://www.openfiscaldata.go.kr/op/ko/fd/UOPKOFDA03?pageIndex=1&pageSize=7000&totalCnt=0
-427,Korea,Country,Official social media,https://twitter.com/motienews
-428,Latvia,Country,Official Gazette,https://likumi.lv/
-429,Latvia,Country,Official Press Releases,https://www.em.gov.lv/lv/jaunumi
-430,Latvia,Country,Official Ministry website,https://www.em.gov.lv/lv
-431,Latvia,Country,Official Ministry website,https://www.mk.gov.lv/lv?utm_source=https%3A%2F%2Fwww.google.com%2F
-432,Latvia,Country,Official Ministry website,https://www.fm.gov.lv/lv?utm_source=https%3A%2F%2Fwww.google.com%2F
-433,Latvia,Country,Disbursement / annual statements,https://www.fm.gov.lv/lv/izdevumu-parskatisana
-434,Latvia,Country,Official initial budget document,https://www.fm.gov.lv/lv/valsts-budzeta-izstrade
-435,Latvia,Country,Other budget documents,https://www.fm.gov.lv/lv/interaktivie-budzeta-riki
-436,Latvia,Country,Official social media,https://twitter.com/EM_gov_lv
-437,Lithuania,Country,Official Gazette,https://e-seimas.lrs.lt/portal/simpleSearch/lt
-438,Lithuania,Country,Official Press Releases,https://enmin.lrv.lt/lt/teisine-informacija/teises-aktai
-439,Lithuania,Country,Official Ministry website,https://enmin.lrv.lt/lt/naujienos
-440,Lithuania,Country,Official Ministry website,https://enmin.lrv.lt/
-441,Lithuania,Country,Official Ministry website,https://lrv.lt/
-442,Lithuania,Country,Official Ministry website,https://finmin.lrv.lt/
-443,Lithuania,Country,Disbursement / annual statements,https://finmin.lrv.lt/valstybes-biudzeto-vykdymo-duomenys-1
-444,Lithuania,Country,Official initial budget document,https://finmin.lrv.lt/lt/veiklos-sritys/biudzetas/patvirtinti-biudzetai
-445,Lithuania,Country,Official social media,https://twitter.com/MinEnergyLT
-446,Luxembourg,Country,Official Gazette,https://www.legilux.public.lu/
-447,Luxembourg,Country,Official Press Releases,https://mea.gouvernement.lu/de/actualites.html
-448,Luxembourg,Country,Official Ministry website,https://gouvernement.lu/fr/actualites.html
-449,Luxembourg,Country,Official Ministry website,https://mea.gouvernement.lu/fr.html
-450,Luxembourg,Country,Official Ministry website,https://mfin.gouvernement.lu/fr.html
-451,Luxembourg,Country,Disbursement / annual statements,https://budget.public.lu/lb/budget2021/am-detail.html?chpt=depenses
-452,Luxembourg,Country,Official initial budget document,https://budget.public.lu/lb/budget2021.html
-453,Luxembourg,Country,Official social media,https://twitter.com/gouv_lu
-454,Malta,Country,Official Gazette,https://www.gov.mt/mt/Government/DOI/Government%20Gazette/Pages/default.aspx
-455,Malta,Country,Official Press Releases,https://www.gov.mt/mt/Government/DOI/Press%20Releases/Pages/default.aspx
-456,Malta,Country,Official Ministry website,https://energy.gov.mt/en/Pages/default.aspx
-457,Malta,Country,Official Ministry website,https://finance.gov.mt/en/Pages/default.aspx
-458,Malta,Country,Official initial budget document,https://finance.gov.mt/en/The-Budget/Pages/The-Budget-2022.aspx
-459,Malta,Country,Official social media,https://twitter.com/MaltaGov
-460,Mexico,Country,Official Gazette,https://www.dof.gob.mx/index.php#gsc.tab=0
-461,Mexico,Country,Official Ministry website,https://www.gob.mx/ 
-462,Mexico,Country,Official Ministry website,https://www.jefaturadegobierno.cdmx.gob.mx
-463,Mexico,Country,Official Ministry website,https://www.sedeco.cdmx.gob.mx 
-464,Mexico,Country,Official Ministry website,https://sidof.segob.gob.mx 
-465,Netherlands,Country,Official Press Releases,https://www.rijksoverheid.nl/actueel/nieuws
-466,Netherlands,Country,Official Ministry website,https://www.rijksoverheid.nl/
-467,Netherlands,Country,Official Ministry website,https://www.rijksoverheid.nl/ministeries/ministerie-van-financien
-468,Netherlands,Country,Official Ministry website,https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat
-469,Netherlands,Country,Disbursement / annual statements,https://www.rijksfinancien.nl/financieel-jaarverslag/2021
-470,Netherlands,Country,Official initial budget document,https://www.rijksoverheid.nl/onderwerpen/prinsjesdag/miljoenennota-en-andere-officiele-stukken
-471,Netherlands,Country,Other budget documents,https://archief.rijksbegroting.nl/2021/voorbereiding/begroting
-472,Netherlands,Country,Official social media,https://twitter.com/MinisterieEZK
-473,Poland,Country,Official Press Releases,https://www.gov.pl/web/klimat/wiadomosci
-474,Poland,Country,Official Ministry website,https://www.gov.pl/
-475,Poland,Country,Official Ministry website,https://www.gov.pl/web/finanse
-476,Poland,Country,Official Ministry website,https://www.gov.pl/web/klimat
-477,Poland,Country,Disbursement / annual statements,https://www.gov.pl/web/finanse/sprawozdania-roczne
-478,Poland,Country,Official initial budget document,https://www.gov.pl/web/finanse/ustawy-budzetowe
-479,Portugal,Country,Official Gazette,https://dre.pt/dre/home
-480,Portugal,Country,Official Press Releases,https://www.portugal.gov.pt/pt/gc23/comunicacao/noticias
-481,Portugal,Country,Official Ministry website,https://www.portugal.gov.pt/pt/gc23
-482,Portugal,Country,Official Ministry website,https://workflow.sgambiente.gov.pt/
-483,Portugal,Country,Official Ministry website,https://www.sgmf.gov.pt/
-484,Portugal,Country,Disbursement / annual statements,https://www.dgo.gov.pt/politicaorcamental/Paginas/Conta-Geral-do-Estado.aspx?Ano=2021
-485,Portugal,Country,Official initial budget document,https://oe2022.gov.pt/orcamento-do-estado-2022/#
-486,Portugal,Country,Other budget documents,https://www.dgo.gov.pt/politicaorcamental/Paginas/OrcamentosEstado.aspx?Ano=2023&TipoOE=Or%c3%a7amento%20Estado%20Aprovado
-487,Portugal,Country,Official social media,https://twitter.com/ambiente_pt
-488,Romania,Country,Official Gazette,https://legislatie.just.ro/
-489,Romania,Country,Official Press Releases,https://gov.ro/ro/media
-490,Romania,Country,Official Ministry website,https://www.gov.ro/
-491,Romania,Country,Official Ministry website,https://energie.gov.ro/
-492,Romania,Country,Official Ministry website,https://mfinante.gov.ro/ro/web/site
-493,Romania,Country,Disbursement / annual statements,https://mfinante.gov.ro/domenii/bugetul-de-stat/informatii-executie-bugetara
-494,Romania,Country,Official initial budget document,https://mfinante.gov.ro/domenii/buget
-495,Romania,Country,Other budget documents,https://mfinante.gov.ro/domenii/bugetul-de-stat/informatii-executie-bugetara
-496,Romania,Country,Official social media,https://twitter.com/menergiei?lang=en
-497,Saudi Arabia,Country,Official Press Releases,https://www.my.gov.sa/wps/portal/snp/content/news
-498,Saudi Arabia,Country,Official Ministry website,https://www.my.gov.sa/wps/portal/snp/main
-499,Saudi Arabia,Country,Official Ministry website,https://www.moenergy.gov.sa/en/Pages/default.aspx
-500,Saudi Arabia,Country,Official Ministry website,https://www.mof.gov.sa/en/Pages/default.aspx
-501,Saudi Arabia,Country,Disbursement / annual statements,https://www.mof.gov.sa/en/financialreport/Pages/default.aspx
-502,Saudi Arabia,Country,Official initial budget document,https://www.mof.gov.sa/en/budget/2023/Documents/Bud-En%202023MoF.pdf
-503,Saudi Arabia,Country,Other budget documents,https://www.mof.gov.sa/en/docslibrary/Pages/default.aspx?RootFolder=%2Fen%2Fdocslibrary%2FDocuments%2FBudget%20Data&FolderCTID=0x01200046C39169B8F34507A1E9C1B56419BA4700F8330B8870F78841992240D55094568A&View=%7B94BEEDF4-72E6-478F-B8C3-5FDFBC95AD49%7D
-504,Saudi Arabia,Country,Official social media,https://twitter.com/MoEnergy_Saudi?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Escreen-name%3AMoEnergy_Saudi%7Ctwcon%5Es1_c1
-505,Slovakia,Country,Official Gazette,https://www.minv.sk/?vestnik-vlady-sr
-506,Slovakia,Country,Official Press Releases,https://www.mhsr.sk/press?csrt=12775889612641176442
-507,Slovakia,Country,Official Ministry website,https://www.vlada.gov.sk/vlada-slovenskej-republiky/
-508,Slovakia,Country,Official Ministry website,https://www.mfsr.sk/sk/
-509,Slovakia,Country,Official Ministry website,https://www.mhsr.sk/
-510,Slovakia,Country,Disbursement / annual statements,https://www.mfsr.sk/sk/financie/statne-vykaznictvo/klucove-dokumenty-uctovne-zavierky/statny-zaverecny-ucet-sr/
-511,Slovakia,Country,Official initial budget document,https://www.mfsr.sk/sk/financie/verejne-financie/rozpocet-verejnej-spravy/
-512,Slovakia,Country,Other budget documents,https://www.mhsr.sk/ministerstvo/rozpocet-mh-sr-1/rozpocet-mh-sr
-513,Slovenia,Country,Official Gazette,https://www.uradni-list.si/
-514,Slovenia,Country,Official Press Releases,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-okolje-podnebje-in-energijo/novice/
-515,Slovenia,Country,Official Ministry website,https://www.gov.si/drzavni-organi/vlada/
-516,Slovenia,Country,Official Ministry website,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-finance/
-517,Slovenia,Country,Official Ministry website,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-okolje-podnebje-in-energijo/
-518,Slovenia,Country,Disbursement / annual statements,https://www.gov.si/zbirke/seznami/zakljucni-racuni-proracuna-republike-slovenije/
-519,Slovenia,Country,Official initial budget document,https://www.gov.si/zbirke/seznami/sprejeti-proracuni-republike-slovenije/
-520,Slovenia,Country,Official social media,https://twitter.com/mope_rs
-521,Spain,Country,Official Gazette,https://www.boe.es/
-522,Spain,Country,Official Press Releases,https://energia.gob.es/es-es/Novedades/Paginas/ListadoNovedades.aspx
-523,Spain,Country,Official Ministry website,https://www.lamoncloa.gob.es/Paginas/index.aspx
-524,Spain,Country,Official Ministry website,https://www.hacienda.gob.es/es-ES/Paginas/Home.aspx
-525,Spain,Country,Official Ministry website,https://www.miteco.gob.es/es/
-526,Spain,Country,Disbursement / annual statements,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/InformeEconomicoFinanciero/Paginas/InformeEconomicoFinanciero.aspx
-527,Spain,Country,Official initial budget document,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/PGE/PresupuestosEjerciciosAnteriores/Paginas/presupuestosejerciciosanteriores.aspx
-528,Spain,Country,Other budget documents,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/DocumentacionEstadisticas/Estadisticas/Paginas/Estadisticas.aspx
-529,Spain,Country,Official social media,https://twitter.com/mitecogob
-530,South Africa,Country,Official Gazette,https://www.gov.za/documents/notices
-531,South Africa,Country,Official Press Releases,https://www.energy.gov.za/files/media_frame.html
-532,South Africa,Country,Official Ministry website,https://www.gov.za/
-533,South Africa,Country,Official Ministry website,https://www.treasury.gov.za
-534,South Africa,Country,Official Ministry website,https://www.energy.gov.za/
-535,South Africa,Country,Disbursement / annual statements,https://www.treasury.gov.za/documents/mtbps/default.aspx
-536,South Africa,Country,Official initial budget document,https://www.treasury.gov.za/documents/National%20Budget/default.aspx
-537,South Africa,Country,Other budget documents,https://www.gov.za/national-budget-0
-538,South Africa,Country,Official social media,https://twitter.com/DMRE_ZA
-539,Sweden,Country,Official Gazette,https://www.riksdagen.se/sv/dokument-lagar/?doktyp=sfs&dokstat=g%c3%a4llande+sfs
-540,Sweden,Country,Official Press Releases,https://www.regeringen.se/pressmeddelanden/
-541,Sweden,Country,Official Ministry website,https://www.regeringen.se/
-542,Sweden,Country,Official Ministry website,https://www.regeringen.se/sveriges-regering/klimat--och-naringslivsdepartementet/
-543,Sweden,Country,Official Ministry website,https://www.regeringen.se/sveriges-regering/finansdepartementet/
-544,Sweden,Country,Disbursement / annual statements,https://www.regeringen.se/rattsliga-dokument/skrivelse/2022/04/skr.-202122101/
-545,Sweden,Country,Official initial budget document,https://www.regeringen.se/sveriges-regering/finansdepartementet/statens-budget/budgetpropositioner-per-budgetar/
-546,Türkiye,Country,Official Gazette,https://www.resmigazete.gov.tr/
-547,Türkiye,Country,Official Ministry website,https://www.turkiye.gov.tr/
-548,Türkiye,Country,Official Ministry website,https://enerji.gov.tr/
-549,Türkiye,Country,Official Ministry website,https://www.hmb.gov.tr/
-550,Türkiye,Country,Disbursement / annual statements,https://www.sbb.gov.tr/butce-merkezi-yonetim-butce-gerceklesmeleri-ve-beklentiler-raporlari/
-551,Türkiye,Country,Official initial budget document,https://www.sbb.gov.tr/merkezi-yonetim-butce-kanunlari/
-552,United Kingdom,Country,Official Gazette,https://bills.parliament.uk/
-553,United Kingdom,Country,Official Press Releases,https://www.gov.uk/search/news-and-communications
-554,United Kingdom,Country,Official Ministry website,https://www.gov.uk/
-555,United Kingdom,Country,Official Ministry website,https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero
-556,United Kingdom,Country,Official Ministry website,https://www.gov.uk/government/organisations/hm-treasury
-557,United Kingdom,Country,Disbursement / annual statements,https://www.gov.uk/government/publications/budget-2021-documents
-558,United Kingdom,Country,Official initial budget document,https://www.gov.uk/government/publications/autumn-statement-2022-documents
-559,United Kingdom,Country,Other budget documents,https://obr.uk/forecasts-in-depth/policy-costings/
-560,United Kingdom,Country,Official social media,https://twitter.com/energygovuk
-561,United States of America,Country,Official Ministry website,https://www.usa.gov/
-562,United States of America,Country,Official Ministry website,https://www.energy.gov/
-563,United States of America,Country,Official Ministry website,https://home.treasury.gov/
-564,United States of America,Country,Disbursement / annual statements,https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/
-565,United States of America,Country,Official initial budget document,https://www.congress.gov/help/appropriations-and-budget
-566,United States of America,Country,Other budget documents,https://www.usaspending.gov/
-567,United States of America,Country,Official social media,https://twitter.com/energy
-568,United States of America,Country,Other budget documents,https://www.cbo.gov/data/budget-economic-data
-569,United States of America,California,Official Gazette,https://leginfo.legislature.ca.gov/
-570,United States of America,California,Official Ministry website,https://www.ca.gov/
-571,United States of America,California,Official Ministry website,https://www.energy.ca.gov/
-572,United States of America,California,Official Ministry website,https://www.energy.ca.gov/
-573,United States of America,Country,Official Ministry website,https://www.usaspending.gov/
-574,United States of America,Country,Official Ministry website,https://www.eia.gov/
-575,United States of America,Country,Official social media,https://twitter.com/StateDept
-576,United States of America,Country,Official social media,https://twitter.com/POTUS
-577,Australia,Country,Non-official sources,https://www.abc.net.au/ 
-578,Australia,Country,Non-official sources,https://www.skynews.com.au/ 
-579,Australia,Country,Non-official sources,https://www.smh.com.au/ 
-580,Australia,Country,Non-official sources,https://thewest.com.au/ 
-581,Australia,Country,Non-official sources,https://thefifthestate.com.au/ 
-582,Australia,Country,Non-official sources,https://thedriven.io/ 
-583,Brazil,Country,Non-official sources,https://valorinternational.globo.com/ 
-584,Brazil,Country,Non-official sources,istoe.com.br 
-585,Brazil,Country,Non-official sources,https://oglobo.globo.com 
-586,Canada,Country,Non-official sources,https://www.cbc.ca/ 
-587,Canada,Country,Non-official sources,https://laws-lois.justice.gc.ca/ 
-588,Canada,Country,Non-official sources,https://news.gov.bc.ca/ 
-589,China,Country,Non-official sources,https://www.sohu.com/ 
-590,China,Country,Non-official sources,http://www.news.cn/ 
-591,China,Country,Non-official sources,http://www.xinhuanet.com 
-592,China,Country,Non-official sources,https://www.world-nuclear-news.org/ 
-593,China,Country,Non-official sources,https://theicct.org 
-594,China,Country,Non-official sources,https://finance.sina.com.cn 
-595,China,Country,Non-official sources,https://m.21jingji.com 
-596,China,Country,Non-official sources,https://www.caixinglobal.com
-597,France,Country,Non-official sources,https://www.actu-environnement.com 
-598,France,Country,Non-official sources,https://www.francetvinfo.fr 
-599,France,Country,Non-official sources,http://www.arnaudgossement.com 
-600,France,Country,Non-official sources,https://www.degaullefleurance.com 
-601,France,Country,Non-official sources,https://www.les-energies-renouvelables.eu 
-602,Germany,Country,Non-official sources,https://www.geea.info/ 
-603,Germany,Country,Non-official sources,https://www.cdu.de
-604,India,Country,Non-official sources,https://economictimes.indiatimes.com 
-605,India,Country,Non-official sources,https://timesofindia.indiatimes.com 
-606,India,Country,Non-official sources,https://www.deccanherald.com 
-607,India,Country,Non-official sources,https://www.financialexpress.com 
-608,India,Country,Non-official sources,http://energy.economictimes.indiatimes.com 
-609,India,Country,Non-official sources,https://science.thewire.in 
-610,India,Country,Non-official sources,https://www.thehindu.com
-611,Indonesia,Country,Non-official sources,https://www.antaranews.com/ 
-612,Indonesia,Country,Non-official sources,https://assets.bbhub.io 
-613,Indonesia,Country,Non-official sources,https://www.ashurst.com/
-614,Italy,Country,Non-official sources,https://www.energysynt.com 
-615,Japan,Country,Non-official sources,https://www.argusmedia.com/en/ 
-616,Japan,Country,Non-official sources,https://www.eu-japan.eu 
-617,Mexico,Country,Non-official sources,https://lopezobrador.org.mx 
-618,Mexico,Country,Non-official sources,https://www.elfinanciero.com.mx/ 
-619,Korea,Country,Non-official sources,https://www.koreatimes.co.kr
-620,Korea,Country,Non-official sources,https://en.yna.co.kr 
-621,Korea,Country,Non-official sources,http://www.koreaherald.com
-622,Korea,Country,Non-official sources,https://pulsenews.co.kr
-623,Korea,Country,Non-official sources,https://en.yna.co.kr
-624,Saudi Arabia,Country,Non-official sources,http://https://www.acwapower.com
-625,Saudi Arabia,Country,Non-official sources,http://https://www.aramco.com
-626,Saudi Arabia,Country,Non-official sources,https://www.power-technology.com 
-627,South Africa,Country,Non-official sources,https://www.ipp-renewables.co.za
-628,South Africa,Country,Non-official sources,https://www.ipp-projects.co.za 
-629,South Africa,Country,Non-official sources,https://www.news24.com 
-630,South Africa,Country,Non-official sources,http://https://www.sanews.gov.za/ 
-631,Türkiye,Country,Non-official sources,https://www.enerdata.net
-632,Türkiye,Country,Non-official sources,https://www.argusmedia.com 
-633,Türkiye,Country,Non-official sources,https://www.aa.com.tr
-634,Australia,Country,Official Ministry website,https://parlinfo.aph.gov.au/ 
-635,Australia,Country,Official Ministry website,https://www.minister.industry.gov.au/ 
-636,Australia,Country,Official Ministry website,https://arena.gov.au/ 
-637,Australia,Country,Official Ministry website,https://business.gov.au/grants-and-programs/carbon-capture-use-and-storage-development-fund 
-638,Australia,Country,Official Ministry website,https://services.dffh.vic.gov.au/ 
-639,Australia,Country,Official Ministry website,www.cefc.com.au 
-640,Australia,Country,Official Ministry website,https://minister.dcceew.gov.au/ 
-641,Australia,Country,Official Ministry website,https://www.concessions.tas.gov.au/ 
-642,Australia,Country,Official Ministry website,https://www.pm.gov.au/ 
-643,Australia,Country,Official Ministry website,https://treasury.gov.au 
-644,Canada,Country,Official Ministry website,https://open.alberta.ca/ 
-645,Canada,Country,Official Ministry website,https://www.nrcan.gc.ca 
-646,Canada,Country,Official Ministry website,https://budget.gc.ca
-647,Canada,Country,Official Ministry website,https://pm.gc.ca/ 
-648,China,Country,Official Ministry website,http://gxj.sz.gov.cn/ 
-649,China,Country,Official Ministry website,https://www.ndrc.gov.cn 
-650,China,Country,Official Ministry website,http://jjs.mof.gov.cn/ 
-651,China,Country,Official Ministry website,http://www.hg.gov.cn 
-652,China,Country,Official Ministry website,http://english.www.gov.cn
-653,China,Country,Official Ministry website,http://www.sasac.gov.cn 
-654,China,Country,Official Ministry website,http://yss.mof.gov.cn
-655,China,Country,Official Ministry website,http://www.pbc.gov.cn
-656,China,Country,Official Ministry website,https://www.ngd-fund.com 
-657,France,Country,Official Ministry website,https://www.vie-publique.fr 
-658,France,Country,Official Ministry website,https://expertises.ademe.fr 
-659,France,Country,Official Ministry website,https://www.entreprises.gouv.fr
-660,France,Country,Official Ministry website,https://www.elysee.fr 
-661,France,Country,Official Ministry website,https://www.assemblee-nationale.fr 
-662,Germany,Country,Official Ministry website,https://dip.bundestag.de 
-663,Germany,Country,Official Ministry website,https://www.bmwk.de 
-664,Germany,Country,Official Ministry website,https://www.bmvi.de 
-665,Germany,Country,Official Ministry website,https://www.bmuv.de/ 
-666,Germany,Country,Official Ministry website,https://www.energieforschung.de/ 
-667,India,Country,Official Ministry website,https://niti.gov.in/ 
-668,India,Country,Official Ministry website,https://twitter.com/nsitharaman 
-669,India,Country,Official Ministry website,https://prsindia.org 
-670,India,Country,Official Ministry website,https://indianrailways.gov.in 
-671,India,Country,Official Ministry website,https://www.indiabudget.gov.in/ 
-672,India,Country,Official Ministry website,https://powermin.gov.in/ 
-673,Indonesia,Country,Official Ministry website,https://sdgs.bappenas.go.id/
-674,Italy,Country,Official Ministry website,https://www.gazzettaufficiale.it/ 
-675,Italy,Country,Official Ministry website,https://documenti.camera.it 
-676,Italy,Country,Official Ministry website,https://temi.camera.it 
-677,Italy,Country,Official Ministry website,https://www.lavoro.gov.it 
-678,Italy,Country,Official Ministry website,https://www.mise.gov.it 
-679,Italy,Country,Official Ministry website,https://www.arera.it/it 
-680,Japan,Country,Official Ministry website,https://www.sangiin.go.jp 
-681,Japan,Country,Official Ministry website,https://japan.kantei.go.jp
-682,Japan,Country,Official Ministry website,https://www5.cao.go.jp 
-683,Japan,Country,Official Ministry website,https://www.env.go.jp 
-684,Japan,Country,Official Ministry website,https://sii.or.jp 
-685,Japan,Country,Official Ministry website,https://www.nedo.go.jp
-686,Japan,Country,Official Ministry website,https://www.mlit.go.jp 
-687,Japan,Country,Official Ministry website,https://www.gzr.aist.go.jp/en/ 
-688,Korea,Country,Official Ministry website,https://www.alio.go.kr 
-689,Korea,Country,Official Ministry website,https://www.korea.kr 
-690,Korea,Country,Official Ministry website,https://eng.me.go.kr
-691,Korea,Country,Official Ministry website,https://www.mss.go.kr 
-692,Turkey,Country,Official Ministry website,https://www.epdk.gov.tr
+﻿Link_ID,Country,Region,Tracker_#,Type,Link
+1,Argentina,Country,Both,Official Gazette,https://www.argentina.gob.ar/normativa  
+2,Argentina,Country,Both,Official Press Releases,https://www.argentina.gob.ar/comunicacion-y-prensa/noticias
+3,Argentina,Country,Both,Official Ministry website,https://www.argentina.gob.ar/economia/energia
+4,Argentina,Country,Both,Official Ministry website,https://www.argentina.gob.ar/ambiente
+5,Argentina,Country,Both,Official Ministry website,https://www.argentina.gob.ar/
+6,Argentina,Country,Tracker_B,Disbursment / annual statements,https://www.presupuestoabierto.gob.ar/sici/quien-gasta
+7,Argentina,Country,Tracker_A,Official initial budget document,https://www.argentina.gob.ar/sites/default/files/presupuesto_2023_j50.pdf
+8,Argentina,Country,Tracker_A,Official initial budget document,https://www.argentina.gob.ar/economia/transparencia/presupuesto
+9,Argentina,Country,Both,Official social media,https://twitter.com/Energia_Ar 
+,Argentina,Country,,Official Ministry website,https://www.cancilleria.gob.a
+10,Australia,Country,Both,Official Gazette,https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results
+11,Australia,Country,Both,Official Press Releases,https://www.aph.gov.au/News_and_Events
+12,Australia,Country,Both,Official Ministry website,https://www.australia.gov.au/
+13,Australia,Country,Both,Official Ministry website,https://www.energy.gov.au/ 
+14,Australia,Country,Both,Official Ministry website,https://www.finance.gov.au/
+15,Australia,Country,Both,Disbursment / annual statements,https://archive.budget.gov.au/
+16,Australia,Country,Both,Official initial budget document,https://archive.budget.gov.au/
+17,Australia,Country,Both,Other budget documents,https://budget.gov.au/index.htm
+18,Australia,New South Wales,Both,Official Gazette,https://legislation.nsw.gov.au/
+19,Australia,New South Wales,Both,Official Press Releases,https://www.nsw.gov.au/media-releases
+20,Australia,New South Wales,Both,Official Ministry website,https://www.nsw.gov.au/ 
+21,Australia,New South Wales,Both,Official Ministry website,https://www.energy.nsw.gov.au/ 
+22,Australia,New South Wales,Both,Official Ministry website,https://www.treasury.nsw.gov.au/
+23,Australia,New South Wales,Tracker_B,Disbursement / annual statements,https://www.treasury.nsw.gov.au/documents-resources/documents-library
+24,Australia,New South Wales,Tracker_A,Official initial budget document,https://www.budget.nsw.gov.au/budget-papers
+25,Australia,Western Australia,Both,Official Gazette,https://www.legislation.wa.gov.au/legislation/statutes.nsf/gazettes.html
+26,Australia,Western Australia,Both,Official Ministry website,https://www.wa.gov.au/
+27,Australia,Western Australia,Both,Official Press Releases,https://www.mediastatements.wa.gov.au/
+28,Australia,Western Australia,Both,Official Ministry website,https://www.wa.gov.au/organisation/energy-policy-wa
+29,Australia,Western Australia,Both,Official Ministry website,https://www.wa.gov.au/organisation/department-of-treasury
+30,Australia,Western Australia,Tracker_A,Official initial budget document,https://www.ourstatebudget.wa.gov.au/budget-papers.html
+31,Australia,Western Australia,Tracker_A,Other budget documents,https://www.ourstatebudget.wa.gov.au/previous-budgets.html
+32,Australia,Western Australia,Tracker_B,Disbursement / annual statements,https://www.wa.gov.au/government/document-collections/annual-report-state-finances
+33,Australia,Queensland,Both,Official Gazette,https://www.legislation.qld.gov.au/
+34,Australia,Queensland,Both,Official Press Releases,https://statements.qld.gov.au/
+35,Australia,Queensland,Both,Official Ministry website,https://www.qld.gov.au/
+36,Australia,Queensland,Both,Official Ministry website,https://www.epw.qld.gov.au/
+37,Australia,Queensland,Both,Official Ministry website,https://www.treasury.qld.gov.au/
+38,Australia,Queensland,Tracker_B,Disbursement / annual statements,https://www.treasury.qld.gov.au/resource/report-state-finances/
+39,Australia,Queensland,Tracker_A,Official initial budget document,https://www.treasury.qld.gov.au/resources/?fwp_tags=budget-papers&fwp_search=budget
+40,Australia,Queensland,Both,Other budget documents,https://budget.qld.gov.au/
+41,Australia,Tasmania,Both,Official Gazette,https://www.legislation.tas.gov.au/
+42,Australia,Tasmania,Both,Official Ministry website,https://www.tas.gov.au/
+43,Australia,Tasmania,Both,Official Ministry website,https://recfit.tas.gov.au/home
+44,Australia,Tasmania,Both,Official Ministry website,https://www.treasury.tas.gov.au/
+45,Australia,Tasmania,Both,Official Press Releases,https://www.premier.tas.gov.au/
+46,Australia,Tasmania,Tracker_B,Disbursement / annual statements,https://www.treasury.tas.gov.au/budget-and-financial-management/financial-reports/treasurers-annual-financial-reports
+47,Australia,Tasmania,Tracker_A,Official initial budget document,https://www.treasury.tas.gov.au/budget-and-financial-management/2022-23-tasmanian-budget/budget-papers-archive
+48,Australia,Victoria,Both,Official Gazette,https://www.legislation.vic.gov.au/legislative-information
+49,Australia,Victoria,Both,Official Press Releases,https://www.vic.gov.au/media-events-and-publications#media-releases
+50,Australia,Victoria,Both,Official Ministry website,https://www.vic.gov.au/
+51,Australia,Victoria,Both,Official Ministry website,https://www.energy.vic.gov.au/
+52,Australia,Victoria,Both,Official Ministry website,https://www.dtf.vic.gov.au/home
+53,Australia,Victoria,Tracker_B,Disbursement / annual statements,https://www.dtf.vic.gov.au/economic-and-financial-updates/state-financial-reports
+54,Australia,Victoria,Tracker_A,Official initial budget document,https://www.budget.vic.gov.au/budget-papers
+55,Australia,Victoria,Tracker_A,Other budget documents,https://www.dtf.vic.gov.au/state-budget/previous-budgets
+56,Australia,South Australia,Both,Official Gazette,https://www.legislation.sa.gov.au/
+57,Australia,South Australia,Both,Official Press Releases,https://www.dpc.sa.gov.au/news
+58,Australia,South Australia,Both,Official Ministry website,https://www.sa.gov.au/
+59,Australia,South Australia,Both,Official Ministry website,https://www.energymining.sa.gov.au/
+60,Australia,South Australia,Both,Official Ministry website,https://www.treasury.sa.gov.au/
+61,Australia,South Australia,Tracker_B,Disbursement / annual statements,https://www.treasury.sa.gov.au/budget/current-budget/previous-budgets
+62,Australia,South Australia,Tracker_A,Official initial budget document,https://www.statebudget.sa.gov.au/budget-papers
+63,Australia,South Australia,Tracker_A,Other budget documents,https://www.treasury.sa.gov.au/budget/current-budget/previous-budgets
+64,Australia,Northern Territory,Both,Official Gazette,https://legislation.nt.gov.au/
+65,Australia,Northern Territory,Both,Official Press Releases,https://nt.gov.au/news
+66,Australia,Northern Territory,Both,Official Ministry website,https://nt.gov.au/
+67,Australia,Northern Territory,Both,Official Ministry website,https://industry.nt.gov.au/
+68,Australia,Northern Territory,Both,Official Ministry website,https://treasury.nt.gov.au/
+69,Australia,Northern Territory,Tracker_B,Disbursement / annual statements,https://treasury.nt.gov.au/publications/annual-reports
+70,Australia,Northern Territory,Tracker_A,Official initial budget document,https://budget.nt.gov.au/budget-papers
+71,Australia,Northern Territory,Tracker_A,Other budget documents,https://treasury.nt.gov.au/dtf/financial-management-group/previous-budget-papers
+72,Australia,Australian Capital Territory,Both,Official Gazette,https://www.legislation.act.gov.au/
+73,Australia,Australian Capital Territory,Both,Official Press Releases,https://www.cmtedd.act.gov.au/open_government/inform/act_government_media_releases
+74,Australia,Australian Capital Territory,Both,Official Ministry website,https://www.act.gov.au/
+75,Australia,Australian Capital Territory,Both,Official Ministry website,https://www.environment.act.gov.au/energy
+76,Australia,Australian Capital Territory,Both,Official Ministry website,https://www.treasury.act.gov.au/
+77,Australia,Australian Capital Territory,Tracker_B,Disbursement / annual statements,https://www.treasury.act.gov.au/publications#Budget%20reviews
+78,Australia,Australian Capital Territory,Tracker_A,Official initial budget document,https://www.treasury.act.gov.au/budget/previous-act-budgets
+,Australia,Country,,Official Ministry website,https://www.dfat.gov.au/
+79,Austria,Country,Both,Official Gazette,https://www.parlament.gv.at/recherchieren/gegenstaende/gesetzesinitiativen
+80,Austria,Country,Both,Official Press Releases,https://www.bundeskanzleramt.gv.at/bundeskanzleramt/nachrichten-der-bundesregierung.html
+81,Austria,Country,Both,Official Ministry website,https://www.bmk.gv.at/
+82,Austria,Country,Both,Official Ministry website,https://www.bundeskanzleramt.gv.at/public.html
+83,Austria,Country,Both,Official Ministry website,https://www.bmf.gv.at/
+84,Austria,Country,Tracker_A,Official initial budget document,https://www.bmf.gv.at/themen/budget/das-budget.html
+85,Austria,Country,Tracker_B,Disbursment / annual statements,https://www.bmf.gv.at/themen/budget/aktuelle-berichte.html
+,Austria,Country,,Official Ministry website,https://www.bmaw.gv.at/
+86,Belgium,Country,Both,Official Gazette,https://www.belgielex.be/fr
+87,Belgium,Country,Both,Official Press Releases,https://news.belgium.be/en
+88,Belgium,Country,Both,Official Ministry website,https://economie.fgov.be/fr/themes/energie
+89,Belgium,Country,Both,Official Ministry website,https://www.belgium.be/fr
+90,Belgium,Country,Both,Official Ministry website,https://finances.belgium.be/fr/asbl
+91,Belgium,Country,Tracker_B,Disbursment / annual statements,https://www.nbb.be/fr/archives-des-publications-statistiques?PubID=89
+92,Belgium,Country,Tracker_A,Official initial budget document,https://bosa.belgium.be/fr/themes/budget-et-comptabilite/le-budget-federal/chiffres-et-analyse/budget-initial
+93,Belgium,Country,Tracker_B,Other budget documents,https://bosa.belgium.be/fr/themes/budget-et-comptabilite/le-budget-federal/chiffres-et-analyse/budget-ajuste
+94,Belgium,Flemish Region,Both,Official Press Releases,https://www.vlaanderen.be/nieuwsberichten
+95,Belgium,Flemish Region,Both,Official Ministry website,https://www.vlaanderen.be/
+96,Belgium,Flemish Region,Tracker_A,Official initial budget document,https://fin.vlaanderen.be/begroting-archief/
+97,Belgium,Flemish Region,Tracker_B,Disbursement / annual statements,https://fin.vlaanderen.be/rekening-vlaamse-gemeenschap-archief/
+98,Belgium,Wallonie,Both,Official Ministry website,https://www.wallonie.be/fr
+99,Belgium,Wallonie,Both,Official Press Releases,https://www.wallonie.be/fr/actualites
+100,Belgium,Wallonie,Both,Official Ministry website,https://energie.wallonie.be/fr/index.html?IDC=6018
+101,Belgium,Wallonie,Both,Official Ministry website,https://finances.wallonie.be/home.html
+102,Belgium,Wallonie,Tracker_A,Official initial budget document,https://finances.wallonie.be/home/finances-wallonnes/budget-wallon/budget-2022.html
+,Belgium,Country,,Official Ministry website,https://diplomatie.belgium.be/en/news
+103,Bulgaria,Country,Both,Official Gazette,https://dv.parliament.bg/DVWeb/index.faces
+104,Bulgaria,Country,Both,Official Press Releases,https://www.gov.bg/bg/prestsentar/novini
+105,Bulgaria,Country,Both,Official Ministry website,https://www.gov.bg/bg
+106,Bulgaria,Country,Both,Official Ministry website,https://www.minfin.bg/
+107,Bulgaria,Country,Both,Official Ministry website,https://www.me.government.bg/
+108,Bulgaria,Country,Tracker_B,Disbursment / annual statements,https://www.minfin.bg/bg/247
+109,Bulgaria,Country,Tracker_A,Official initial budget document,https://www.minfin.bg/bg/4
+110,Bulgaria,Country,Tracker_B,Other budget documents,https://www.gov.bg/bg/administratsia/byudzhet/kasovo-izpalnenie-na-darzhavniya-byudzhet?page=1
+,Bulgaria,Country,,Official Ministry website,https://www.mi.government.bg/
+111,Brazil,Country,Both,Official Ministry website,https://www.gov.br/ 
+112,Brazil,Country,Both,Official Ministry website,www.planalto.gov.br 
+113,Brazil,Country,Both,Official Ministry website,https://www.in.gov.br/ 
+114,Brazil,Country,Both,Official Ministry website,https://www.bndes.gov.br
+115,Brazil,Country,Both,Official Ministry website,https://eletrobras.com/ 
+116,Brazil,Country,Both,Official Ministry website,https://www.eletronuclear.gov.br/ 
+117,Brazil,Country,Both,Official Gazette,http://www4.planalto.gov.br/legislacao/
+,Brazil,Country,,Official Ministry website,https://www.gov.br/mdic/pt-br/
+118,Canada,Country,Both,Official Gazette,https://www.gazette.gc.ca/accueil-home-eng.html
+119,Canada,Country,Both,Official Press Releases,https://www.canada.ca/en/department-finance/news/news-releases.html
+120,Canada,Country,Both,Official Ministry website,https://www.canada.ca/en/department-finance.html
+121,Canada,Country,Both,Official Ministry website,https://natural-resources.canada.ca/home
+122,Canada,Country,Both,Official Ministry website,https://www.canada.ca/en.html
+123,Canada,Country,Tracker_B,Disbursement / annual statements,https://www.canada.ca/en/department-finance/services/publications/annual-financial-report.html
+124,Canada,Country,Tracker_A,Official initial budget document,https://www.canada.ca/en/department-finance/services/publications/federal-budget.html
+125,Canada,Country,Both,Other budget documents,https://www.canada.ca/en/department-finance/services/publications.html
+126,Canada,Alberta,Both,Official Gazette,https://www.alberta.ca/laws-online-catalogue.aspx
+127,Canada,Alberta,Both,Official Press Releases,https://www.alberta.ca/news.aspx
+128,Canada,Alberta,Both,Official Ministry website,https://www.alberta.ca/index.aspx
+129,Canada,Alberta,Both,Official Ministry website,https://www.alberta.ca/energy.aspx
+130,Canada,Alberta,Both,Official Ministry website,https://www.alberta.ca/treasury-board-and-finance.aspx
+131,Canada,Alberta,Tracker_A,Official initial budget document,https://www.alberta.ca/budget-documents.aspx
+132,Canada,British Columbia,Both,Official Gazette,https://www.bclaws.gov.bc.ca/
+133,Canada,British Columbia,Both,Official Press Releases,https://news.gov.bc.ca/
+134,Canada,British Columbia,Both,Official Ministry website,https://www2.gov.bc.ca/gov/content/home
+135,Canada,British Columbia,Both,Official Ministry website,https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/energy-mines-and-petroleum-resources
+136,Canada,British Columbia,Tracker_A,Official initial budget document,https://www.bcbudget.gov.bc.ca/default.htm 
+137,Canada,Manitoba,Both,Official Gazette,https://web2.gov.mb.ca/laws/index.php 
+138,Canada,Manitoba,Both,Official Press Releases,https://news.gov.mb.ca/news/index.html
+139,Canada,Manitoba,Both,Official Ministry website,https://www.gov.mb.ca/government/index.html
+140,Canada,Manitoba,Both,Official Ministry website,https://www.gov.mb.ca/finance/index.html
+141,Canada,Manitoba,Both,Official Ministry website,https://www.gov.mb.ca/sd/index.html
+142,Canada,Manitoba,Tracker_B,Disbursement / annual statements,https://www.gov.mb.ca/finance/publications/ararchive.html
+143,Canada,Manitoba,Tracker_A,Official initial budget document,https://www.gov.mb.ca/budget2021/index.html
+144,Canada,New Brunswick,Both,Official Gazette,https://www.legnb.ca/en/legislation/bills 
+145,Canada,New Brunswick,Both,Official Press Releases,https://www2.gnb.ca/content/gnb/en/news.html
+146,Canada,New Brunswick,Both,Official Ministry website,https://www2.gnb.ca/
+147,Canada,New Brunswick,Both,Official Ministry website,https://www2.gnb.ca/content/gnb/en/departments/finance.html
+148,Canada,New Brunswick,Both,Official Ministry website,https://www2.gnb.ca/content/gnb/en/departments/erd.html
+149,Canada,New Brunswick,Tracker_A,Official initial budget document,https://www2.gnb.ca/content/gnb/en/departments/finance/budget.html
+150,Canada,New Brunswick,Tracker_B,Disbursement / annual statements,https://www2.gnb.ca/content/gnb/en/departments/finance/comptroller/content/public_accounts.html
+151,Canada,Newfoundland and Labrador,Both,Official Gazette,https://www.assembly.nl.ca/legislation/
+152,Canada,Newfoundland and Labrador,Both,Official Press Releases,https://www.gov.nl.ca/releases/
+153,Canada,Newfoundland and Labrador,Both,Other budget documents,https://www.gov.nl.ca/publications/archive/
+154,Canada,Newfoundland and Labrador,Tracker_A,Official initial budget document,https://www.gov.nl.ca/fin/budget/budget/
+155,Canada,Newfoundland and Labrador,Tracker_B,Disbursement / annual statements,https://www.gov.nl.ca/exec/tbs/publications/public-accounts/
+156,Canada,Northwest Territories,Both,Official Press Releases,https://www.justice.gov.nt.ca/en/legislation/
+157,Canada,Northwest Territories,Both,Official Press Releases,https://www.gov.nt.ca/en/newsroom
+158,Canada,Northwest Territories,Both,Official Ministry website,https://www.gov.nt.ca/
+159,Canada,Northwest Territories,Both,Official Ministry website,https://www.fin.gov.nt.ca/en
+160,Canada,Northwest Territories,Both,Official Ministry website,https://www.inf.gov.nt.ca/en/services/energy
+161,Canada,Northwest Territories,Tracker_B,Disbursement / annual statements,https://www.fin.gov.nt.ca/en/resources?f%5B0%5D=field_resource_category_legacy%3A349&f%5B1%5D=field_resource_category_legacy%3A359
+162,Canada,Northwest Territories,Tracker_A,Official initial budget document,https://www.fin.gov.nt.ca/en/document-category/budget
+163,Canada,Nova Scotia,Both,Official Gazette,https://nslegislature.ca/legislative-business/bills-statutes
+164,Canada,Nova Scotia,Both,Official Press Releases,https://novascotia.ca/news/
+165,Canada,Nova Scotia,Both,Official Ministry website,https://beta.novascotia.ca/
+166,Canada,Nova Scotia,Both,Official Ministry website,https://energy.novascotia.ca/
+167,Canada,Nova Scotia,Both,Official Ministry website,https://beta.novascotia.ca/government/finance-and-treasury-board
+168,Canada,Nova Scotia,Tracker_B,Disbursement / annual statements,https://beta.novascotia.ca/public-accounts
+169,Canada,Nova Scotia,Tracker_A,Official initial budget document,https://beta.novascotia.ca/programs-and-services/publications-budget-documents
+170,Canada,Nunavut,Both,Official Gazette,https://www.nunavutlegislation.ca/en
+171,Canada,Nunavut,Both,Official Press Releases,https://www.gov.nu.ca/news
+172,Canada,Nunavut,Both,Official Ministry website,https://www.gov.nu.ca/
+173,Canada,Nunavut,Both,Official Ministry website,http://www.energy.gov.nu.ca/en/home.aspx
+174,Canada,Nunavut,Both,Official Ministry website,https://www.gov.nu.ca/finance
+175,Canada,Nunavut,Tracker_B,Disbursement / annual statements,https://gov.nu.ca/finance/information/public-accounts
+176,Canada,Nunavut,Tracker_A,Official initial budget document,https://www.gov.nu.ca/information/budgets-and-business-plans
+177,Canada,Ontario,Both,Official Gazette,https://www.ontario.ca/laws
+178,Canada,Ontario,Both,Official Press Releases,https://news.ontario.ca/newsroom/en
+179,Canada,Ontario,Both,Official Ministry website,https://www.ontario.ca/page/government-ontario
+180,Canada,Ontario,Both,Official Ministry website,https://www.ontario.ca/page/ministry-finance
+181,Canada,Ontario,Both,Official Ministry website,https://www.ontario.ca/page/ministry-energy
+182,Canada,Ontario,Tracker_B,Disbursement / annual statements,https://www.ontario.ca/page/public-accounts-ontario-past-editions
+183,Canada,Ontario,Tracker_A,Official initial budget document,https://budget.ontario.ca/2022/index.html
+184,Canada,Prince Edward Island,Both,Official Gazette,https://www.princeedwardisland.ca/en/legislation/all/all/a
+185,Canada,Prince Edward Island,Both,Official Press Releases,https://www.princeedwardisland.ca/en/news
+186,Canada,Prince Edward Island,Both,Official Ministry website,https://www.princeedwardisland.ca/en
+187,Canada,Prince Edward Island,Both,Official Ministry website,https://www.princeedwardisland.ca/en/topic/finance
+188,Canada,Prince Edward Island,Both,Official Ministry website,https://www.princeedwardisland.ca/en/topic/environment-energy-and-climate-action
+189,Canada,Prince Edward Island,Tracker_B,Disbursement / annual statements,https://www.princeedwardisland.ca/en/topic/previous-years-public-accounts
+190,Canada,Prince Edward Island,Tracker_A,Official initial budget document,https://www.princeedwardisland.ca/en/topic/provincial-budget
+191,Canada,Quebec,Both,Official Gazette,https://www.legisquebec.gouv.qc.ca/fr/accueil
+192,Canada,Quebec,Both,Official Press Releases,https://www.quebec.ca/nouvelles/rechercher?sr=0&tx_solr%5Bfilter%5D%5B0%5D=news_type%3ACommuniqu%C3%A9&tx_solr%5Bfilter%5D%5B1%5D=news_type%3AInvitation%20aux%20m%C3%A9dias&tx_solr%5Bfilter%5D%5B2%5D=&tx_solr%5Bq%5D=&tx_solr%5Bsort%5D=newest%20desc&cHash=442866258f8fdc014799d2701dbe0ddf
+193,Canada,Quebec,Both,Official Ministry website,https://www.quebec.ca/en
+194,Canada,Quebec,Both,Official Ministry website,https://www.economie.gouv.qc.ca/
+195,Canada,Quebec,Both,Official Ministry website,http://www.finances.gouv.qc.ca/index_en.asp
+196,Canada,Quebec,Tracker_B,Disbursement / annual statements,https://www.quebec.ca/en/government/ministere/finances/publications#c52445
+197,Canada,Quebec,Tracker_A,Official initial budget document,http://www.budget.finances.gouv.qc.ca/budget/archives_en/index.asp
+198,Canada,Saskatchewan,Both,Official Gazette,https://publications.saskatchewan.ca/#/categories/295
+199,Canada,Saskatchewan,Both,Official Press Releases,https://www.saskatchewan.ca/government/news-and-media
+200,Canada,Saskatchewan,Both,Official Ministry website,https://www.saskatchewan.ca/
+201,Canada,Saskatchewan,Both,Official Ministry website,https://www.saskatchewan.ca/government/government-structure/ministries/finance
+202,Canada,Saskatchewan,Both,Official Ministry website,https://www.saskatchewan.ca/government/government-structure/ministries/energy-and-resources
+203,Canada,Saskatchewan,Tracker_A,Official initial budget document,https://publications.saskatchewan.ca/#/categories/886
+204,Canada,Saskatchewan,Tracker_B,Disbursement / annual statements,https://publications.saskatchewan.ca/#/categories/893
+205,Canada,Yukon,Both,Official Gazette,https://laws.yukon.ca/cms/
+206,Canada,Yukon,Both,Official Press Releases,https://yukon.ca/en/news
+207,Canada,Yukon,Both,Official Ministry website,https://yukon.ca/
+208,Canada,Yukon,Both,Official Ministry website,https://yukon.ca/en/department-energy-mines-resources
+209,Canada,Yukon,Both,Official Ministry website,https://yukon.ca/en/department-finance
+210,Canada,Yukon,Tracker_B,Disbursement / annual statements,https://yukon.ca/en/public-accounts
+211,Canada,Yukon,Tracker_A,Official initial budget document,https://yukon.ca/en/budget
+,Canada,Country,,Official Ministry website,https://www.tradecommissioner.gc.ca/
+212,China,Country,Both,Official Press Releases,http://www.gov.cn/xinwen/index.htm
+213,China,Country,Both,Official Ministry website,http://www.gov.cn/ 
+214,China,Country,Both,Official Ministry website,https://www.mee.gov.cn/
+215,China,Country,Both,Official Ministry website,http://www.nea.gov.cn/ 
+216,China,Country,Both,Official Ministry website,http://www.mof.gov.cn/index.htm
+217,China,Country,Both,Official Ministry website,https://wap.miit.gov.cn/
+218,China,Country,Tracker_B,Disbursment / annual statements,http://www.mof.gov.cn/zyyjsgkpt/zyzfyjs/zyys_8128/ysbb/
+219,China,Country,Tracker_A,Official initial budget document,http://www.mof.gov.cn/zyyjsgkpt/zyzfyjs/zyys/
+220,China,Country,Both,Other budget documents,http://www.mof.gov.cn/zyyjsgkpt/
+,China,Country,,Official Ministry website,www.mofcom.gov.cn
+221,Croatia,Country,Both,Official Gazette,https://narodne-novine.nn.hr/search.aspx
+222,Croatia,Country,Both,Official Press Releases,https://vlada.gov.hr/vijesti/8
+223,Croatia,Country,Both,Official Ministry website,https://mingor.gov.hr/
+224,Croatia,Country,Both,Official Ministry website,https://mfin.gov.hr/
+225,Croatia,Country,Both,Official Ministry website,https://vlada.gov.hr/
+226,Croatia,Country,Tracker_A,Official initial budget document,https://mfin.gov.hr/proracun-86/86
+,Croatia,Country,,Official Ministry website,https://hamagbicro.hr/
+227,Cyprus,Country,Both,Official Gazette,http://www.cylaw.org/nomoi/
+228,Cyprus,Country,Both,Official Press Releases,https://www.pio.gov.cy/en/press-releases/
+229,Cyprus,Country,Both,Official Ministry website,https://www.gov.cy/gr/
+230,Cyprus,Country,Both,Official Ministry website,https://mof.gov.cy/gr/
+231,Cyprus,Country,Both,Official Ministry website,https://ypen.gov.gr/
+232,Cyprus,Country,Tracker_A,Official initial budget document,https://mof.gov.cy/gr/%CE%B4%CE%B9%CE%B5%CF%85%CE%B8%CF%8D%CE%BD%CF%83%CE%B5%CE%B9%CF%82-%CE%BA%CE%B1%CE%B9-%CE%BC%CE%BF%CE%BD%CE%AC%CE%B4%CE%B5%CF%82/%CE%B4-%CE%BD%CF%83%CE%B7-%CF%80%CF%81%CE%BF%CF%8B%CF%80%CE%BF%CE%BB%CE%BF%CE%B3%CE%B9%CF%83%CE%BC%CE%BF%CF%8D
+,Cyprus,Country,,Official Ministry website,https://meci.gov.cy/en/
+233,Czech Republic,Country,Both,Official Gazette,https://odok.cz/portal/veklep/materialy
+234,Czech Republic,Country,Both,Official Press Releases,https://www.vlada.cz/cz/media-centrum/
+235,Czech Republic,Country,Both,Official Ministry website,https://www.mfcr.cz/ 
+236,Czech Republic,Country,Both,Official Ministry website2,www.mpo.cz
+237,Czech Republic,Country,Both,Official Ministry website2,www.vlada.cz
+238,Czech Republic,Country,Tracker_B,Disbursment / annual statements,https://www.mfcr.cz/cs/verejny-sektor/statni-rozpocet/plneni-statniho-rozpoctu
+239,Czech Republic,Country,Tracker_A,Official initial budget document,https://www.mfcr.cz/cs/verejny-sektor/statni-rozpocet/legislativa-statniho-rozpoctu
+240,Czech Republic,Country,Tracker_B,Other budget documents,https://www.mfcr.cz/cs/o-ministerstvu/vzdelavani/rozpocet-v-kostce
+,Czech Republic,Country,,Official Ministry website,https://www.mpo.cz/en/
+241,Denmark,Country,Both,Official Ministry website,https://fm.dk/
+242,Denmark,Country,Both,Official Ministry website,https://www.regeringen.dk/
+243,Denmark,Country,Both,Official Ministry website,https://ens.dk/
+244,Denmark,Country,Both,Official Ministry website,https://kefm.dk/
+245,Denmark,Country,Both,Disbursment / annual statements,https://fm.dk/udgivelser/
+246,Denmark,Country,Both,Official initial budget document,https://fm.dk/udgivelser/
+247,Denmark,Country,Both,Other budget documents,https://fm.dk/udgivelser/
+,Denmark,Country,,Official Ministry website,https://um.dk/en/the-trade-council
+248,Estonia,Country,Both,Official Gazette,https://www.riigiteataja.ee/tervikteksti_otsing.html
+249,Estonia,Country,Both,Official Press Releases,https://www.mkm.ee/
+250,Estonia,Country,Both,Official Ministry website,https://www.fin.ee/
+251,Estonia,Country,Both,Official Ministry website,https://valitsus.ee/
+252,Estonia,Country,Both,Official Ministry website,https://envir.ee/
+253,Estonia,Country,Tracker_B,Disbursment / annual statements,https://www.fin.ee/riigi-rahandus-ja-maksud/riigi-raamatupidamine/riigi-raamatupidamise-koondaruanded
+254,Estonia,Country,Tracker_A,Official initial budget document,https://www.fin.ee/riigi-rahandus-ja-maksud/riigieelarve-ja-eelarvestrateegia/riigieelarve
+255,Estonia,Country,Both,Official Ministry website,https://kik.ee/et
+,Estonia,Country,,Official Ministry website,https://www.mkm.ee/en
+256,Finland,Country,Both,Official Gazette,https://finlex.fi/fi/laki/ajantasa/
+257,Finland,Country,Both,Official Press Releases,https://julkaisut.valtioneuvosto.fi/
+258,Finland,Country,Both,Official Ministry website,https://vm.fi/etusivu
+259,Finland,Country,Both,Official Ministry website,https://tem.fi/energia
+260,Finland,Country,Both,Official Ministry website,https://valtioneuvosto.fi/etusivu
+261,Finland,Country,Tracker_A,Official initial budget document,https://budjetti.vm.fi/indox/tae/frame_year.jsp?year=2023&lang=fi
+262,Finland,Country,Tracker_B,Other budget documents,https://vtv.visualisoinnit.fi/valtiontaloudentarkastuspuu/
+,Finland,Country,,Official Ministry website,https://um.fi
+,Finland,Country,,Official Ministry website,https://www.marketopportunities.fi/home?page=1
+263,France,Country,Both,Official Gazette,https://www.legifrance.gouv.fr/jorfr
+264,France,Country,Both,Official Press Releases,https://www.gouvernement.fr/espace-presse
+265,France,Country,Both,Official Ministry website,https://www.ecologie.gouv.fr/
+266,France,Country,Both,Official Ministry website,https://www.gouvernement.fr/
+267,France,Country,Both,Official Ministry website,https://www.economie.gouv.fr/
+268,France,Country,Both,Official initial budget document,https://www.budget.gouv.fr/documentation/documents-budgetaires
+269,France,Country,Tracker_B,Disbursment / annual statements,https://www.budget.gouv.fr/documentation/comptes-de-letat
+270,France,Country,Both,Other budget documents,https://www.budget.gouv.fr/
+,France,Country,,Official Ministry website,https://www.entreprises.gouv.fr/fr
+271,Germany,Country,Both,Official Gazette,http://www.gesetze-im-internet.de/aktuell.html
+272,Germany,Country,Both,Official Press Releases,https://www.bundesfinanzministerium.de/Web/DE/Presse/Pressemitteilungen/pressemitteilungen.html
+273,Germany,Country,Both,Official Ministry website,https://www.bafa.de/DE/Energie/energie_node.html
+274,Germany,Country,Both,Official Ministry website,https://www.bundesregierung.de/breg-de
+275,Germany,Country,Both,Official Ministry website,https://www.bundesfinanzministerium.de
+276,Germany,Country,Tracker_A,Official initial budget document,https://www.bundeshaushalt.de/DE/Download-Portal/download-portal.html
+277,Germany,Baden-Württemberg,Both,Official Gazette,https://www.baden-wuerttemberg.de/de/service/gesetze-und-verordnungen
+278,Germany,Baden-Württemberg,Both,Official Press Releases,https://www.baden-wuerttemberg.de/de/service/presse/pressemitteilungen
+279,Germany,Baden-Württemberg,Both,Official Ministry website,https://www.baden-wuerttemberg.de/de/startseite
+280,Germany,Baden-Württemberg,Both,Official Ministry website,https://um.baden-wuerttemberg.de/de/startseite
+281,Germany,Baden-Württemberg,Both,Official Ministry website,https://fm.baden-wuerttemberg.de/de/startseite
+282,Germany,Baden-Württemberg,Tracker_B,Disbursement / annual statements,https://fm.baden-wuerttemberg.de/de/finanzen/haushalt/haushaltsrechnung
+283,Germany,Baden-Württemberg,Tracker_A,Official initial budget document,https://www.statistik-bw.de/shp/
+284,Germany,Bavaria,Both,Official Gazette,https://www.gesetze-bayern.de/
+285,Germany,Bavaria,Both,Official Press Releases,https://www.bayern.de/presse/pressemitteilungen/
+286,Germany,Bavaria,Both,Official Ministry website,https://www.bayern.de/
+287,Germany,Bavaria,Both,Official Ministry website,https://www.stmfh.bayern.de/
+288,Germany,Bavaria,Both,Official Ministry website,https://www.stmwi.bayern.de/
+289,Germany,Bavaria,Tracker_B,Disbursement / annual statements,https://www.stmfh.bayern.de/haushalt/haushaltsrechnungen/
+290,Germany,Bavaria,Tracker_A,Official initial budget document,https://www.stmfh.bayern.de/haushalt/haushaltsplaene/
+291,Germany,Berlin,Both,Official Gazette,https://gesetze.berlin.de/bsbe/search
+292,Germany,Berlin,Both,Official Press Releases,https://www.berlin.de/presse/
+293,Germany,Berlin,Both,Official Ministry website,https://www.berlin.de/
+294,Germany,Berlin,Both,Official Ministry website,https://www.berlin.de/sen/finanzen/
+295,Germany,Berlin,Both,Official Ministry website,https://www.berlin.de/sen/wirtschaft/
+296,Germany,Berlin,Both,Official initial budget document,https://www.berlin.de/sen/finanzen/haushalt/downloads/haushaltsplan-2022-23/artikel.1232802.php
+297,Germany,Brandenburg,Both,Official Gazette,https://www.landesrecht.brandenburg.de/dislservice/public/gvbl.jsp
+298,Germany,Brandenburg,Both,Official Ministry website,https://www.brandenburg.de/de/landesregierung
+299,Germany,Brandenburg,Both,Official Ministry website,https://mdfe.brandenburg.de/mdfe/de/
+300,Germany,Brandenburg,Both,Official Ministry website,https://mwae.brandenburg.de/de/ministerium-f%C3%BCr-wirtschaft-arbeit-und-energie/bb1.c.478848.de
+301,Germany,Brandenburg,Tracker_A,Official initial budget document,https://mdfe.brandenburg.de/mdfe/de/themen/haushalt-und-finanzen/landeshaushalt/landeshaushalte-haushaltsplaene-und-rechnungen/
+302,Germany,Bremen,Both,Official Gazette,https://www.gesetzblatt.bremen.de/
+303,Germany,Bremen,Both,Official Press Releases,https://www.amtliche-bekanntmachungen.bremen.de/
+304,Germany,Bremen,Both,Official Ministry website,https://landesportal.bremen.de/
+305,Germany,Bremen,Both,,https://www.bauumwelt.bremen.de/
+306,Germany,Bremen,Tracker_A,Official initial budget document,https://www.finanzen.bremen.de/haushalt/haushalt/aktuelle-haushaltsplaene-und-haushaltsportraet-1692
+307,Germany,Hamburg,Both,Official Gazette,https://www.landesrecht-hamburg.de/bsha/search
+308,Germany,Hamburg,Both,Official Ministry website,https://www.hamburg.de/bwi/pressemitteilungen/
+309,Germany,Hamburg,Both,Official Ministry website,https://www.hamburg.de/senat/
+310,Germany,Hamburg,Both,Official Ministry website,https://www.hamburg.de/bukea/
+311,Germany,Hamburg,Both,Other budget documents,https://primary.axians-ikvs.de/sj/Produkthaushalt.xhtml?jahr=2023&kid=185b18jl185b185b18jh18jh185b185b185b185b185b185b185b185b18jl18jl185b185b18jh185b&typ=19x61air1aij19xg&dswid=-5428
+312,Germany,Hesse,Both,Official Gazette,https://starweb.hessen.de/starweb/LIS/amtsblaetter.htm
+313,Germany,Hesse,Both,Official Ministry website,https://hessen.de/Presse
+314,Germany,Hesse,Both,Official Ministry website,https://hessen.de/regierung
+315,Germany,Hesse,Tracker_A,Official initial budget document,https://finanzen.hessen.de/haushalt/haushaltsplaene
+316,Germany,Mecklenburg-Western Pomerania,Both,Official Gazette,https://www.landesrecht-mv.de/bsmv/search
+317,Germany,Mecklenburg-Western Pomerania,Both,Official Ministry website,https://www.regierung-mv.de/
+318,Germany,Mecklenburg-Western Pomerania,Both,Official Ministry website,https://www.regierung-mv.de/Landesregierung/lm/
+319,Germany,Mecklenburg-Western Pomerania,Both,Official Ministry website,https://www.regierung-mv.de/Landesregierung/fm/
+320,Germany,Mecklenburg-Western Pomerania,Tracker_A,Official initial budget document,https://www.regierung-mv.de/Landesregierung/fm/Haushalt/Haushaltsplan/2022-2023/
+321,Germany,Lower Saxony,Both,Official Gazette,https://voris.wolterskluwer-online.de/search?query=&publicationtype=publicationform-ats-filter%21ATS_Rechtsvorschriften
+322,Germany,Lower Saxony,Both,Official Press Releases,https://www.niedersachsen.de/startseite/service/presse/presseinformationen/
+323,Germany,Lower Saxony,Both,Official Ministry website,https://www.niedersachsen.de/politik_staat/landesregierung_ministerien/die-niedersaechsische-landesregierung-20076.html
+324,Germany,Lower Saxony,Both,Official Ministry website,https://www.umwelt.niedersachsen.de/startseite/
+325,Germany,Lower Saxony,Tracker_A,Official initial budget document,https://www.mf.niedersachsen.de/startseite/themen/haushalt/haushaltsrecht_inklusive_haushaltsplane/archiv_haushaltsplane/archiv-der-haushaltsplane-ab-1999-181859.html
+326,Germany,North Rhine-Westphalia,Both,Official Gazette,https://recht.nrw.de/lmi/owa/br_vbl_liste?anw_nr=6&jahr=2023&sg=0&val=&ver=2&menu=0
+327,Germany,North Rhine-Westphalia,Both,Official Press Releases,https://www.land.nrw/pressemitteilungen
+328,Germany,North Rhine-Westphalia,Both,Official Ministry website,https://www.land.nrw/
+329,Germany,North Rhine-Westphalia,Both,Official Ministry website,https://www.wirtschaft.nrw/ministerium
+330,Germany,North Rhine-Westphalia,Both,Official Ministry website,https://www.finanzverwaltung.nrw.de/dienststellen/ministerium-der-finanzen-nordrhein-westfalen
+331,Germany,North Rhine-Westphalia,Tracker_A,Official initial budget document,https://www.haushalt.fm.nrw.de//daten/html/hhp.html
+332,Germany,Rhineland-Palatinate,Both,Official Gazette,https://www.landesrecht.rlp.de/bsrp/search
+333,Germany,Rhineland-Palatinate,Both,Official Press Releases,https://www.rlp.de/de/service/pressemeldungen/
+334,Germany,Rhineland-Palatinate,Both,Official Ministry website,https://www.rlp.de/de/startseite/
+335,Germany,Rhineland-Palatinate,Both,Official Ministry website,https://fm.rlp.de/de/startseite/
+336,Germany,Rhineland-Palatinate,Both,Official Ministry website,https://mkuem.rlp.de/de/startseite/
+337,Germany,Rhineland-Palatinate,Tracker_B,Disbursement / annual statements,https://fm.rlp.de/de/themen/finanzen/landeshaushalt/
+338,Germany,Rhineland-Palatinate,Tracker_A,Official initial budget document,https://fm.rlp.de/de/themen/finanzen/landeshaushalt/haushaltsplaene/
+339,Germany,Saarland,Both,Official Gazette,https://recht.saarland.de/bssl/search
+340,Germany,Saarland,Both,Official Press Releases,https://www.saarland.de/DE/presse-informationen/medienservice/medieninfos/medieninfos_node.html
+341,Germany,Saarland,Both,Official Ministry website,https://www.saarland.de/DE/home/home_node.html
+342,Germany,Saarland,Both,Official Ministry website,https://www.saarland.de/mfw/DE/home/home_node.html
+343,Germany,Saarland,Both,Official Ministry website,https://www.saarland.de/mwide/DE/home/home_node.html
+344,Germany,Saarland,Both,Other budget documents,https://www.saarland.de/mfw/DE/portale/haushaltundfinanzen/home/home_node.html
+345,Germany,Saxony-Anhalt,Both,Official Gazette,https://www.landesrecht.sachsen-anhalt.de/bsst/search
+346,Germany,Saxony-Anhalt,Both,Official Press Releases,https://www.sachsen-anhalt.de/bs/pressemitteilungen/ministerien/?no_cache=1
+347,Germany,Saxony-Anhalt,Both,Official Ministry website,https://www.sachsen-anhalt.de/startseite
+348,Germany,Saxony-Anhalt,Both,Official Ministry website,https://mwu.sachsen-anhalt.de/
+349,Germany,Saxony-Anhalt,Both,Official Ministry website,https://mf.sachsen-anhalt.de/ministerium-der-finanzen
+350,Germany,Saxony-Anhalt,Both,Other budget documents,https://mf.sachsen-anhalt.de/finanzen/haushalt#c324213
+351,Germany,Schleswig-Holstein,Both,Official Gazette,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/IV/Service/GVOBl/gvobl_node.html
+352,Germany,Schleswig-Holstein,Both,Official Press Releases,https://www.schleswig-holstein.de/DE/landesportal/presse/pressemitteilungen/pressemitteilungen_node.html
+353,Germany,Schleswig-Holstein,Both,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/I/Staatskanzlei/staatskanzlei_node.html
+354,Germany,Schleswig-Holstein,Both,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/VI/vi_node.html
+355,Germany,Schleswig-Holstein,Both,Official Ministry website,https://www.schleswig-holstein.de/DE/landesregierung/ministerien-behoerden/V/v_node.html
+356,Germany,Schleswig-Holstein,Tracker_B,Disbursement / annual statements,https://www.schleswig-holstein.de/DE/fachinhalte/H/haushalt_landeshaushalt/haushaltsrechnung.html?nn=da3ce3a3-f500-4307-9bc5-aaf8ff8d084e
+357,Germany,Schleswig-Holstein,Tracker_A,Official initial budget document,https://www.schleswig-holstein.de/DE/fachinhalte/H/haushalt_landeshaushalt/haushaltsplaene_Archiv.html?nn=da3ce3a3-f500-4307-9bc5-aaf8ff8d084e
+358,Germany,Thuringia,Both,Official Gazette,https://landesrecht.thueringen.de/bsth/search
+359,Germany,Thuringia,Both,Official Press Releases,https://www.landesregierung-thueringen.de/medien/medieninformationen
+360,Germany,Thuringia,Both,Official Ministry website,https://www.landesregierung-thueringen.de/
+361,Germany,Thuringia,Both,Official Ministry website,https://umwelt.thueringen.de/
+362,Germany,Thuringia,Both,Official Ministry website,https://finanzen.thueringen.de/
+363,Germany,Thuringia,Tracker_A,Official initial budget document,https://finanzen.thueringen.de/themen/haushalt/haushaltsplaene/haushalt-2023
+,Germany,Country,,Official Ministry website,https://www.bmwk.de/
+364,Greece,Country,Both,Official Press Releases,https://government.gov.gr/eidos/epikerotita/
+365,Greece,Country,Both,Official Ministry website,https://ypen.gov.gr/category/anakoinoseis-typou/
+366,Greece,Country,Both,Official Ministry website,https://government.gov.gr/
+367,Greece,Country,Both,Official Ministry website,https://www.minfin.gr/web/guest/epikoinonia
+368,Greece,Country,Tracker_B,Disbursement / annual statements,https://www.minfin.gr/web/guest/apologismos-isologismos-kai-loipes-chrematooikonomikes-katastaseis
+369,Greece,Country,Tracker_A,Official initial budget document,https://www.minfin.gr/proupologismos
+,Greece,Country,,Official Ministry website,https://www.enterprisegreece.gov.gr/
+370,Hungary,Country,Both,Official Gazette,https://njt.hu/
+371,Hungary,Country,Both,Official Press Releases,https://abouthungary.hu/
+372,Hungary,Country,Both,Official Ministry website,https://kormany.hu/energiaugyi-miniszterium
+373,Hungary,Country,Both,Official Ministry website,https://kormany.hu/penzugyminiszterium
+374,Hungary,Country,Both,Official Ministry website,https://kormany.hu/
+375,Hungary,Country,Tracker_A,Official initial budget document,https://www.allamkincstar.gov.hu/hu/koltsegvetesi-informaciok/koltsegvetes_merleg_1/222/
+,Hungary,Country,,Official Ministry website,https://2015-2019.kormany.hu/
+376,India,Country,Both,Official Gazette,https://egazette.nic.in/(S(g43ajlgvjctglbezip0skzue))/RecentUploads.aspx?Category=1
+377,India,Country,Both,Official Ministry website,https://powermin.gov.in/
+378,India,Country,Both,Official Ministry website,https://mnre.gov.in/
+379,India,Country,Both,Official Ministry website,https://mopng.gov.in/en
+380,India,Country,Tracker_A,Official initial budget document,https://www.india.gov.in/spotlight/union-budget-2023-2024
+381,India,Country,Both,Official social media,https://twitter.com/mnreindia
+382,India,Country,Both,Official social media,https://twitter.com/power_pib
+383,India,Country,Both,Official social media,https://twitter.com/PetroleumMin
+384,India,Country,Both,Official social media,https://twitter.com/officeofrksingh?lang=en
+385,India,Country,Both,Official Press Releases,https://pib.gov.in/
+,India,Country,,Official Ministry website,https://commerce.gov.in/
+387,Indonesia,Country,Both,Official Gazette,https://peraturan.bpk.go.id/
+388,Indonesia,Country,Both,Official Press Releases,https://indonesia.go.id/
+389,Indonesia,Country,Both,Official Ministry website,https://setkab.go.id/
+390,Indonesia,Country,Both,Official Ministry website,https://jdih.kemenkeu.go.id/in/home
+391,Indonesia,Country,Both,Official Ministry website,https://www.esdm.go.id/
+392,Indonesia,Country,Tracker_A,Official initial budget document,https://www.kemenkeu.go.id/informasi-publik/keuangan-negara/uu-apbn-dan-nota-keuangan
+393,Indonesia,Country,Both,Official social media,https://twitter.com/KementerianESDM
+,Indonesia,Country,,Official Ministry website,https://www.kemendag.go.id/
+394,Ireland,Country,Both,Official Gazette,https://www.oireachtas.ie/en/bills/find-bills-and-acts/
+395,Ireland,Country,Both,Official Press Releases,https://www.gov.ie/en/publications/
+396,Ireland,Country,Both,Official Ministry website,https://www.gov.ie/en/organisation/department-of-the-environment-climate-and-communications/
+397,Ireland,Country,Both,Official Ministry website,https://www.gov.ie/en/
+398,Ireland,Country,Both,Official Ministry website,https://www.gov.ie/en/organisation/department-of-finance/
+399,Ireland,Country,Tracker_B,Disbursement / annual statements,https://www.gov.ie/en/publication/eb6ec-budget-2023-expenditure-reports/
+400,Ireland,Country,Tracker_A,Official initial budget document,https://www.gov.ie/en/collection/34556-previous-budgets/
+401,Ireland,Country,Both,Official social media,https://twitter.com/Dept_ECC?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor
+,Ireland,Country,,Official Ministry website,https://enterprise.gov.ie/
+402,Italy,Country,Both,Official Gazette,https://www.normattiva.it/
+403,Italy,Country,Both,Official Press Releases,https://www.governo.it/it/tipologie-contenuto/comunicati-stampa
+404,Italy,Country,Both,Official Ministry website,https://www.governo.it/it
+405,Italy,Country,Both,Official Ministry website,https://www.mase.gov.it/
+406,Italy,Country,Both,Official Ministry website,https://www.mef.gov.it/
+407,Italy,Country,Both,Official Ministry website,https://www.rgs.mef.gov.it/VERSIONE-I/pubblicazioni/pubblicazioni_statistiche/la_spesa_delle_amministrazioni_centrali_dello_stato/2021/
+408,Italy,Country,Tracker_B,Disbursement / annual statements,https://www.rgs.mef.gov.it/VERSIONE-I/archivio/risultato.html?tipologia=Pubblicazioni&ambito=Attivit%C3%A0+istituzionali&argomento=Bilancio+di+previsione&titolo=Budget+Economico&circolareNumero=&cerca_text=
+409,Italy,Country,Both,Official initial budget document,https://www.rgs.mef.gov.it/VERSIONE-I/attivita_istituzionali/formazione_e_gestione_del_bilancio/bilancio_di_previsione/bilancio_finanziario/index.html#link2
+410,Italy,Country,Both,Official social media,https://twitter.com/MASE_IT
+,Italy,Country,,Official Ministry website,https://www.mimit.gov.it/en/
+411,Japan,Country,Both,Official Gazette,https://elaws.e-gov.go.jp/
+412,Japan,Country,Both,Official Press Releases,https://www.meti.go.jp/press/index.html
+413,Japan,Country,Both,Official Ministry website,https://www.meti.go.jp/
+414,Japan,Country,Both,Official Ministry website,https://www.kantei.go.jp/
+415,Japan,Country,Both,Official Ministry website,https://www.japan.go.jp/
+416,Japan,Country,Tracker_B,Disbursement / annual statements,https://www.mof.go.jp/policy/budget/budger_workflow/account/index.html
+417,Japan,Country,Tracker_A,Official initial budget document,https://www.mof.go.jp/policy/budget/index.html
+418,Japan,Country,Both,Other budget documents,https://www.bb.mof.go.jp/hdocs/bxsselect.html
+419,Japan,Country,Both,Official social media,https://twitter.com/meti_NIPPON
+,Japan,Country,,Official Ministry website,https://www.jetro.go.jp/en/
+420,Korea,Country,Both,Official Gazette,https://www.law.go.kr/LSW/lsAstSc.do?menuId=391&subMenuId=397&tabMenuId=437&lsFdCd=00000000&eventGubun=060102#lsFd00000000
+421,Korea,Country,Both,Official Press Releases,https://www.moj.go.kr/moj/252/subview.do
+422,Korea,Country,Both,Official Ministry website,http://www.motie.go.kr/www/main.do
+423,Korea,Country,Both,Official Ministry website,https://www.gov.kr/portal/main
+424,Korea,Country,Both,Official Ministry website,https://www.moef.go.kr/
+425,Korea,Country,Tracker_A,Official initial budget document,https://www.mois.go.kr/frt/bbs/type001/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000031&nttId=89880
+426,Korea,Country,Both,Other budget documents,https://www.openfiscaldata.go.kr/op/ko/fd/UOPKOFDA03?pageIndex=1&pageSize=7000&totalCnt=0
+427,Korea,Country,Both,Official social media,https://twitter.com/motienews
+,Korea,Country,,Official Ministry website,https://www.ktc.go.kr/
+428,Latvia,Country,Both,Official Gazette,https://likumi.lv/
+429,Latvia,Country,Both,Official Press Releases,https://www.em.gov.lv/lv/jaunumi
+430,Latvia,Country,Both,Official Ministry website,https://www.em.gov.lv/lv
+431,Latvia,Country,Both,Official Ministry website,https://www.mk.gov.lv/lv?utm_source=https%3A%2F%2Fwww.google.com%2F
+432,Latvia,Country,Both,Official Ministry website,https://www.fm.gov.lv/lv?utm_source=https%3A%2F%2Fwww.google.com%2F
+433,Latvia,Country,Tracker_B,Disbursement / annual statements,https://www.fm.gov.lv/lv/izdevumu-parskatisana
+434,Latvia,Country,Tracker_A,Official initial budget document,https://www.fm.gov.lv/lv/valsts-budzeta-izstrade
+435,Latvia,Country,Both,Other budget documents,https://www.fm.gov.lv/lv/interaktivie-budzeta-riki
+436,Latvia,Country,Both,Official social media,https://twitter.com/EM_gov_lv
+,Latvia,Country,,Official Ministry website,https://www.liaa.gov.lv/
+437,Lithuania,Country,Both,Official Gazette,https://e-seimas.lrs.lt/portal/simpleSearch/lt
+438,Lithuania,Country,Both,Official Press Releases,https://enmin.lrv.lt/lt/teisine-informacija/teises-aktai
+439,Lithuania,Country,Both,Official Ministry website,https://enmin.lrv.lt/lt/naujienos
+440,Lithuania,Country,Both,Official Ministry website,https://enmin.lrv.lt/
+441,Lithuania,Country,Both,Official Ministry website,https://lrv.lt/
+442,Lithuania,Country,Both,Official Ministry website,https://finmin.lrv.lt/
+443,Lithuania,Country,Tracker_B,Disbursement / annual statements,https://finmin.lrv.lt/valstybes-biudzeto-vykdymo-duomenys-1
+444,Lithuania,Country,Tracker_A,Official initial budget document,https://finmin.lrv.lt/lt/veiklos-sritys/biudzetas/patvirtinti-biudzetai
+445,Lithuania,Country,Both,Official social media,https://twitter.com/MinEnergyLT
+,Lithuania,Country,,Official Ministry website,https://urm.lt/
+446,Luxembourg,Country,Both,Official Gazette,https://www.legilux.public.lu/
+447,Luxembourg,Country,Both,Official Press Releases,https://mea.gouvernement.lu/de/actualites.html
+448,Luxembourg,Country,Both,Official Ministry website,https://gouvernement.lu/fr/actualites.html
+449,Luxembourg,Country,Both,Official Ministry website,https://mea.gouvernement.lu/fr.html
+450,Luxembourg,Country,Both,Official Ministry website,https://mfin.gouvernement.lu/fr.html
+451,Luxembourg,Country,Tracker_B,Disbursement / annual statements,https://budget.public.lu/lb/budget2021/am-detail.html?chpt=depenses
+452,Luxembourg,Country,Both,Official initial budget document,https://budget.public.lu/lb/budget2021.html
+453,Luxembourg,Country,Both,Official social media,https://twitter.com/gouv_lu
+,Luxembourg,Country,,Official Ministry website,https://www.tradeandinvest.lu/
+454,Malta,Country,Both,Official Gazette,https://www.gov.mt/mt/Government/DOI/Government%20Gazette/Pages/default.aspx
+455,Malta,Country,Both,Official Press Releases,https://www.gov.mt/mt/Government/DOI/Press%20Releases/Pages/default.aspx
+456,Malta,Country,Both,Official Ministry website,https://energy.gov.mt/en/Pages/default.aspx
+457,Malta,Country,Both,Official Ministry website,https://finance.gov.mt/en/Pages/default.aspx
+458,Malta,Country,Tracker_A,Official initial budget document,https://finance.gov.mt/en/The-Budget/Pages/The-Budget-2022.aspx
+459,Malta,Country,Both,Official social media,https://twitter.com/MaltaGov
+,Malta,Country,,Official Ministry website,https://commerce.gov.mt
+460,Mexico,Country,Both,Official Gazette,https://www.dof.gob.mx/index.php#gsc.tab=0
+461,Mexico,Country,Both,Official Ministry website,https://www.gob.mx/ 
+462,Mexico,Country,Both,Official Ministry website,https://www.jefaturadegobierno.cdmx.gob.mx
+463,Mexico,Country,Both,Official Ministry website,https://www.sedeco.cdmx.gob.mx 
+464,Mexico,Country,Both,Official Ministry website,https://sidof.segob.gob.mx 
+,Mexico,Country,,Official Ministry website,https://e.economia.gob.mx/
+465,Netherlands,Country,Both,Official Press Releases,https://www.rijksoverheid.nl/actueel/nieuws
+466,Netherlands,Country,Both,Official Ministry website,https://www.rijksoverheid.nl/
+467,Netherlands,Country,Both,Official Ministry website,https://www.rijksoverheid.nl/ministeries/ministerie-van-financien
+468,Netherlands,Country,Both,Official Ministry website,https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat
+469,Netherlands,Country,Tracker_B,Disbursement / annual statements,https://www.rijksfinancien.nl/financieel-jaarverslag/2021
+470,Netherlands,Country,Tracker_A,Official initial budget document,https://www.rijksoverheid.nl/onderwerpen/prinsjesdag/miljoenennota-en-andere-officiele-stukken
+471,Netherlands,Country,Both,Other budget documents,https://archief.rijksbegroting.nl/2021/voorbereiding/begroting
+472,Netherlands,Country,Both,Official social media,https://twitter.com/MinisterieEZK
+,Netherlands,Country,,Official Ministry website,https://www.rvo.nl/
+473,Poland,Country,Both,Official Press Releases,https://www.gov.pl/web/klimat/wiadomosci
+474,Poland,Country,Both,Official Ministry website,https://www.gov.pl/
+475,Poland,Country,Both,Official Ministry website,https://www.gov.pl/web/finanse
+476,Poland,Country,Both,Official Ministry website,https://www.gov.pl/web/klimat
+477,Poland,Country,Both,Disbursement / annual statements,https://www.gov.pl/web/finanse/sprawozdania-roczne
+478,Poland,Country,Both,Official initial budget document,https://www.gov.pl/web/finanse/ustawy-budzetowe
+,Poland,Country,,Official Ministry website,https://www.trade.gov.pl/
+479,Portugal,Country,Both,Official Gazette,https://dre.pt/dre/home
+480,Portugal,Country,Both,Official Press Releases,https://www.portugal.gov.pt/pt/gc23/comunicacao/noticias
+481,Portugal,Country,Both,Official Ministry website,https://www.portugal.gov.pt/pt/gc23
+482,Portugal,Country,Both,Official Ministry website,https://workflow.sgambiente.gov.pt/
+483,Portugal,Country,Both,Official Ministry website,https://www.sgmf.gov.pt/
+484,Portugal,Country,Tracker_B,Disbursement / annual statements,https://www.dgo.gov.pt/politicaorcamental/Paginas/Conta-Geral-do-Estado.aspx?Ano=2021
+485,Portugal,Country,Tracker_A,Official initial budget document,https://oe2022.gov.pt/orcamento-do-estado-2022/#
+486,Portugal,Country,Both,Other budget documents,https://www.dgo.gov.pt/politicaorcamental/Paginas/OrcamentosEstado.aspx?Ano=2023&TipoOE=Or%c3%a7amento%20Estado%20Aprovado
+487,Portugal,Country,Both,Official social media,https://twitter.com/ambiente_pt
+,Portugal,Country,,Official Ministry website,https://www.sgeconomia.gov.pt/
+488,Romania,Country,Both,Official Gazette,https://legislatie.just.ro/
+489,Romania,Country,Both,Official Press Releases,https://gov.ro/ro/media
+490,Romania,Country,Both,Official Ministry website,https://www.gov.ro/
+491,Romania,Country,Both,Official Ministry website,https://energie.gov.ro/
+492,Romania,Country,Both,Official Ministry website,https://mfinante.gov.ro/ro/web/site
+493,Romania,Country,Tracker_B,Disbursement / annual statements,https://mfinante.gov.ro/domenii/bugetul-de-stat/informatii-executie-bugetara
+494,Romania,Country,Tracker_A,Official initial budget document,https://mfinante.gov.ro/domenii/buget
+495,Romania,Country,Both,Other budget documents,https://mfinante.gov.ro/domenii/bugetul-de-stat/informatii-executie-bugetara
+496,Romania,Country,Both,Official social media,https://twitter.com/menergiei?lang=en
+,Romania,Country,,Official Ministry website,https://investromania.gov.ro/
+497,Saudi Arabia,Country,Both,Official Press Releases,https://www.my.gov.sa/wps/portal/snp/content/news
+498,Saudi Arabia,Country,Both,Official Ministry website,https://www.my.gov.sa/wps/portal/snp/main
+499,Saudi Arabia,Country,Both,Official Ministry website,https://www.moenergy.gov.sa/en/Pages/default.aspx
+500,Saudi Arabia,Country,Both,Official Ministry website,https://www.mof.gov.sa/en/Pages/default.aspx
+501,Saudi Arabia,Country,Tracker_B,Disbursement / annual statements,https://www.mof.gov.sa/en/financialreport/Pages/default.aspx
+502,Saudi Arabia,Country,Tracker_A,Official initial budget document,https://www.mof.gov.sa/en/budget/2023/Documents/Bud-En%202023MoF.pdf
+503,Saudi Arabia,Country,Both,Other budget documents,https://www.mof.gov.sa/en/docslibrary/Pages/default.aspx?RootFolder=%2Fen%2Fdocslibrary%2FDocuments%2FBudget%20Data&FolderCTID=0x01200046C39169B8F34507A1E9C1B56419BA4700F8330B8870F78841992240D55094568A&View=%7B94BEEDF4-72E6-478F-B8C3-5FDFBC95AD49%7D
+504,Saudi Arabia,Country,Both,Official social media,https://twitter.com/MoEnergy_Saudi?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Escreen-name%3AMoEnergy_Saudi%7Ctwcon%5Es1_c1
+,Saudi Arabia,Country,,Official Ministry website,https://mc.gov.sa/
+505,Slovakia,Country,Both,Official Gazette,https://www.minv.sk/?vestnik-vlady-sr
+506,Slovakia,Country,Both,Official Press Releases,https://www.mhsr.sk/press?csrt=12775889612641176442
+507,Slovakia,Country,Both,Official Ministry website,https://www.vlada.gov.sk/vlada-slovenskej-republiky/
+508,Slovakia,Country,Both,Official Ministry website,https://www.mfsr.sk/sk/
+509,Slovakia,Country,Both,Official Ministry website,https://www.mhsr.sk/
+510,Slovakia,Country,Tracker_B,Disbursement / annual statements,https://www.mfsr.sk/sk/financie/statne-vykaznictvo/klucove-dokumenty-uctovne-zavierky/statny-zaverecny-ucet-sr/
+511,Slovakia,Country,Tracker_A,Official initial budget document,https://www.mfsr.sk/sk/financie/verejne-financie/rozpocet-verejnej-spravy/
+512,Slovakia,Country,Both,Other budget documents,https://www.mhsr.sk/ministerstvo/rozpocet-mh-sr-1/rozpocet-mh-sr
+,Slovakia,Country,,Official Ministry website,https://www.economy.gov.sk/
+513,Slovenia,Country,Both,Official Gazette,https://www.uradni-list.si/
+514,Slovenia,Country,Both,Official Press Releases,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-okolje-podnebje-in-energijo/novice/
+515,Slovenia,Country,Both,Official Ministry website,https://www.gov.si/drzavni-organi/vlada/
+516,Slovenia,Country,Both,Official Ministry website,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-finance/
+517,Slovenia,Country,Both,Official Ministry website,https://www.gov.si/drzavni-organi/ministrstva/ministrstvo-za-okolje-podnebje-in-energijo/
+518,Slovenia,Country,Tracker_B,Disbursement / annual statements,https://www.gov.si/zbirke/seznami/zakljucni-racuni-proracuna-republike-slovenije/
+519,Slovenia,Country,Tracker_A,Official initial budget document,https://www.gov.si/zbirke/seznami/sprejeti-proracuni-republike-slovenije/
+520,Slovenia,Country,Both,Official social media,https://twitter.com/mope_rs
+,Slovenia,Country,,Official Ministry website,https://www.gov.si/en/state-authorities/ministries/ministry-of-the-economy-tourism-and-sport/
+521,Spain,Country,Both,Official Gazette,https://www.boe.es/
+522,Spain,Country,Both,Official Press Releases,https://energia.gob.es/es-es/Novedades/Paginas/ListadoNovedades.aspx
+523,Spain,Country,Both,Official Ministry website,https://www.lamoncloa.gob.es/Paginas/index.aspx
+524,Spain,Country,Both,Official Ministry website,https://www.hacienda.gob.es/es-ES/Paginas/Home.aspx
+525,Spain,Country,Both,Official Ministry website,https://www.miteco.gob.es/es/
+526,Spain,Country,Tracker_B,Disbursement / annual statements,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/InformeEconomicoFinanciero/Paginas/InformeEconomicoFinanciero.aspx
+527,Spain,Country,Tracker_A,Official initial budget document,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/PGE/PresupuestosEjerciciosAnteriores/Paginas/presupuestosejerciciosanteriores.aspx
+528,Spain,Country,Both,Other budget documents,https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/DocumentacionEstadisticas/Estadisticas/Paginas/Estadisticas.aspx
+529,Spain,Country,Both,Official social media,https://twitter.com/mitecogob
+,Spain,Country,,Official Ministry website,https://industria.gob.es/
+,Spain,Country,,Official Ministry website,https://comercio.gob.es/
+,Spain,Country,,Official Ministry website,https://www.mincotur.gob.e
+530,South Africa,Country,Both,Official Gazette,https://www.gov.za/documents/notices
+531,South Africa,Country,Both,Official Press Releases,https://www.energy.gov.za/files/media_frame.html
+532,South Africa,Country,Both,Official Ministry website,https://www.gov.za/
+533,South Africa,Country,Both,Official Ministry website,https://www.treasury.gov.za
+534,South Africa,Country,Both,Official Ministry website,https://www.energy.gov.za/
+535,South Africa,Country,Tracker_B,Disbursement / annual statements,https://www.treasury.gov.za/documents/mtbps/default.aspx
+536,South Africa,Country,Tracker_A,Official initial budget document,https://www.treasury.gov.za/documents/National%20Budget/default.aspx
+537,South Africa,Country,Both,Other budget documents,https://www.gov.za/national-budget-0
+538,South Africa,Country,Both,Official social media,https://twitter.com/DMRE_ZA
+,South Africa,Country,,Official Ministry website,http://www.thedtic.gov.za/
+539,Sweden,Country,Both,Official Gazette,https://www.riksdagen.se/sv/dokument-lagar/?doktyp=sfs&dokstat=g%c3%a4llande+sfs
+540,Sweden,Country,Both,Official Press Releases,https://www.regeringen.se/pressmeddelanden/
+541,Sweden,Country,Both,Official Ministry website,https://www.regeringen.se/
+542,Sweden,Country,Both,Official Ministry website,https://www.regeringen.se/sveriges-regering/klimat--och-naringslivsdepartementet/
+543,Sweden,Country,Both,Official Ministry website,https://www.regeringen.se/sveriges-regering/finansdepartementet/
+544,Sweden,Country,Tracker_B,Disbursement / annual statements,https://www.regeringen.se/rattsliga-dokument/skrivelse/2022/04/skr.-202122101/
+545,Sweden,Country,Tracker_A,Official initial budget document,https://www.regeringen.se/sveriges-regering/finansdepartementet/statens-budget/budgetpropositioner-per-budgetar/
+,Sweden,Country,,Official Ministry website,https://www.kommerskollegium.se/en
+546,Türkiye,Country,Both,Official Gazette,https://www.resmigazete.gov.tr/
+547,Türkiye,Country,Both,Official Ministry website,https://www.turkiye.gov.tr/
+548,Türkiye,Country,Both,Official Ministry website,https://enerji.gov.tr/
+549,Türkiye,Country,Both,Official Ministry website,https://www.hmb.gov.tr/
+550,Türkiye,Country,Tracker_B,Disbursement / annual statements,https://www.sbb.gov.tr/butce-merkezi-yonetim-butce-gerceklesmeleri-ve-beklentiler-raporlari/
+551,Türkiye,Country,Tracker_A,Official initial budget document,https://www.sbb.gov.tr/merkezi-yonetim-butce-kanunlari/
+,Türkiye,Country,,Official Ministry website,https://www.trade.gov.tr/
+552,United Kingdom,Country,Both,Official Gazette,https://bills.parliament.uk/
+553,United Kingdom,Country,Both,Official Press Releases,https://www.gov.uk/search/news-and-communications
+554,United Kingdom,Country,Both,Official Ministry website,https://www.gov.uk/
+555,United Kingdom,Country,Both,Official Ministry website,https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero
+556,United Kingdom,Country,Both,Official Ministry website,https://www.gov.uk/government/organisations/hm-treasury
+557,United Kingdom,Country,Tracker_B,Disbursement / annual statements,https://www.gov.uk/government/publications/budget-2021-documents
+558,United Kingdom,Country,Tracker_A,Official initial budget document,https://www.gov.uk/government/publications/autumn-statement-2022-documents
+559,United Kingdom,Country,Both,Other budget documents,https://obr.uk/forecasts-in-depth/policy-costings/
+560,United Kingdom,Country,Both,Official social media,https://twitter.com/energygovuk
+,United Kingdom,Country,,Official Ministry website,https://www.gov.uk/government/organisations/department-for-business-and-trade
+561,United States,Country,Both,Official Ministry website,https://www.usa.gov/
+562,United States,Country,Both,Official Ministry website,https://www.energy.gov/
+563,United States,Country,Both,Official Ministry website,https://home.treasury.gov/
+564,United States,Country,Tracker_B,Disbursement / annual statements,https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/
+565,United States,Country,Tracker_B,Official initial budget document,https://www.congress.gov/help/appropriations-and-budget
+566,United States,Country,Tracker_B,Other budget documents,https://www.usaspending.gov/
+567,United States,Country,Both,Official social media,https://twitter.com/energy
+568,United States,Country,Both,Other budget documents,https://www.cbo.gov/data/budget-economic-data
+569,United States,California,Both,Official Gazette,https://leginfo.legislature.ca.gov/
+570,United States,California,Both,Official Ministry website,https://www.ca.gov/
+571,United States,California,Both,Official Ministry website,https://www.energy.ca.gov/
+572,United States,California,Both,Official Ministry website,https://www.energy.ca.gov/
+573,United States,Country,Tracker_B,Official Ministry website,https://www.usaspending.gov/
+574,United States,Country,Both,Official Ministry website,https://www.eia.gov/
+575,United States,Country,Both,Official social media,https://twitter.com/StateDept
+576,United States,Country,Both,Official social media,https://twitter.com/POTUS
+,United States,Country,,Official Ministry website,https://ustr.gov/
+,United States,Country,,Official Ministry website,https://www.commerce.gov/
+577,Australia,Country,Both,Non-official sources,https://www.abc.net.au/ 
+578,Australia,Country,Both,Non-official sources,https://www.skynews.com.au/ 
+579,Australia,Country,Both,Non-official sources,https://www.smh.com.au/ 
+580,Australia,Country,Both,Non-official sources,https://thewest.com.au/ 
+581,Australia,Country,Both,Non-official sources,https://thefifthestate.com.au/ 
+582,Australia,Country,Both,Non-official sources,https://thedriven.io/ 
+583,Brazil,Country,Both,Non-official sources,https://valorinternational.globo.com/ 
+584,Brazil,Country,Both,Non-official sources,istoe.com.br 
+585,Brazil,Country,Both,Non-official sources,https://oglobo.globo.com 
+586,Canada,Country,Both,Non-official sources,https://www.cbc.ca/ 
+587,Canada,Country,Both,Non-official sources,https://laws-lois.justice.gc.ca/ 
+588,Canada,Country,Both,Non-official sources,https://news.gov.bc.ca/ 
+589,China,Country,Both,Non-official sources,https://www.sohu.com/ 
+590,China,Country,Both,Non-official sources,http://www.news.cn/ 
+591,China,Country,Both,Non-official sources,http://www.xinhuanet.com 
+592,China,Country,Both,Non-official sources,https://www.world-nuclear-news.org/ 
+593,China,Country,Both,Non-official sources,https://theicct.org 
+594,China,Country,Both,Non-official sources,https://finance.sina.com.cn 
+595,China,Country,Both,Non-official sources,https://m.21jingji.com 
+596,China,Country,Both,Non-official sources,https://www.caixinglobal.com
+597,France,Country,Both,Non-official sources,https://www.actu-environnement.com 
+598,France,Country,Both,Non-official sources,https://www.francetvinfo.fr 
+599,France,Country,Both,Non-official sources,http://www.arnaudgossement.com 
+600,France,Country,Both,Non-official sources,https://www.degaullefleurance.com 
+601,France,Country,Both,Non-official sources,https://www.les-energies-renouvelables.eu 
+602,Germany,Country,Both,Non-official sources,https://www.geea.info/ 
+603,Germany,Country,Both,Non-official sources,https://www.cdu.de
+604,India,Country,Both,Non-official sources,https://economictimes.indiatimes.com 
+605,India,Country,Both,Non-official sources,https://timesofindia.indiatimes.com 
+606,India,Country,Both,Non-official sources,https://www.deccanherald.com 
+607,India,Country,Both,Non-official sources,https://www.financialexpress.com 
+608,India,Country,Both,Non-official sources,http://energy.economictimes.indiatimes.com 
+609,India,Country,Both,Non-official sources,https://science.thewire.in 
+610,India,Country,Both,Non-official sources,https://www.thehindu.com
+611,Indonesia,Country,Both,Non-official sources,https://www.antaranews.com/ 
+612,Indonesia,Country,Both,Non-official sources,https://assets.bbhub.io 
+613,Indonesia,Country,Both,Non-official sources,https://www.ashurst.com/
+614,Italy,Country,Both,Non-official sources,https://www.energysynt.com 
+615,Japan,Country,Both,Non-official sources,https://www.argusmedia.com/en/ 
+616,Japan,Country,Both,Non-official sources,https://www.eu-japan.eu 
+617,Mexico,Country,Both,Non-official sources,https://lopezobrador.org.mx 
+618,Mexico,Country,Both,Non-official sources,https://www.elfinanciero.com.mx/ 
+619,Korea,Country,Both,Non-official sources,https://www.koreatimes.co.kr
+620,Korea,Country,Both,Non-official sources,https://en.yna.co.kr 
+621,Korea,Country,Both,Non-official sources,http://www.koreaherald.com
+622,Korea,Country,Both,Non-official sources,https://pulsenews.co.kr
+623,Korea,Country,Both,Non-official sources,https://en.yna.co.kr
+624,Saudi Arabia,Country,Both,Non-official sources,http://https://www.acwapower.com
+625,Saudi Arabia,Country,Both,Non-official sources,http://https://www.aramco.com
+626,Saudi Arabia,Country,Both,Non-official sources,https://www.power-technology.com 
+627,South Africa,Country,Both,Non-official sources,https://www.ipp-renewables.co.za
+628,South Africa,Country,Both,Non-official sources,https://www.ipp-projects.co.za 
+629,South Africa,Country,Both,Non-official sources,https://www.news24.com 
+630,South Africa,Country,Both,Non-official sources,http://https://www.sanews.gov.za/ 
+631,Türkiye,Country,Both,Non-official sources,https://www.enerdata.net
+632,Türkiye,Country,Both,Non-official sources,https://www.argusmedia.com 
+633,Türkiye,Country,Both,Non-official sources,https://www.aa.com.tr
+634,Australia,Country,Both,Official Ministry website,https://parlinfo.aph.gov.au/ 
+635,Australia,Country,Both,Official Ministry website,https://www.minister.industry.gov.au/ 
+636,Australia,Country,Both,Official Ministry website,https://arena.gov.au/ 
+637,Australia,Country,Both,Official Ministry website,https://business.gov.au/grants-and-programs/carbon-capture-use-and-storage-development-fund 
+638,Australia,Country,Both,Official Ministry website,https://services.dffh.vic.gov.au/ 
+639,Australia,Country,Both,Official Ministry website,www.cefc.com.au 
+640,Australia,Country,Both,Official Ministry website,https://minister.dcceew.gov.au/ 
+641,Australia,Country,Both,Official Ministry website,https://www.concessions.tas.gov.au/ 
+642,Australia,Country,Both,Official Ministry website,https://www.pm.gov.au/ 
+643,Australia,Country,Both,Official Ministry website,https://treasury.gov.au 
+644,Canada,Country,Both,Official Ministry website,https://open.alberta.ca/ 
+645,Canada,Country,Both,Official Ministry website,https://www.nrcan.gc.ca 
+646,Canada,Country,Both,Official Ministry website,https://budget.gc.ca
+647,Canada,Country,Both,Official Ministry website,https://pm.gc.ca/ 
+648,China,Country,Both,Official Ministry website,http://gxj.sz.gov.cn/ 
+649,China,Country,Both,Official Ministry website,https://www.ndrc.gov.cn 
+650,China,Country,Both,Official Ministry website,http://jjs.mof.gov.cn/ 
+651,China,Country,Both,Official Ministry website,http://www.hg.gov.cn 
+652,China,Country,Both,Official Ministry website,http://english.www.gov.cn
+653,China,Country,Both,Official Ministry website,http://www.sasac.gov.cn 
+654,China,Country,Both,Official Ministry website,http://yss.mof.gov.cn
+655,China,Country,Both,Official Ministry website,http://www.pbc.gov.cn
+656,China,Country,Both,Official Ministry website,https://www.ngd-fund.com 
+657,France,Country,Both,Official Ministry website,https://www.vie-publique.fr 
+658,France,Country,Both,Official Ministry website,https://expertises.ademe.fr 
+659,France,Country,Both,Official Ministry website,https://www.entreprises.gouv.fr
+660,France,Country,Both,Official Ministry website,https://www.elysee.fr 
+661,France,Country,Both,Official Ministry website,https://www.assemblee-nationale.fr 
+662,Germany,Country,Both,Official Ministry website,https://dip.bundestag.de 
+663,Germany,Country,Both,Official Ministry website,https://www.bmwk.de 
+664,Germany,Country,Both,Official Ministry website,https://www.bmvi.de 
+665,Germany,Country,Both,Official Ministry website,https://www.bmuv.de/ 
+666,Germany,Country,Both,Official Ministry website,https://www.energieforschung.de/ 
+667,India,Country,Both,Official Ministry website,https://niti.gov.in/ 
+668,India,Country,Both,Official Ministry website,https://twitter.com/nsitharaman 
+669,India,Country,Both,Official Ministry website,https://prsindia.org 
+670,India,Country,Both,Official Ministry website,https://indianrailways.gov.in 
+671,India,Country,Both,Official Ministry website,https://www.indiabudget.gov.in/ 
+672,India,Country,Both,Official Ministry website,https://powermin.gov.in/ 
+673,Indonesia,Country,Both,Official Ministry website,https://sdgs.bappenas.go.id/
+674,Italy,Country,Both,Official Ministry website,https://www.gazzettaufficiale.it/ 
+675,Italy,Country,Both,Official Ministry website,https://documenti.camera.it 
+676,Italy,Country,Both,Official Ministry website,https://temi.camera.it 
+677,Italy,Country,Both,Official Ministry website,https://www.lavoro.gov.it 
+678,Italy,Country,Both,Official Ministry website,https://www.mise.gov.it 
+679,Italy,Country,Both,Official Ministry website,https://www.arera.it/it 
+680,Japan,Country,Both,Official Ministry website,https://www.sangiin.go.jp 
+681,Japan,Country,Both,Official Ministry website,https://japan.kantei.go.jp
+682,Japan,Country,Both,Official Ministry website,https://www5.cao.go.jp 
+683,Japan,Country,Both,Official Ministry website,https://www.env.go.jp 
+684,Japan,Country,Both,Official Ministry website,https://sii.or.jp 
+685,Japan,Country,Both,Official Ministry website,https://www.nedo.go.jp
+686,Japan,Country,Both,Official Ministry website,https://www.mlit.go.jp 
+687,Japan,Country,Both,Official Ministry website,https://www.gzr.aist.go.jp/en/ 
+688,Korea,Country,Both,Official Ministry website,https://www.alio.go.kr 
+689,Korea,Country,Both,Official Ministry website,https://www.korea.kr 
+690,Korea,Country,Both,Official Ministry website,https://eng.me.go.kr
+691,Korea,Country,Both,Official Ministry website,https://www.mss.go.kr 
+692,Turkey,Country,Both,Official Ministry website,https://www.epdk.gov.tr
