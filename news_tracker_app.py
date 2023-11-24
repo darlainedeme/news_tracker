@@ -438,7 +438,6 @@ def research():
         st.warning("Please complete the previous steps first.")
         return
 
-
     # Sidebar for selecting time period
     period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
                       "last three months", "last 6 months", "last year", "last 2y", 
@@ -575,6 +574,8 @@ def research():
         
         # Store the results in session_state, overwriting any previous results
         st.session_state.results = results
+
+        st.write(results)
     
         # Display the results
         total_characters = 0  # Initialize a counter
