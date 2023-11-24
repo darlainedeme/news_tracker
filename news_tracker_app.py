@@ -581,6 +581,8 @@ def research():
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
 
+            snippet_without_date = result['snippet'].replace(date_text, '').strip()
+
             # Determine the document type
             if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
                 doc_type = result['link'].split('.')[-1]  # Get the file extension
@@ -590,23 +592,8 @@ def research():
             # Display the formatted results
             st.subheader(f"[{result['title']}]({result['link']})")
             st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-            st.write(f"Snippet: {result['snippet']}")
-            
-# =============================================================================
-#             try:
-#                 st.write(f"Format: {result['fileFormat']}")
-#             except:
-#                 continue
-# =============================================================================
-            st.write(f"Published Date: {result.get('pagemap', {}).get('metatags', [{}])[0].get('og:updated_time', 'N/A')}")
-            snippet_length = len(result.get('snippet', ''))
-            st.write(f"Length in Characters: {snippet_length}")
-            total_characters += snippet_length  # Update the counter
-            
-            # Summarize using gensim's TextRank
-            summary = result['snippet']
-            st.write(f"Summary: {summary}")
-            
+            st.write(f"Snippet: {result['snippet_without_date ']}")
+                    
             # st.write(result)
             st.markdown("---")  # separator
               
