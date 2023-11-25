@@ -233,7 +233,6 @@ def define_research():
         # 2.1 Official Sources (if selected)
         if st.session_state.sources == "predefined sources search":
             types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
-            st.write(types_list)
             st.session_state.official_sources = st.multiselect("",
                                                             types_list,
                                                             help="Select official sources for predefined sources search.")
