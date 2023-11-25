@@ -727,8 +727,8 @@ def research():
             # Check if translation is needed
             if want_translation:
                 # Translate title, snippet, and summary
-                translated_title = translate_text(result['title'], st.session_state.selected_language[0])
-                translated_snippet = translate_text(snippet_without_date, st.session_state.selected_language[0])
+                translated_title = translate_text_with_google_cloud(result['title'], st.session_state.selected_language[0])
+                translated_snippet = translate_text_with_google_cloud(snippet_without_date, st.session_state.selected_language[0])
 
                 # Display translated title and snippet
                 st.subheader(f"[{translated_title}]({result['link']})")
