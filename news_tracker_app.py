@@ -736,7 +736,7 @@ def research():
             response = requests.get(url, params=params)
             results.extend(response.json().get("items", []))
     
-        total_results = int(response.json().get("searchInformation", {}).get("totalResults", 0))
+        total_results = len(results)
         # URL encode the query string
         encoded_query = urllib.parse.quote_plus(query)  
         
@@ -744,7 +744,7 @@ def research():
         google_search_url = f"https://www.google.com/search?q={encoded_query}"
     
         # Display the estimated total number of search results and the link
-        st.markdown(f"Total estimated results on Google: [{total_results}]({google_search_url})")
+        st.markdown(f"Total estimated results: [{total_results}]({google_search_url})")
     
         # Reset the session_state for results to ensure new results overwrite previous ones
         st.session_state.results = []
