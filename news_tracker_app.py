@@ -603,6 +603,11 @@ def research():
         # Remove all apostrophes from the query
         query = query.replace('"', '')
 
+    # Check if the checkbox is checked
+    if len(st.session_state.selected_countries) > 1:
+        # Remove all apostrophes from the query
+        query = query.replace("'", "")
+
     if st.session_state.sources == "general google search":
         query = str(st.session_state.selected_countries) + " " + query 
 
