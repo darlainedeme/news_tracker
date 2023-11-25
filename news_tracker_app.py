@@ -547,7 +547,7 @@ def research():
     def construct_query_2(base_query, research_type):
         if research_type == "Only PDF":
             # Add ".pdf" at the beginning of the query
-            return f".pdf {base_query}"
+            return f"'.pdf' {base_query}"
         elif research_type == "Exclude PDF":
             # Add "-filetype:pdf" at the end of the query
             return f"{base_query} -filetype:pdf"
