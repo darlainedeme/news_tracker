@@ -640,6 +640,24 @@ def research():
                                     break
 
                         return title, index_content.strip()
+                        
+                    def extract_sentences_from_pdf(url, keywords):
+                        response = requests.get(url)
+                        sentences_with_keywords = []
+                        num_pages = 0
+
+                        if response.status_code == 200:
+                            with pdfplumber.open(BytesIO(response.content)) as pdf:
+                                num_pages = len(pdf.pages)
+                                for page in pdf.pages:
+                                    text = page.extract_text()
+                                    if text:
+                                        sentences = text.split('.')
+                                        for sentence in sentences:
+                                            if any(keyword.lower() in sentence.lower() for keyword in keywords):
+                                                sentences_with_keywords.append(sentence.strip())
+
+                        return sentences_with_keywords, num_pages
 
                     with st.expander(f"PDF Document Details: {result['title']}"):
                         response = requests.get(result['link'])
