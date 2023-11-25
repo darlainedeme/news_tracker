@@ -634,7 +634,7 @@ def research():
         # Function to summarize content
         def summarize_content(content, max_length=2000):
             inputs = tokenizer.encode("summarize: " + content, return_tensors="pt", max_length=3000, truncation=True)
-            summary_ids = model.generate(inputs, max_length=max_length, min_length=20, length_penalty=2.0, num_beams=4, early_stopping=True)
+            summary_ids = model.generate(inputs, max_length=max_length, min_length=20, length_penalty=10, num_beams=4, early_stopping=True)
             summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
             return summary
 
