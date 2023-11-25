@@ -668,6 +668,8 @@ def research():
 
             # Get the language code from the language name
             target_language = language_codes.get(language_name)
+            target_language = 'en'
+            
             if not target_language:
                 raise ValueError(f"Invalid language name: {language_name}")
 
