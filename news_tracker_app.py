@@ -594,7 +594,7 @@ def research():
 
             # Update progress bar
             progress_bar.progress((i + 1) / len(results))
-            
+
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
             snippet_without_date = result['snippet'].replace(date_text, '').strip()
@@ -656,14 +656,6 @@ def research():
             st.markdown("---")
 
 
-    
-
-
-
-
-        # Save the accumulated value to st.session_state
-        st.session_state.total_characters = total_characters
-        
         # Create a list of dictionaries from results
         data_list = [{'title': result['title'], 'link': result['link'], 'snippet': result['snippet']} for result in results]
         
