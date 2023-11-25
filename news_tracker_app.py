@@ -779,7 +779,7 @@ def research():
 
                     # Translate the summary if needed
                     if want_translation:
-                        summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0], api_key)
+                        summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0])
 
                     # Display the summary in an expander
                     with st.expander("Show Summary"):
