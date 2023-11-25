@@ -657,13 +657,21 @@ def research():
 
     if want_translation:
         def translate_text_with_google_cloud(text, target_language):
-            # Create a Translate client with the API key
-            translate_client = translate.Client(api_key=api_key)
+            url = "https://translation.googleapis.com/language/translate/v2"
+            params = {
+                'q': text,
+                'target': target_language,
+                'format': 'text',
+                'key': api_key
+            }
+            response = requests.post(url, params=params)
+            if response.status_code == 200:
+                result = response.json()
+                translated_text = result['data']['translations'][0]['translatedText']
+                return translated_text
+            else:
+                raise Exception(f"Google Cloud Translation API error: {response.text}")
 
-            # Text can also be a sequence of strings for batch translation
-            result = translate_client.translate(text, target_language=target_language)
-
-            return result['translatedText']
 
 
     if st.sidebar.button("Run Research"):
