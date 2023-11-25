@@ -595,7 +595,7 @@ def research():
         query = query.replace('"', '')
 
     if st.session_state.sources == "general google search":
-        query = str(st.session_state.selected_countries[0]) + " " + query 
+        query = str(st.session_state.selected_countries) + " " + query 
 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
