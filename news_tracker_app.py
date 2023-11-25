@@ -613,7 +613,7 @@ def research():
             # Additional processing for summary
             if want_summary:
                 # Determine if it's a webpage or a PDF and process accordingly
-                if doc_type == "webpage":
+                if doc_type != "pdf":
                     # Scrape the webpage content
                     response = requests.get(result['link'])
                     soup = BeautifulSoup(response.content, 'html.parser')
