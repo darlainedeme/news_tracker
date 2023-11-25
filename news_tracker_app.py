@@ -164,8 +164,27 @@ def define_research():
     if 'include_monetary_info' not in st.session_state:
         st.session_state.include_monetary_info = False
 
-    # Load necessary data
-    links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+
+    # 1. Kind of Research
+    st.subheader("1. Research Type")
+    st.session_state.research_type = st.radio(
+        "",
+        ["policies", "news", "spendings", "projects"],
+        index=["policies", "news", "projects"].index(st.session_state.research_type),
+        help="Select the type of research you're interested in. Options include policies, news, and projects."
+    )
+
+    # Load necessary data based on the selected research type
+    if st.session_state.research_type == "spendings":
+        links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+    elif st.session_state.research_type == "news":
+        links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
+    else:  # For "policies" and "projects"
+        links_df = pd.read_csv('data/energy_stakeholders_links.csv', encoding='utf-8')
+
+    # Separator
+    st.markdown("---")
+   
     languages_df = pd.read_csv('data/languages.csv', encoding='utf-8')
     comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
@@ -175,7 +194,7 @@ def define_research():
     # 0. Administrative division
     if 'selected_countries' in st.session_state and not st.session_state.subset_data.empty:
         # Check if only one country is selected
-        if len(st.session_state.selected_countries) == 1:
+        if len(st.session_state.selected_countries) == 1 and st.session_state.research_type == "spendings":
             selected_country = st.session_state.selected_countries[0]
 
             # Filter the DataFrame for the selected country
@@ -191,15 +210,6 @@ def define_research():
             links_df = country_df[country_df['Region'] == selected_region]
 
 
-    # 1. Kind of Research
-    st.subheader("1. Research Type")
-    st.session_state.research_type = st.radio("",
-                                              ["policies", "news", "spendings", "projects"],
-                                              index=["policies", "news", "projects"].index(st.session_state.research_type),
-                                              help="Select the type of research you're interested in. Options include policies, news, and projects.")
-
-    # Separator
-    st.markdown("---")
 
     # 2. Sources of Information
     st.subheader("2. Information Sources")
