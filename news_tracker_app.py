@@ -551,6 +551,61 @@ def research():
     if want_summary:
         num_links_to_summarize = st.sidebar.slider('Select number of links for summarized analysis', 1, 100, 10)
 
+        # Function to load model and tokenizer for summarization
+        def load_model():
+            model_name = "t5-small"  # You can choose other models like 't5-base', 't5-large'
+            model = T5ForConditionalGeneration.from_pretrained(model_name)
+            tokenizer = T5Tokenizer.from_pretrained(model_name)
+            return model, tokenizer
+
+        model, tokenizer = load_model()
+
+        # Function to summarize content
+        def summarize_content(content, max_length=100):
+            inputs = tokenizer.encode("summarize: " + content, return_tensors="pt", max_length=512, truncation=True)
+            summary_ids = model.generate(inputs, max_length=max_length, min_length=20, length_penalty=2.0, num_beams=4, early_stopping=True)
+            summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+            return summary
+
+        # Function to sort sentences based on the count of different keywords
+        def sort_sentences(sentences, keywords):
+            def count_unique_keywords(sentence):
+                word_counts = Counter(word.lower() for word in sentence.split() if word.lower() in keywords)
+                return len(word_counts)
+
+            sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
+            return sorted_sentences
+        def extract_metadata_and_index(pdf):
+            title = pdf.metadata.get('title', 'No Title Found')
+            index_content = ''
+
+            for page in pdf.pages:
+                text = page.extract_text()
+                if text:
+                    if 'contents' in text.lower() or 'index' in text.lower():
+                        index_content += text + '\n\n'
+                        # Optional: break if you only want the first occurrence of 'Contents' or 'Index'
+                        break
+
+            return title, index_content.strip()
+        
+        def extract_sentences_from_pdf(url, keywords):
+            response = requests.get(url)
+            sentences_with_keywords = []
+            num_pages = 0
+
+            if response.status_code == 200:
+                with pdfplumber.open(BytesIO(response.content)) as pdf:
+                    num_pages = len(pdf.pages)
+                    for page in pdf.pages:
+                        text = page.extract_text()
+                        if text:
+                            sentences = text.split('.')
+                            for sentence in sentences:
+                                if any(keyword.lower() in sentence.lower() for keyword in keywords):
+                                    sentences_with_keywords.append(sentence.strip())
+
+            return sentences_with_keywords, num_pages
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
@@ -627,46 +682,6 @@ def research():
                         st.write(summary)
 
                 else:
-                    # Function to sort sentences based on the count of different keywords
-                    def sort_sentences(sentences, keywords):
-                        def count_unique_keywords(sentence):
-                            word_counts = Counter(word.lower() for word in sentence.split() if word.lower() in keywords)
-                            return len(word_counts)
-
-                        sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
-                        return sorted_sentences
-                    def extract_metadata_and_index(pdf):
-                        title = pdf.metadata.get('title', 'No Title Found')
-                        index_content = ''
-
-                        for page in pdf.pages:
-                            text = page.extract_text()
-                            if text:
-                                if 'contents' in text.lower() or 'index' in text.lower():
-                                    index_content += text + '\n\n'
-                                    # Optional: break if you only want the first occurrence of 'Contents' or 'Index'
-                                    break
-
-                        return title, index_content.strip()
-                    
-                    def extract_sentences_from_pdf(url, keywords):
-                        response = requests.get(url)
-                        sentences_with_keywords = []
-                        num_pages = 0
-
-                        if response.status_code == 200:
-                            with pdfplumber.open(BytesIO(response.content)) as pdf:
-                                num_pages = len(pdf.pages)
-                                for page in pdf.pages:
-                                    text = page.extract_text()
-                                    if text:
-                                        sentences = text.split('.')
-                                        for sentence in sentences:
-                                            if any(keyword.lower() in sentence.lower() for keyword in keywords):
-                                                sentences_with_keywords.append(sentence.strip())
-
-                        return sentences_with_keywords, num_pages
-
                     with st.expander(f"PDF Document Details: {result['title']}"):
                         response = requests.get(result['link'])
                         if response.status_code == 200:
