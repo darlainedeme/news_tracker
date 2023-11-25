@@ -603,15 +603,15 @@ def research():
         # Remove all apostrophes from the query
         query = query.replace('"', '')
 
-    # Check if many countries
-    if len(st.session_state.selected_countries) > 1:
-        # Remove all apostrophes from the query
-        query = query.replace("'", "")
-        query = query.replace("[", "")
-        query = query.replace("]", "")
-
     if st.session_state.sources == "general google search":
-        query = str(st.session_state.selected_countries) + " " + query 
+        if len(st.session_state.selected_countries) > 1:
+            query = str(st.session_state.selected_countries) + " " + query 
+            query = query.replace("'", "")
+            query = query.replace("[", "")
+            query = query.replace("]", "")
+
+        else:
+            query = str(st.session_state.selected_countries[0]) + " " + query 
 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
