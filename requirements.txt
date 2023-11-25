@@ -16,3 +16,4 @@ python-dotenv  # If you decide to use dotenv for environment variables
 secure-smtplib
 transformers
 torch
+sentencepiece
