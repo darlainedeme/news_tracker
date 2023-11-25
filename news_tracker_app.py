@@ -23,17 +23,16 @@ from email.mime.text import MIMEText
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 from collections import Counter
+from google.cloud import translate_v2 as translate
+import logging
+
+# logging.basicConfig(level=logging.DEBUG)
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
 cse_id = os.getenv('CSE_ID')
 api_key = os.getenv('API_KEY')
 
-# Set your OpenAI API key
-openai.api_key = os.getenv('OPENAI_API_KEY')
-cse_id = os.getenv('CSE_ID')
-api_key = os.getenv('API_KEY')
-            
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
 
@@ -72,23 +71,23 @@ def area_selection():
     data = data[data['field_3'].notna()]
 
     if selection == 'Country':
-        countries = data['field_3'].unique().tolist()
+        countries = sorted(data['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', countries, default=st.session_state.selected_countries)
         st.session_state.selected_countries = selected_countries
         subset_data = data[data['field_3'].isin(selected_countries)]
 
     elif selection == 'Continent':
-        continents = data['continent'].unique().tolist()
+        continents = sorted(data['continent'].unique().tolist())
         selected_continent = st.sidebar.selectbox('Choose a continent', continents, index=continents.index('Europe'))
-        subset_countries = data[data['continent'] == selected_continent]['field_3'].unique().tolist()
+        subset_countries = sorted(data[data['continent'] == selected_continent]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
         subset_data = data[data['field_3'].isin(selected_countries)]
         st.session_state.selected_countries = selected_countries
 
     elif selection == 'WEO Region':
-        weo_regions = data['Code_Region'].unique().tolist()
+        weo_regions = sorted(data['Code_Region'].unique().tolist())
         selected_weo = st.sidebar.selectbox('Choose a WEO Region', weo_regions, index=weo_regions.index('EUA'))
-        subset_countries = data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist()
+        subset_countries = sorted(data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
         subset_data = data[data['field_3'].isin(selected_countries)]
         st.session_state.selected_countries = selected_countries
@@ -104,6 +103,7 @@ def area_selection():
 
     if selection != 'No specific area':
         st.session_state.subset_data = subset_data
+
 
     # Read the CSV
     tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
@@ -138,6 +138,11 @@ def define_research():
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
     """)
 
+    # Ensure that the necessary data is in the session state
+    if 'subset_data' not in st.session_state and st.session_state.subset_data is not None:
+        st.warning("Please complete the previous steps first.")
+        return
+    
     # Initialize session state variables if not already set
     if 'research_type' not in st.session_state:
         st.session_state.research_type = 'policies'
@@ -164,18 +169,39 @@ def define_research():
     if 'include_monetary_info' not in st.session_state:
         st.session_state.include_monetary_info = False
 
-    # Load necessary data
-    links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+    # Ensure that session state for research_type is initialized
+    if 'research_type' not in st.session_state:
+        st.session_state.research_type = "spendings"  # default value
+
+    # 1. Kind of Research
+    st.subheader("1. Research Type")
+    st.session_state.research_type = st.radio(
+        "",
+        ["policies", "news", "spendings", "projects"],
+        index=["policies", "news", "spendings", "projects"].index(st.session_state.research_type),
+        help="Select the type of research you're interested in. Options include policies, news, and projects."
+    )
+
+    # Load necessary data based on the selected research type
+    if st.session_state.research_type == "spendings":
+        links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+    elif st.session_state.research_type == "news":
+        links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
+    else:  # For "policies" and "projects"
+        links_df = pd.read_csv('data/energy_stakeholders_links.csv', encoding='utf-8')
+
+    # Separator
+    st.markdown("---")
+   
     languages_df = pd.read_csv('data/languages.csv', encoding='utf-8')
     comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
 
-
     # 0. Administrative division
     if 'selected_countries' in st.session_state and not st.session_state.subset_data.empty:
         # Check if only one country is selected
-        if len(st.session_state.selected_countries) == 1:
+        if len(st.session_state.selected_countries) == 1 and st.session_state.research_type == "spendings":
             selected_country = st.session_state.selected_countries[0]
 
             # Filter the DataFrame for the selected country
@@ -190,16 +216,6 @@ def define_research():
             # Update links_df to filter by the selected region
             links_df = country_df[country_df['Region'] == selected_region]
 
-
-    # 1. Kind of Research
-    st.subheader("1. Research Type")
-    st.session_state.research_type = st.radio("",
-                                              ["policies", "news", "projects"],
-                                              index=["policies", "news", "projects"].index(st.session_state.research_type),
-                                              help="Select the type of research you're interested in. Options include policies, news, and projects.")
-
-    # Separator
-    st.markdown("---")
 
     # 2. Sources of Information
     st.subheader("2. Information Sources")
@@ -218,7 +234,6 @@ def define_research():
             types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
             st.session_state.official_sources = st.multiselect("",
                                                             types_list,
-                                                            default=st.session_state.official_sources,
                                                             help="Select official sources for predefined sources search.")
 
             source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
@@ -434,7 +449,6 @@ def define_research():
     st.markdown("---")
 
 
-
 def research():
     st.title("Research 📚")
     st.markdown("""
@@ -638,6 +652,28 @@ def research():
 
             return sentences_with_keywords, num_pages
 
+    # Checkbox for translation
+    want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
+
+    if want_translation:
+        def translate_text_with_google_cloud(text, target_language):
+            url = "https://translation.googleapis.com/language/translate/v2"
+            params = {
+                'q': text,
+                'target': target_language,
+                'format': 'text',
+                'key': api_key
+            }
+            response = requests.post(url, params=params)
+            if response.status_code == 200:
+                result = response.json()
+                translated_text = result['data']['translations'][0]['translatedText']
+                return translated_text
+            else:
+                raise Exception(f"Google Cloud Translation API error: {response.text}")
+
+
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
@@ -680,7 +716,7 @@ def research():
                 break
 
             # Update progress bar
-            progress_bar.progress((i + 1) / len(results))
+            progress_bar.progress((i + 1) / num_links_to_summarize)
 
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
@@ -692,10 +728,22 @@ def research():
             else:
                 doc_type = "webpage"
 
-            # Existing code to display the result
-            st.subheader(f"[{result['title']}]({result['link']})")
-            st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-            st.write(f"Snippet: {snippet_without_date}")
+            # Check if translation is needed
+            if want_translation:
+                # Translate title, snippet, and summary
+                translated_title = translate_text_with_google_cloud(result['title'], st.session_state.selected_language[0])
+                translated_snippet = translate_text_with_google_cloud(snippet_without_date, st.session_state.selected_language[0])
+
+                # Display translated title and snippet
+                st.subheader(f"[{translated_title}]({result['link']})")
+                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                st.write(f"Snippet: {translated_snippet}")
+
+            else:
+                # Existing code to display the result
+                st.subheader(f"[{result['title']}]({result['link']})")
+                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                st.write(f"Snippet: {snippet_without_date}")
 
             # Additional processing for summary
             if want_summary:
@@ -747,6 +795,26 @@ def research():
                             st.error("Failed to access the PDF.")
 
             st.markdown("---")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         # Create a list of dictionaries from results
