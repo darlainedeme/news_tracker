@@ -85,7 +85,7 @@ def area_selection():
         st.session_state.selected_countries = selected_countries
 
     elif selection == 'WEO Region':
-        weo_regions = sorted(data['Code_Region'].unique().tolist())
+        weo_regions = data['Code_Region'].unique().tolist()
         selected_weo = st.sidebar.selectbox('Choose a WEO Region', weo_regions, index=weo_regions.index('EUA'))
         subset_countries = sorted(data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
