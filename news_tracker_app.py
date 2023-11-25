@@ -23,7 +23,7 @@ from email.mime.text import MIMEText
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 from collections import Counter
-from googletrans import Translator
+from google.cloud import translate_v2 as translate
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -655,15 +655,16 @@ def research():
             return sentences_with_keywords, num_pages
 
     # Checkbox for translation
-    want_translation = st.checkbox('Do you want to translate to English?', value=False)
+    want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
 
     if want_translation:
-        translator = Translator()
+        def translate_text_with_google_cloud(text, target_language):
+            translate_client = translate.Client()
 
-        def translate_text(text, src_language):
-            # Translate the text to English from the source language
-            translation = translator.translate(text, src=src_language, dest='en')
-            return translation.text
+            # Text can also be a sequence of strings for batch translation
+            result = translate_client.translate(text, target_language=target_language)
+
+            return result['translatedText']
 
 
     if st.sidebar.button("Run Research"):
