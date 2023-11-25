@@ -627,6 +627,14 @@ def research():
                         st.write(summary)
 
                 elif doc_type == "pdf":
+                    # Function to sort sentences based on the count of different keywords
+                    def sort_sentences(sentences, keywords):
+                        def count_unique_keywords(sentence):
+                            word_counts = Counter(word.lower() for word in sentence.split() if word.lower() in keywords)
+                            return len(word_counts)
+
+                        sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
+                        return sorted_sentences
                     def extract_metadata_and_index(pdf):
                         title = pdf.metadata.get('title', 'No Title Found')
                         index_content = ''
@@ -640,7 +648,7 @@ def research():
                                     break
 
                         return title, index_content.strip()
-                        
+                    
                     def extract_sentences_from_pdf(url, keywords):
                         response = requests.get(url)
                         sentences_with_keywords = []
