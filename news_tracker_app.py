@@ -140,7 +140,7 @@ def define_research():
     """)
 
     # Ensure that the necessary data is in the session state
-    if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
+    if 'subset_data' not in st.session_state and st.session_state.subset_data is not None:
         st.warning("Please complete the previous steps first.")
         return
     
