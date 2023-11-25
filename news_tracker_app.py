@@ -138,6 +138,11 @@ def define_research():
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
     """)
 
+    # Ensure that the necessary data is in the session state
+    if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
+        st.warning("Please complete the previous steps first.")
+        return
+    
     # Initialize session state variables if not already set
     if 'research_type' not in st.session_state:
         st.session_state.research_type = 'policies'
