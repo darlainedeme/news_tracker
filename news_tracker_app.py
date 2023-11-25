@@ -662,7 +662,7 @@ def research():
             return dict(zip(df['Name'], df['Code']))
 
         # Function to translate text using the Google Cloud Translation API
-        def translate_text_with_google_cloud(text, language_name, api_key):
+        def translate_text_with_google_cloud(text, language_name):
             # Load the language codes
             language_codes = load_language_codes('data/languages_codes.csv')
 
