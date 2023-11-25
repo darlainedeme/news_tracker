@@ -617,7 +617,6 @@ def research():
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
 
     # Number of links to include in the summarized analysis
-    num_links_to_summarize = 10
     if want_summary:
         num_links_to_summarize = st.sidebar.slider('Select number of links for summarized analysis', 1, 100, 10)
 
@@ -752,11 +751,15 @@ def research():
         # Display the results and process for summary
         progress_bar = st.progress(0)
         for i, result in enumerate(results):
-            if i >= num_links_to_summarize and want_summary:
-                break
+            if want_summary:
+                if i >= num_links_to_summarize and want_summary:
+                    break
 
-            # Update progress bar
-            progress_bar.progress((i + 1) / num_links_to_summarize)
+                # Update progress bar
+                progress_bar.progress((i + 1) / num_links_to_summarize)
+
+            else:
+                progress_bar.progress((i + 1) / len(results))
 
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
