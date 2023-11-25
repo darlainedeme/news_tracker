@@ -249,7 +249,10 @@ def define_research():
 
             source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
             st.write(source_counts)
-            st.session_state.selected_predefined_links = list(set(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link))
+
+            links_list = list(set(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link))
+            
+            st.session_state.selected_predefined_links = [x for x in links_list if not math.isnan(x)]
             st.write(st.session_state.selected_predefined_links)
 
     else:
