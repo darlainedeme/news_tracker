@@ -28,6 +28,11 @@ from collections import Counter
 openai.api_key = os.getenv('OPENAI_API_KEY')
 cse_id = os.getenv('CSE_ID')
 api_key = os.getenv('API_KEY')
+
+# Set your OpenAI API key
+openai.api_key = os.getenv('OPENAI_API_KEY')
+cse_id = os.getenv('CSE_ID')
+api_key = os.getenv('API_KEY')
             
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
@@ -696,7 +701,13 @@ def research():
                     # Scrape the webpage content
                     response = requests.get(result['link'])
                     soup = BeautifulSoup(response.content, 'html.parser')
-                    text = soup.get_text()
+
+                    # Example: Extract text from specific tags
+                    main_content = soup.find('main')  # or soup.find('article') or another tag that usually contains the main text
+                    if main_content:
+                        text = ' '.join(p.get_text() for p in main_content.find_all('p'))
+                    else:
+                        text = soup.get_text()
 
                     # Summarize the webpage content
                     summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
