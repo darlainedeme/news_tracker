@@ -543,6 +543,28 @@ def research():
         # Remove all apostrophes from the query
         query = query.replace('"', '')
 
+    def construct_query(base_query, research_type):
+        if research_type == "Only PDF":
+            # Add ".pdf" at the beginning of the query
+            return f".pdf {base_query}"
+        elif research_type == "Exclude PDF":
+            # Add "-filetype:pdf" at the end of the query
+            return f"{base_query} -filetype:pdf"
+        else:
+            # Mixed research, return the base query
+            return base_query
+
+    st.sidebar.title("Research Options")
+    # Dropdown menu for research type
+    research_type = st.sidebar.selectbox(
+        "Choose the type of research",
+        ["Mixed Research", "Only PDF", "Exclude PDF"],
+        index=0  # Default to Mixed Research
+    )
+
+    # Modify the query based on the research type selected
+    query = query(base_query, research_type)
+
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
 
@@ -575,6 +597,7 @@ def research():
 
             sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
             return sorted_sentences
+        
         def extract_metadata_and_index(pdf):
             title = pdf.metadata.get('title', 'No Title Found')
             index_content = ''
@@ -606,6 +629,7 @@ def research():
                                     sentences_with_keywords.append(sentence.strip())
 
             return sentences_with_keywords, num_pages
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
