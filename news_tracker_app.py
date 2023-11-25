@@ -838,7 +838,7 @@ def research():
                                     st.write("Index / Contents:")
 
                                     if want_translation:
-                                        st.text(translate_text_with_google_cloud(index_content, st.session_state.selected_language[0])
+                                        st.text(translate_text_with_google_cloud(index_content, st.session_state.selected_language[0]))
 
                                     else:
                                         st.text(index_content)
