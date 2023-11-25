@@ -610,10 +610,7 @@ def research():
 
     if st.session_state.sources == "general google search":
         if len(st.session_state.selected_countries) > 1:
-            query = str(st.session_state.selected_countries) + " " + query 
-            query = query.replace("'", "")
-            query = query.replace("[", "")
-            query = query.replace("]", "")
+            query = " OR ".join([f'"{country}"' for country in st.session_state.selected_countries]) + " " + query 
 
         else:
             query = str(st.session_state.selected_countries[0]) + " " + query 
