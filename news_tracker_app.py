@@ -72,23 +72,23 @@ def area_selection():
     data = data[data['field_3'].notna()]
 
     if selection == 'Country':
-        countries = data['field_3'].unique().tolist()
+        countries = sorted(data['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', countries, default=st.session_state.selected_countries)
         st.session_state.selected_countries = selected_countries
         subset_data = data[data['field_3'].isin(selected_countries)]
 
     elif selection == 'Continent':
-        continents = data['continent'].unique().tolist()
+        continents = sorted(data['continent'].unique().tolist())
         selected_continent = st.sidebar.selectbox('Choose a continent', continents, index=continents.index('Europe'))
-        subset_countries = data[data['continent'] == selected_continent]['field_3'].unique().tolist()
+        subset_countries = sorted(data[data['continent'] == selected_continent]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
         subset_data = data[data['field_3'].isin(selected_countries)]
         st.session_state.selected_countries = selected_countries
 
     elif selection == 'WEO Region':
-        weo_regions = data['Code_Region'].unique().tolist()
+        weo_regions = sorted(data['Code_Region'].unique().tolist())
         selected_weo = st.sidebar.selectbox('Choose a WEO Region', weo_regions, index=weo_regions.index('EUA'))
-        subset_countries = data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist()
+        subset_countries = sorted(data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
         subset_data = data[data['field_3'].isin(selected_countries)]
         st.session_state.selected_countries = selected_countries
@@ -104,6 +104,7 @@ def area_selection():
 
     if selection != 'No specific area':
         st.session_state.subset_data = subset_data
+
 
     # Read the CSV
     tld_data = pd.read_csv(os.path.join('data', 'tld.csv'), encoding='utf-8')
