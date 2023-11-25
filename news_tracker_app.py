@@ -594,6 +594,16 @@ def research():
 
             # Update progress bar
             progress_bar.progress((i + 1) / len(results))
+            
+            # Extract the date from the snippet
+            date_text = result['snippet'].split(' ... ')[0]
+            snippet_without_date = result['snippet'].replace(date_text, '').strip()
+
+            # Determine the document type
+            if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
+                doc_type = result['link'].split('.')[-1]  # Get the file extension
+            else:
+                doc_type = "webpage"
 
             # Existing code to display the result
             st.subheader(f"[{result['title']}]({result['link']})")
