@@ -669,7 +669,7 @@ def research():
             # Get the language code from the language name
             target_language = language_codes.get(language_name)
             target_language = 'en'
-            
+
             if not target_language:
                 raise ValueError(f"Invalid language name: {language_name}")
 
@@ -759,7 +759,7 @@ def research():
                 st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
                 st.write(f"Snippet: {snippet_without_date}")
 
-            # Additional processing for summary
+
             if want_summary:
                 # Determine if it's a webpage or a PDF and process accordingly
                 if doc_type != "pdf":
@@ -776,6 +776,10 @@ def research():
 
                     # Summarize the webpage content
                     summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
+
+                    # Translate the summary if needed
+                    if want_translation:
+                        summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0], api_key)
 
                     # Display the summary in an expander
                     with st.expander("Show Summary"):
@@ -801,6 +805,10 @@ def research():
                                     keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
                                     extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
                                     sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
+
+                                    # Translate extracted sentences if needed
+                                    if want_translation:
+                                        sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0], api_key) for sentence in sorted_sentences]
 
                                     st.write("Extracted Sentences:")
                                     for sentence in sorted_sentences:
