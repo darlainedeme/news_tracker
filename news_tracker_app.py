@@ -836,7 +836,12 @@ def research():
                                 if index_content:
                                     # If index or contents are found, display them
                                     st.write("Index / Contents:")
-                                    st.text(index_content)
+
+                                    if want_translation:
+                                        st.text(translate_text_with_google_cloud(index_content, st.session_state.selected_language[0])
+
+                                    else:
+                                        st.text(index_content)
                                 else:
                                     # If no index/content, extract and display sentences with keywords
                                     keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
