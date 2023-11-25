@@ -64,7 +64,8 @@ def area_selection():
     if 'country_codes' not in st.session_state:
         st.session_state.country_codes = []
 
-    menu_options = ['Country', 'Continent', 'WEO Region', 'World', 'No specific area']
+    # Sidebar menu for selecting the category
+    menu_options = ['Country', 'Continent', 'WEO Region', 'UN Region', 'World', 'No specific area']
     selection = st.sidebar.selectbox("Choose a category", menu_options, index=0)
 
     data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
@@ -89,6 +90,14 @@ def area_selection():
         weo_regions = sorted(weo_regions)
         selected_weo = st.sidebar.selectbox('Choose a WEO Region', weo_regions, index=weo_regions.index('EUA'))
         subset_countries = sorted(data[data['Code_Region'] == selected_weo]['field_3'].unique().tolist())
+        selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
+        subset_data = data[data['field_3'].isin(selected_countries)]
+        st.session_state.selected_countries = selected_countries
+
+    elif selection == 'UN Region':
+        un_regions = sorted([x for x in data['region'].unique() if x is not None])
+        selected_un_region = st.sidebar.selectbox('Choose a UN Region', un_regions)
+        subset_countries = sorted(data[data['region'] == selected_un_region]['field_3'].unique().tolist())
         selected_countries = st.sidebar.multiselect('Choose countries', subset_countries, default=subset_countries)
         subset_data = data[data['field_3'].isin(selected_countries)]
         st.session_state.selected_countries = selected_countries
