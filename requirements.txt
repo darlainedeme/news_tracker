@@ -16,5 +16,5 @@ python-dotenv  # If you decide to use dotenv for environment variables
 secure-smtplib
 torch
 sentencepiece
-google-cloud-translate
+# google-cloud-translate
 transformers
