@@ -33,11 +33,6 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 cse_id = os.getenv('CSE_ID')
 api_key = os.getenv('API_KEY')
 
-# Set your OpenAI API key
-openai.api_key = os.getenv('OPENAI_API_KEY')
-cse_id = os.getenv('CSE_ID')
-api_key = os.getenv('API_KEY')
-            
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
 
@@ -662,7 +657,8 @@ def research():
 
     if want_translation:
         def translate_text_with_google_cloud(text, target_language):
-            translate_client = translate.Client()
+            # Create a Translate client with the API key
+            translate_client = translate.Client(api_key=api_key)
 
             # Text can also be a sequence of strings for batch translation
             result = translate_client.translate(text, target_language=target_language)
