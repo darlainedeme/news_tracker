@@ -659,7 +659,7 @@ def research():
             for page in pdf.pages:
                 text = page.extract_text()
                 if text:
-                    if 'contents' in text.lower() or 'index' in text.lower():
+                    if 'content' in text.lower() or 'index' in text.lower() or 'table' in text.lower():
                         index_content += text + '\n\n'
                         # Optional: break if you only want the first occurrence of 'Contents' or 'Index'
                         break
