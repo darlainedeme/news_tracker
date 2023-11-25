@@ -199,7 +199,6 @@ def define_research():
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
 
-
     # 0. Administrative division
     if 'selected_countries' in st.session_state and not st.session_state.subset_data.empty:
         # Check if only one country is selected
@@ -219,7 +218,6 @@ def define_research():
             links_df = country_df[country_df['Region'] == selected_region]
 
 
-
     # 2. Sources of Information
     st.subheader("2. Information Sources")
     if not st.session_state.subset_data.empty:
@@ -235,6 +233,7 @@ def define_research():
         # 2.1 Official Sources (if selected)
         if st.session_state.sources == "predefined sources search":
             types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
+            st.write(types_list)
             st.session_state.official_sources = st.multiselect("",
                                                             types_list,
                                                             default=st.session_state.official_sources,
