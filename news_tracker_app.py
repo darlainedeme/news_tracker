@@ -22,6 +22,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
+from collections import Counter
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
