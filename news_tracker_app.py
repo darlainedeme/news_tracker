@@ -808,7 +808,7 @@ def research():
 
                                     # Translate extracted sentences if needed
                                     if want_translation:
-                                        sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0], api_key) for sentence in sorted_sentences]
+                                        sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0]) for sentence in sorted_sentences]
 
                                     st.write("Extracted Sentences:")
                                     for sentence in sorted_sentences:
