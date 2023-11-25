@@ -626,7 +626,7 @@ def research():
                     with st.expander("Show Summary"):
                         st.write(summary)
 
-                elif doc_type == "pdf":
+                else:
                     # Function to sort sentences based on the count of different keywords
                     def sort_sentences(sentences, keywords):
                         def count_unique_keywords(sentence):
