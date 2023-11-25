@@ -450,7 +450,6 @@ def define_research():
     st.markdown("---")
 
 
-
 def research():
     st.title("Research 📚")
     st.markdown("""
@@ -696,7 +695,7 @@ def research():
                 break
 
             # Update progress bar
-            progress_bar.progress((i + 1) / len(results))
+            progress_bar.progress((i + 1) / num_links_to_summarize)
 
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
