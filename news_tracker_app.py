@@ -20,6 +20,8 @@ import xlsxwriter
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+import torch
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -541,6 +543,79 @@ def research():
         # Remove all apostrophes from the query
         query = query.replace('"', '')
 
+    # Checkbox for summary
+    want_summary = st.checkbox('Do you want a summary?', value=False)
+
+    # Number of links to include in the summarized analysis
+    num_links_to_summarize = 10
+    if want_summary:
+        num_links_to_summarize = st.slider('Select number of links for summarized analysis', 1, 100, 10)
+
+    # Display the results and process for summary
+    progress_bar = st.progress(0)
+    for i, result in enumerate(results):
+        if i >= num_links_to_summarize and want_summary:
+            break
+
+        # Update progress bar
+        progress_bar.progress((i + 1) / len(results))
+
+        # Existing code to display the result
+        st.subheader(f"[{result['title']}]({result['link']})")
+        st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+        st.write(f"Snippet: {snippet_without_date}")
+
+        # Additional processing for summary
+        if want_summary:
+            # Determine if it's a webpage or a PDF and process accordingly
+            if doc_type == "webpage":
+                # Scrape the webpage content
+                response = requests.get(result['link'])
+                soup = BeautifulSoup(response.content, 'html.parser')
+                text = soup.get_text()
+
+                # Summarize the webpage content
+                summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
+
+                # Display the summary in an expander
+                with st.expander("Show Summary"):
+                    st.write(summary)
+
+            elif doc_type == "pdf":
+                with st.expander(f"PDF Document Details: {result['title']}"):
+                    response = requests.get(result['link'])
+                    if response.status_code == 200:
+                        with pdfplumber.open(BytesIO(response.content)) as pdf:
+                            # Extract PDF metadata and index
+                            title, index_content = extract_metadata_and_index(pdf)
+
+                            # Display title and index/content
+                            st.subheader(f"PDF Title: {title}")
+                            st.write(f"Number of Pages in PDF: {len(pdf.pages)}")
+                            if index_content:
+                                # If index or contents are found, display them
+                                st.write("Index / Contents:")
+                                st.text(index_content)
+                            else:
+                                # If no index/content, extract and display sentences with keywords
+                                keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
+                                extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
+                                sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
+
+                                st.write("Extracted Sentences:")
+                                for sentence in sorted_sentences:
+                                    st.text(sentence)
+                    else:
+                        st.error("Failed to access the PDF.")
+
+        st.markdown("---")
+
+
+
+
+
+
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
@@ -596,13 +671,15 @@ def research():
                     
             # st.write(result)
             st.markdown("---")  # separator
-              
+
+    
+
+
+
+
         # Save the accumulated value to st.session_state
         st.session_state.total_characters = total_characters
         
-        # Display the total character count
-        st.write(f"Total Characters in all Snippets: {total_characters}")
-
         # Create a list of dictionaries from results
         data_list = [{'title': result['title'], 'link': result['link'], 'snippet': result['snippet']} for result in results]
         
