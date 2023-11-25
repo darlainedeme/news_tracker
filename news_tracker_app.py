@@ -255,8 +255,6 @@ def define_research():
             
             st.session_state.selected_predefined_links = [x for x in links_list if not (isinstance(x, float) and math.isnan(x))]
 
-            st.write(st.session_state.selected_predefined_links)
-
     else:
         st.session_state.sources = st.radio("Choose a source:",
                                         ["general google search", "general twitter search", "general linkedin search"],
