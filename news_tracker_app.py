@@ -592,7 +592,7 @@ def research():
             # Display the formatted results
             st.subheader(f"[{result['title']}]({result['link']})")
             st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-            st.write(f"Snippet: {result['snippet_without_date ']}")
+            st.write(f"Snippet: {snippet_without_date}")
                     
             # st.write(result)
             st.markdown("---")  # separator
