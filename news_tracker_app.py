@@ -22,6 +22,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
+from collections import Counter
+
+# Set your OpenAI API key
+openai.api_key = os.getenv('OPENAI_API_KEY')
+cse_id = os.getenv('CSE_ID')
+api_key = os.getenv('API_KEY')
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -538,10 +544,34 @@ def research():
     exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
     query = construct_query()
 
+    def construct_query_2(base_query, research_type):
+        if research_type == "Only PDF":
+            # Add ".pdf" at the beginning of the query
+            return f"'.pdf' {base_query}"
+        elif research_type == "Exclude PDF":
+            # Add "-filetype:pdf" at the end of the query
+            return f"{base_query} -filetype:pdf"
+        else:
+            # Mixed research, return the base query
+            return base_query
+
+    # Dropdown menu for research type
+    research_type = st.sidebar.selectbox(
+        "Choose the type of research",
+        ["Mixed Research", "Only PDF", "Exclude PDF"],
+        index=0  # Default to Mixed Research
+    )
+
+    # Modify the query based on the research type selected
+    query = construct_query_2(query, research_type)
+
     # Check if the checkbox is checked
     if not exact_keywords and query:
         # Remove all apostrophes from the query
         query = query.replace('"', '')
+
+    if st.session_state.sources == "general google search":
+        query = str(st.session_state.selected_countries[0]) + " " + query 
 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
@@ -575,6 +605,7 @@ def research():
 
             sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
             return sorted_sentences
+        
         def extract_metadata_and_index(pdf):
             title = pdf.metadata.get('title', 'No Title Found')
             index_content = ''
@@ -606,6 +637,7 @@ def research():
                                     sentences_with_keywords.append(sentence.strip())
 
             return sentences_with_keywords, num_pages
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
@@ -672,7 +704,13 @@ def research():
                     # Scrape the webpage content
                     response = requests.get(result['link'])
                     soup = BeautifulSoup(response.content, 'html.parser')
-                    text = soup.get_text()
+
+                    # Example: Extract text from specific tags
+                    main_content = soup.find('main')  # or soup.find('article') or another tag that usually contains the main text
+                    if main_content:
+                        text = ' '.join(p.get_text() for p in main_content.find_all('p'))
+                    else:
+                        text = soup.get_text()
 
                     # Summarize the webpage content
                     summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
