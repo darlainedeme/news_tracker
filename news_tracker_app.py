@@ -23,6 +23,7 @@ from email.mime.text import MIMEText
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 from collections import Counter
+from googletrans import Translator
 
 # Set your OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -653,6 +654,18 @@ def research():
 
             return sentences_with_keywords, num_pages
 
+    # Checkbox for translation
+    want_translation = st.checkbox('Do you want to translate to English?', value=False)
+
+    if want_translation:
+        translator = Translator()
+
+        def translate_text(text, src_language):
+            # Translate the text to English from the source language
+            translation = translator.translate(text, src=src_language, dest='en')
+            return translation.text
+
+
     if st.sidebar.button("Run Research"):
         links_list = []
         # Clear previous results
@@ -707,10 +720,22 @@ def research():
             else:
                 doc_type = "webpage"
 
-            # Existing code to display the result
-            st.subheader(f"[{result['title']}]({result['link']})")
-            st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-            st.write(f"Snippet: {snippet_without_date}")
+            # Check if translation is needed
+            if want_translation:
+                # Translate title, snippet, and summary
+                translated_title = translate_text(result['title'], st.session_state.selected_language[0])
+                translated_snippet = translate_text(snippet_without_date, st.session_state.selected_language[0])
+
+                # Display translated title and snippet
+                st.subheader(f"[{translated_title}]({result['link']})")
+                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                st.write(f"Snippet: {translated_snippet}")
+
+            else:
+                # Existing code to display the result
+                st.subheader(f"[{result['title']}]({result['link']})")
+                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                st.write(f"Snippet: {snippet_without_date}")
 
             # Additional processing for summary
             if want_summary:
@@ -762,6 +787,26 @@ def research():
                             st.error("Failed to access the PDF.")
 
             st.markdown("---")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         # Create a list of dictionaries from results

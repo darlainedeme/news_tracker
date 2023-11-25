@@ -17,3 +17,4 @@ secure-smtplib
 transformers
 torch
 sentencepiece
+googletrans
