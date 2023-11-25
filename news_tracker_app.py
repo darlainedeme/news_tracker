@@ -627,6 +627,20 @@ def research():
                         st.write(summary)
 
                 elif doc_type == "pdf":
+                    def extract_metadata_and_index(pdf):
+                        title = pdf.metadata.get('title', 'No Title Found')
+                        index_content = ''
+
+                        for page in pdf.pages:
+                            text = page.extract_text()
+                            if text:
+                                if 'contents' in text.lower() or 'index' in text.lower():
+                                    index_content += text + '\n\n'
+                                    # Optional: break if you only want the first occurrence of 'Contents' or 'Index'
+                                    break
+
+                        return title, index_content.strip()
+
                     with st.expander(f"PDF Document Details: {result['title']}"):
                         response = requests.get(result['link'])
                         if response.status_code == 200:
