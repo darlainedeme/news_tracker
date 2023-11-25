@@ -656,7 +656,21 @@ def research():
     want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
 
     if want_translation:
-        def translate_text_with_google_cloud(text, target_language):
+        # Function to load language codes from a CSV file and create a mapping
+        def load_language_codes(filename):
+            df = pd.read_csv(filename)
+            return dict(zip(df['Name'], df['Code']))
+
+        # Function to translate text using the Google Cloud Translation API
+        def translate_text_with_google_cloud(text, language_name, api_key):
+            # Load the language codes
+            language_codes = load_language_codes('data/languages_codes.csv')
+
+            # Get the language code from the language name
+            target_language = language_codes.get(language_name)
+            if not target_language:
+                raise ValueError(f"Invalid language name: {language_name}")
+
             url = "https://translation.googleapis.com/language/translate/v2"
             params = {
                 'q': text,
@@ -671,8 +685,6 @@ def research():
                 return translated_text
             else:
                 raise Exception(f"Google Cloud Translation API error: {response.text}")
-
-
 
     if st.sidebar.button("Run Research"):
         links_list = []
