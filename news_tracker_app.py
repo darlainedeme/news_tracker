@@ -551,65 +551,6 @@ def research():
     if want_summary:
         num_links_to_summarize = st.slider('Select number of links for summarized analysis', 1, 100, 10)
 
-    # Display the results and process for summary
-    progress_bar = st.progress(0)
-    for i, result in enumerate(results):
-        if i >= num_links_to_summarize and want_summary:
-            break
-
-        # Update progress bar
-        progress_bar.progress((i + 1) / len(results))
-
-        # Existing code to display the result
-        st.subheader(f"[{result['title']}]({result['link']})")
-        st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-        st.write(f"Snippet: {snippet_without_date}")
-
-        # Additional processing for summary
-        if want_summary:
-            # Determine if it's a webpage or a PDF and process accordingly
-            if doc_type == "webpage":
-                # Scrape the webpage content
-                response = requests.get(result['link'])
-                soup = BeautifulSoup(response.content, 'html.parser')
-                text = soup.get_text()
-
-                # Summarize the webpage content
-                summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
-
-                # Display the summary in an expander
-                with st.expander("Show Summary"):
-                    st.write(summary)
-
-            elif doc_type == "pdf":
-                with st.expander(f"PDF Document Details: {result['title']}"):
-                    response = requests.get(result['link'])
-                    if response.status_code == 200:
-                        with pdfplumber.open(BytesIO(response.content)) as pdf:
-                            # Extract PDF metadata and index
-                            title, index_content = extract_metadata_and_index(pdf)
-
-                            # Display title and index/content
-                            st.subheader(f"PDF Title: {title}")
-                            st.write(f"Number of Pages in PDF: {len(pdf.pages)}")
-                            if index_content:
-                                # If index or contents are found, display them
-                                st.write("Index / Contents:")
-                                st.text(index_content)
-                            else:
-                                # If no index/content, extract and display sentences with keywords
-                                keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
-                                extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
-                                sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
-
-                                st.write("Extracted Sentences:")
-                                for sentence in sorted_sentences:
-                                    st.text(sentence)
-                    else:
-                        st.error("Failed to access the PDF.")
-
-        st.markdown("---")
-
 
 
 
@@ -650,27 +591,66 @@ def research():
         # Store the results in session_state, overwriting any previous results
         st.session_state.results = results
 
-        # Display the results
-        total_characters = 0  # Initialize a counter
-        for result in results:
-            # Extract the date from the snippet
-            date_text = result['snippet'].split(' ... ')[0]
 
-            snippet_without_date = result['snippet'].replace(date_text, '').strip()
+        # Display the results and process for summary
+        progress_bar = st.progress(0)
+        for i, result in enumerate(results):
+            if i >= num_links_to_summarize and want_summary:
+                break
 
-            # Determine the document type
-            if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
-                doc_type = result['link'].split('.')[-1]  # Get the file extension
-            else:
-                doc_type = "webpage"
+            # Update progress bar
+            progress_bar.progress((i + 1) / len(results))
 
-            # Display the formatted results
+            # Existing code to display the result
             st.subheader(f"[{result['title']}]({result['link']})")
             st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
             st.write(f"Snippet: {snippet_without_date}")
-                    
-            # st.write(result)
-            st.markdown("---")  # separator
+
+            # Additional processing for summary
+            if want_summary:
+                # Determine if it's a webpage or a PDF and process accordingly
+                if doc_type == "webpage":
+                    # Scrape the webpage content
+                    response = requests.get(result['link'])
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    text = soup.get_text()
+
+                    # Summarize the webpage content
+                    summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
+
+                    # Display the summary in an expander
+                    with st.expander("Show Summary"):
+                        st.write(summary)
+
+                elif doc_type == "pdf":
+                    with st.expander(f"PDF Document Details: {result['title']}"):
+                        response = requests.get(result['link'])
+                        if response.status_code == 200:
+                            with pdfplumber.open(BytesIO(response.content)) as pdf:
+                                # Extract PDF metadata and index
+                                title, index_content = extract_metadata_and_index(pdf)
+
+                                # Display title and index/content
+                                st.subheader(f"PDF Title: {title}")
+                                st.write(f"Number of Pages in PDF: {len(pdf.pages)}")
+                                if index_content:
+                                    # If index or contents are found, display them
+                                    st.write("Index / Contents:")
+                                    st.text(index_content)
+                                else:
+                                    # If no index/content, extract and display sentences with keywords
+                                    keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
+                                    extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
+                                    sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
+
+                                    st.write("Extracted Sentences:")
+                                    for sentence in sorted_sentences:
+                                        st.text(sentence)
+                        else:
+                            st.error("Failed to access the PDF.")
+
+            st.markdown("---")
+
 
     
 
