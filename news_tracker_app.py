@@ -164,6 +164,9 @@ def define_research():
     if 'include_monetary_info' not in st.session_state:
         st.session_state.include_monetary_info = False
 
+    # Ensure that session state for research_type is initialized
+    if 'research_type' not in st.session_state:
+        st.session_state.research_type = "spendings"  # default value
 
     # 1. Kind of Research
     st.subheader("1. Research Type")
