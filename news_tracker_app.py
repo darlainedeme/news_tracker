@@ -764,7 +764,7 @@ def research():
 
                 # Update progress bar
                 denominator = min(num_links_to_summarize, len(results))
-                progress_bar.progress((i + 1) / num_links_to_summarize)
+                progress_bar.progress((i + 1) / denominator)
 
             else:
                 progress_bar.progress((i + 1) / len(results))
