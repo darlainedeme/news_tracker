@@ -244,6 +244,7 @@ def define_research():
             types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
             st.session_state.official_sources = st.multiselect("",
                                                             types_list,
+                                                            default=types_list,
                                                             help="Select official sources for predefined sources search.")
 
             source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
