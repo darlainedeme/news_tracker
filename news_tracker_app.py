@@ -20,7 +20,7 @@ import xlsxwriter
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-# from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
 from collections import Counter
 from google.cloud import translate_v2 as translate
