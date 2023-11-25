@@ -544,18 +544,12 @@ def research():
         query = query.replace('"', '')
 
     # Checkbox for summary
-    want_summary = st.checkbox('Do you want a summary?', value=False)
+    want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
 
     # Number of links to include in the summarized analysis
     num_links_to_summarize = 10
     if want_summary:
-        num_links_to_summarize = st.slider('Select number of links for summarized analysis', 1, 100, 10)
-
-
-
-
-
-
+        num_links_to_summarize = st..sidebar.slider('Select number of links for summarized analysis', 1, 100, 10)
 
     if st.sidebar.button("Run Research"):
         links_list = []
