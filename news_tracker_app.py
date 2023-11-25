@@ -253,7 +253,8 @@ def define_research():
 
             links_list = list(set(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link))
             
-            st.session_state.selected_predefined_links = [x for x in links_list if x != 'NaN']
+            st.session_state.selected_predefined_links = [x for x in links_list if not (isinstance(x, float) and math.isnan(x))]
+
             st.write(st.session_state.selected_predefined_links)
 
     else:
