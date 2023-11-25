@@ -543,7 +543,7 @@ def research():
         # Remove all apostrophes from the query
         query = query.replace('"', '')
 
-    def construct_query(base_query, research_type):
+    def construct_query_2(base_query, research_type):
         if research_type == "Only PDF":
             # Add ".pdf" at the beginning of the query
             return f".pdf {base_query}"
@@ -563,7 +563,7 @@ def research():
     )
 
     # Modify the query based on the research type selected
-    query = query(base_query, research_type)
+    query = construct_query_2(query, research_type)
 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
