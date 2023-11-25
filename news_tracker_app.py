@@ -538,11 +538,6 @@ def research():
     exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
     query = construct_query()
 
-    # Check if the checkbox is checked
-    if not exact_keywords and query:
-        # Remove all apostrophes from the query
-        query = query.replace('"', '')
-
     def construct_query_2(base_query, research_type):
         if research_type == "Only PDF":
             # Add ".pdf" at the beginning of the query
@@ -554,7 +549,6 @@ def research():
             # Mixed research, return the base query
             return base_query
 
-    st.sidebar.title("Research Options")
     # Dropdown menu for research type
     research_type = st.sidebar.selectbox(
         "Choose the type of research",
@@ -564,6 +558,11 @@ def research():
 
     # Modify the query based on the research type selected
     query = construct_query_2(query, research_type)
+
+    # Check if the checkbox is checked
+    if not exact_keywords and query:
+        # Remove all apostrophes from the query
+        query = query.replace('"', '')
 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
