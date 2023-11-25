@@ -13,4 +13,5 @@ pdfplumber
 openpyxl
 xlsxwriter
 python-dotenv  # If you decide to use dotenv for environment variables
-secure-smtplib   
+secure-smtplib
+transformers
