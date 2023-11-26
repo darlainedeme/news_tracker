@@ -800,10 +800,6 @@ def research():
                     response = requests.get(result['link'])
                     soup = BeautifulSoup(response.content, 'html.parser')
 
-                    # Scrape the webpage content
-                    response = requests.get(result['link'])
-                    soup = BeautifulSoup(response.content, 'html.parser')
-
                     # Remove all script and style elements
                     for script_or_style in soup(["script", "style"]):
                         script_or_style.extract()  # Remove the element
