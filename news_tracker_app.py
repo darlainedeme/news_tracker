@@ -852,7 +852,7 @@ def research():
 
                     # Summarize the webpage content
                     # st.write(text)
-                    summary = summarize_content(text, max_sentence_count=100)  # Adjust max_length as needed
+                    summary = summarize_content(text, max_sentence_count=5)  # Adjust max_length as needed
 
                     # Translate the summary if needed
                     if want_translation:
