@@ -1229,7 +1229,7 @@ def document_analysis():
             top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "Normalized_Count")
             extracts = "\n".join(top_sentences['sentence'])
 
-            with st.expander("See Individual Summaries"):
+            with st.expander("See Extracts"):
                 st.write(extracts)
 
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
