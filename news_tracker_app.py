@@ -1045,10 +1045,6 @@ def run_preprocessing():
 
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
-    # df = df[0:2]
-
-    # Display the number of links in the sidebar
-    st.sidebar.write(f"Total Links: {len(df)}")
 
     # Create an empty dataframe for sentence-level results
     sentence_df = pd.DataFrame(columns=['title', 'link', 'sentence_id', 'sentence'] + st.session_state.final_selected_keywords)
@@ -1060,6 +1056,7 @@ def run_preprocessing():
             df[keyword] = 0
         df['word_count'] = 0
         df['Normalized_Count'] = 0
+
 
         # Iterate through each link in the dataframe
         for index, row in df.iterrows():
@@ -1138,30 +1135,46 @@ def run_preprocessing():
             except requests.RequestException:
                 st.write(f"Error accessing {row['link']}")
 
-        # Storing necessary variables in the session state
-        st.session_state.sentence_df = sentence_df
+        # Dropdown for sorting
+        sort_option = st.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
+
+        # Apply sorting based on the selected option
+        def apply_sorting(dataframe, sort_by):
+            return dataframe.sort_values(by=sort_by, ascending=False)
+
+        # Sort the main dataframe and sentence dataframe based on the selected option
+        df = apply_sorting(df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        sentence_df = apply_sorting(sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+
+        # Display each row separately with hyperlinks and keyword info
+        for index, row in df.iterrows():
+            # Check if the row is selected in the multi-select box
+            if index in st.session_state.row_selection:
+                st.markdown(f"[{row['title']}]({row['link']})")
+                # Display keyword counts except for normalized count
+                for keyword in st.session_state.final_selected_keywords:
+                    st.write(f"{keyword}: {row[keyword]}")
+                
+                # Display top 5 sentences in an expander
+                top_sentences = sentence_df[sentence_df['link'] == row['link']].head(5)
+                with st.expander(f"Top Sentences for {row['title']}"):
+                    for _, sentence_row in top_sentences.iterrows():
+                        st.write(sentence_row['sentence'])
+
+        # Update session state
         st.session_state.df = df
+        st.session_state.sentence_df = sentence_df
 
-        # Sorting the columns
-        keyword_columns = sorted([col for col in df.columns if col not in ['title', 'link', 'word_count', 'Normalized_Count']])
-        df = df[['title', 'word_count','Normalized_Count'] + keyword_columns + ['link']]
-
-        # Display the results in a table
-        st.write("Preprocessing completed successfully. Here are the results:")
-        st.dataframe(df)
-
-    # Multi-select box in the sidebar for row selection
+    # Multi-select box for row selection and dataframe update logic
     row_ids = df.index.tolist()
-    row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
-                                           options=row_ids,
-                                           default=row_ids)
-
-    # Directly update df by removing unselected rows
-    df = df.loc[row_selection]
+    st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
+                                                            options=row_ids,
+                                                            default=row_ids)
+    df = df.loc[st.session_state.row_selection]
 
     # Display the updated dataframe
-    st.write("Dataframe updated based on selected rows:")
-    st.dataframe(df)
+    # st.write("Dataframe updated based on selected rows:")
+    # st.dataframe(df)
 
     # Update session state
     st.session_state.df = df
