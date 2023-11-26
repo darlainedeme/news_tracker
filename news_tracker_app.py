@@ -1346,6 +1346,9 @@ def document_analysis():
         smtp_port = 587
         smtp_user = os.getenv('smtp_user')
         smtp_password = os.getenv('smtp_password')
+        
+        # Accessing all_summaries from st.session_state
+        all_summaries = st.session_state.all_summaries
 
         # Create the message
         msg = MIMEMultipart()
