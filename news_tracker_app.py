@@ -1265,7 +1265,7 @@ def document_analysis():
                 response = openai.ChatCompletion.create(
                     model="gpt-4",
                     messages=messages,
-                    max_tokens=2000 
+                    max_tokens=1000 
                 )
                 summary = response['choices'][0]['message']['content']
             else:
@@ -1302,14 +1302,15 @@ def document_analysis():
             ]
             response = openai.ChatCompletion.create(
                 model="gpt-4",
-                messages=messages
+                messages=messages,
+                max_tokens=1000 
             )
             final_summary = response['choices'][0]['message']['content']
         else:
             response = openai.Completion.create(
                 model=selected_model,
                 prompt=final_prompt,
-                max_tokens=200
+                max_tokens=2000
             )
             final_summary = response['choices'][0]['message']['content'] if selected_model == "gpt-4" else response.choices[0].text.strip()
             st.session_state.final_summary = final_summary
