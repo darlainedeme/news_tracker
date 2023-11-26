@@ -443,10 +443,9 @@ def define_research():
             {"role": "user", "content": translation_prompt}
         ]
 
-        # Making the API call
-        response = openai.ChatCompletion.create(
+        response = openai.Completion.create(
             model="gpt-3.5-turbo-instruct",
-            messages=messages,
+            prompt=messages,
             max_tokens=100
         )
 
