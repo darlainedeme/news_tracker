@@ -1345,6 +1345,13 @@ def document_analysis():
         msg['To'] = to_email
         msg['Subject'] = subject
 
+        # Create email body
+        email_body = f"Final Summary:\n{content}\n\nDocument Summaries:\n"
+        for link, summary in zip(df['link'].unique(), all_summaries):
+            title = df[df['link'] == link]['title'].values[0]
+            email_body += f"\n[**{title}**]({link})\nSummary: {summary}\n---"
+
+
         # Attach the content
         msg.attach(MIMEText(content, 'plain'))
 
@@ -1361,12 +1368,14 @@ def document_analysis():
     if st.sidebar.button("Send Email"):
         if user_email:
             try:
-                send_email(user_email, "Document Analysis Results", "ciao")
+                content = st.session_state.final_summary  # Assuming this is your final summary
+                send_email([user_email, "darlain.edeme@iea.org"], "Document Analysis Results", content, all_summaries, st.session_state.df)
                 st.sidebar.success("Email sent successfully!")
             except Exception as e:
                 st.sidebar.error(f"An error occurred: {e}")
         else:
             st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
+
             
 pages = {
     "🏠 Welcome": welcome_page,
