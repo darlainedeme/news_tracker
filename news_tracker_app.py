@@ -1323,20 +1323,45 @@ def document_analysis():
         # Display the final summary
         st.write(f"Final Summary: {final_summary}")
 
-        # Download button for results
         if st.sidebar.button('Download Results'):
             output = BytesIO()
+
+            # Create an Excel workbook and worksheet in memory
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-            worksheet = workbook.add_worksheet()
+            
+            # Writing final summary to the first sheet
+            summary_sheet = workbook.add_worksheet('Summary')
+            summary_sheet.write('A1', 'Final Summary')
+            summary_sheet.write('A2', st.session_state.final_summary)
+            
+            # Writing one row per source to the second sheet
+            sources_sheet = workbook.add_worksheet('Sources')
+            sources_data = [{"ID": idx + 1, "Link": link, "Summary": summary} 
+                            for idx, (link, summary) in enumerate(zip(st.session_state.df['link'].unique(), st.session_state.all_summaries))]
+            sources_df = pd.DataFrame(sources_data)
+            for idx, col_name in enumerate(sources_df.columns):
+                sources_sheet.write(0, idx, col_name)
+                for row_idx, value in enumerate(sources_df[col_name]):
+                    sources_sheet.write(row_idx + 1, idx, value)
+            
+            # Writing one sheet per link
+            for idx, link in enumerate(st.session_state.df['link'].unique(), 1):
+                link_df = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link]
+                link_sheet = workbook.add_worksheet(f'Link {idx}')  # Using idx for sheet name instead of link
+                for col_idx, col_name in enumerate(link_df.columns):
+                    link_sheet.write(0, col_idx, col_name)
+                    for row_idx, value in enumerate(link_df[col_name]):
+                        link_sheet.write(row_idx + 1, col_idx, value)
+            
             workbook.close()
 
-            # Download button
+            # Providing a download button for the generated Excel file
             st.sidebar.download_button(
                 label="Download Excel workbook",
                 data=output.getvalue(),
                 file_name="analysis_results.xlsx",
                 mime="application/vnd.ms-excel"
-            )       
+            ) 
 
     # Email sending feature
     smtp_user = os.environ.get('GMAIL_USER')
