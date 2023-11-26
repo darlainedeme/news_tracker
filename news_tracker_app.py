@@ -661,7 +661,7 @@ def research():
         nltk.download('punkt')
         nltk.download('stopwords')
 
-        def nltk_summarize(text, max_sentence_count=5):
+        def summarize_content(text, max_sentence_count=5):
             nltk.data.path.append('/app/nltk_data/')  # Update this path if necessary
             
             # Tokenize the text into sentences
