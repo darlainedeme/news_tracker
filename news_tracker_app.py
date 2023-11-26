@@ -687,13 +687,22 @@ def research():
             return sorted_sentences
         
         def extract_metadata_and_index(pdf):
-            title = pdf.metadata.get('title', 'No Title Found')
+            title_name = 'title'
+            if st.session_state.selected_language[0] != 'en':
+                title_name = translate_text_with_google_cloud(title_name, st.session_state.selected_language[0])
+
+            title = pdf.metadata.get(title_name, 'No Title Found')
             index_content = ''
 
             for page in pdf.pages:
                 text = page.extract_text()
                 if text:
-                    if 'content' in text.lower() or 'index' in text.lower() or 'table' in text.lower():
+                    table_words = ['content', 'index', 'table']
+
+                    if st.session_state.selected_language[0] == 'en':
+                        table_words = [translate_text_with_google_cloud(x, st.session_state.selected_language[0]) for x in table_words]
+                    
+                    if table_words[0] in text.lower() or table_words[1] in text.lower() or table_words[2] in text.lower():
                         index_content += text + '\n\n'
                         # Optional: break if you only want the first occurrence of 'Contents' or 'Index'
                         break
