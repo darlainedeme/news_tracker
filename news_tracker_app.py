@@ -27,6 +27,7 @@ from google.cloud import translate_v2 as translate
 import logging
 import math
 from urllib.request import urlopen
+from gensim.summarization import summarize
 
 # logging.basicConfig(level=logging.DEBUG)
 
