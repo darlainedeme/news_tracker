@@ -923,26 +923,6 @@ def research():
             st.markdown("---")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         # Create a list of dictionaries from results
         data_list = [{'title': result['title'], 'link': result['link'], 'snippet': result['snippet']} for result in results]
         
@@ -1009,7 +989,7 @@ def research():
                     print(f"Failed to process link {link}. Error: {e}")
             
         folder_path = "results/results"
-        # download_links_as_pdfs(links_list, folder_path)
+        download_links_as_pdfs(links_list, folder_path)
 
 def run_preprocessing():
     st.title("Run Preprocessing 💻")
