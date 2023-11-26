@@ -1208,6 +1208,7 @@ def document_analysis():
     models = ["gpt-3.5-turbo-instruct", "gpt-4"]
     selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
 
+    st.dataframe(st.session_state.df)
     # Calculate and display the cost estimate
     if 'df' in st.session_state:
         cost_estimate = calculate_cost_estimate(st.session_state.df, selected_model)
