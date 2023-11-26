@@ -647,14 +647,28 @@ def research():
             # Tokenize the text into sentences
             sentences = sent_tokenize(text)
 
-            # other parts of your function...
+            # Tokenize and filter stopwords and punctuation from the words in the text
+            stop_words = set(stopwords.words('english') + list(string.punctuation))
+            words = word_tokenize(text.lower())
+            filtered_words = [word for word in words if word not in stop_words]
+
+            # Score sentences based on frequency of words
+            word_frequencies = defaultdict(int)
+            for word in filtered_words:
+                word_frequencies[word] += 1
+
+            sentence_scores = defaultdict(int)
+            for sentence in sentences:
+                for word in word_tokenize(sentence.lower()):
+                    if word in word_frequencies:
+                        sentence_scores[sentence] += word_frequencies[word]
 
             # Sort sentences and construct the summary based on word count
             sorted_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)
             summary = []
             word_count = 0
             for sentence in sorted_sentences:
-                sentence_word_count = len(sentence.split())
+                sentence_word_count = len(word_tokenize(sentence))
                 if word_count + sentence_word_count <= max_word_count:
                     summary.append(sentence)
                     word_count += sentence_word_count
@@ -662,6 +676,7 @@ def research():
                     break
 
             return ' '.join(summary)
+
 
 
 
