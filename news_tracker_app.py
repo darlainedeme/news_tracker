@@ -621,6 +621,39 @@ def research():
         else:
             query = str(st.session_state.selected_countries[0]) + " " + query 
 
+    # Function to translate text using the Google Cloud Translation API
+    def translate_text_with_google_cloud(text, language_name):
+        # Load the language codes
+        language_codes = load_language_codes('data/languages_codes.csv')
+
+        # Get the language code from the language name
+        target_language = language_codes.get(language_name)
+        target_language = 'en'
+
+        if not target_language:
+            raise ValueError(f"Invalid language name: {language_name}")
+
+        url = "https://translation.googleapis.com/language/translate/v2"
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        params = {
+            'q': text,
+            'target': target_language,
+            'format': 'text',
+            'key': api_key
+        }
+        response = requests.post(url, params=params)
+        try:
+            #if response.status_code == 200:
+            result = response.json()
+            translated_text = result['data']['translations'][0]['translatedText']
+            return translated_text
+        except:
+            error_text = "Error translating: " + text
+            return error_text
+                
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
 
@@ -677,6 +710,38 @@ def research():
 
             return '\n'.join(summary)
 
+        # Function to translate text using the Google Cloud Translation API
+        def translate_text_with_google_cloud(text, language_name):
+            # Load the language codes
+            language_codes = load_language_codes('data/languages_codes.csv')
+
+            # Get the language code from the language name
+            target_language = language_codes.get(language_name)
+            target_language = 'en'
+
+            if not target_language:
+                raise ValueError(f"Invalid language name: {language_name}")
+
+            url = "https://translation.googleapis.com/language/translate/v2"
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            params = {
+                'q': text,
+                'target': target_language,
+                'format': 'text',
+                'key': api_key
+            }
+            response = requests.post(url, params=params)
+            try:
+                #if response.status_code == 200:
+                result = response.json()
+                translated_text = result['data']['translations'][0]['translatedText']
+                return translated_text
+            except:
+                error_text = "Error translating: " + text
+                return error_text
         # Function to sort sentences based on the count of different keywords
         def sort_sentences(sentences, keywords):
             def count_unique_keywords(sentence):
@@ -745,38 +810,7 @@ def research():
             df = pd.read_csv(filename)
             return dict(zip(df['Name'], df['Code']))
 
-        # Function to translate text using the Google Cloud Translation API
-        def translate_text_with_google_cloud(text, language_name):
-            # Load the language codes
-            language_codes = load_language_codes('data/languages_codes.csv')
 
-            # Get the language code from the language name
-            target_language = language_codes.get(language_name)
-            target_language = 'en'
-
-            if not target_language:
-                raise ValueError(f"Invalid language name: {language_name}")
-
-            url = "https://translation.googleapis.com/language/translate/v2"
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-            params = {
-                'q': text,
-                'target': target_language,
-                'format': 'text',
-                'key': api_key
-            }
-            response = requests.post(url, params=params)
-            try:
-                #if response.status_code == 200:
-                result = response.json()
-                translated_text = result['data']['translations'][0]['translatedText']
-                return translated_text
-            except:
-                error_text = "Error translating: " + text
-                return error_text
 
     if st.sidebar.button("Run Research"):
         links_list = []
