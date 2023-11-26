@@ -1154,9 +1154,11 @@ def run_preprocessing():
     def apply_sorting(dataframe, sort_by):
         return dataframe.sort_values(by=sort_by, ascending=False)
 
-    # Sort the dataframes based on the selected option
-    df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
-    sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+    # Check if the data has been processed and stored in the session state
+    if 'processed' in st.session_state and st.session_state.processed:
+        # Sort the dataframes based on the selected option
+        df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
 
     # Display each row separately with hyperlinks and keyword info
     for index, row in df_sorted.iterrows():
