@@ -710,6 +710,12 @@ def research():
 
             return '\n'.join(summary)
 
+        # Function to load language codes from a CSV file and create a mapping
+        def load_language_codes(filename):
+            df = pd.read_csv(filename)
+            return dict(zip(df['Name'], df['Code']))
+
+
         # Function to translate text using the Google Cloud Translation API
         def translate_text_with_google_cloud(text, language_name):
             # Load the language codes
@@ -803,14 +809,6 @@ def research():
 
     # Checkbox for translation
     want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
-
-    if want_translation:
-        # Function to load language codes from a CSV file and create a mapping
-        def load_language_codes(filename):
-            df = pd.read_csv(filename)
-            return dict(zip(df['Name'], df['Code']))
-
-
 
     if st.sidebar.button("Run Research"):
         links_list = []
