@@ -1145,7 +1145,7 @@ def run_preprocessing():
         st.session_state.processed = True        
 
     # Dropdown for sorting
-    sort_option = st.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
+    sort_option = st.sidebar.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
 
     # Apply sorting based on the selected option
     def apply_sorting(dataframe, sort_by):
@@ -1159,7 +1159,7 @@ def run_preprocessing():
     for index, row in df_sorted.iterrows():
         # Check if the row is selected in the multi-select box
         if index in st.session_state.row_selection:
-            st.markdown(f"[{row['title']}]({row['link']})")
+            st.markdown(f"### [{row['title']}]({row['link']})")
             # Display keyword counts on one line with | separator
             keyword_info = ' | '.join([f"{keyword}: {row[keyword]}" for keyword in st.session_state.final_selected_keywords])
             st.write(keyword_info)
