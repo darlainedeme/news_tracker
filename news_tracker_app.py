@@ -800,12 +800,18 @@ def research():
                     response = requests.get(result['link'])
                     soup = BeautifulSoup(response.content, 'html.parser')
 
-                    # Example: Extract text from specific tags
-                    main_content = soup.find('main')  # or soup.find('main') or another tag that usually contains the main text
-                    if main_content:
-                        text = ' '.join(p.get_text() for p in main_content.find_all('p'))
-                    else:
-                        text = soup.get_text()
+                    # Scrape the webpage content
+                    response = requests.get(result['link'])
+                    soup = BeautifulSoup(response.content, 'html.parser')
+
+                    # Remove all script and style elements
+                    for script_or_style in soup(["script", "style"]):
+                        script_or_style.extract()  # Remove the element
+
+                    # Get text and clean it
+                    lines = (line.strip() for line in soup.get_text().splitlines())
+                    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))  # Split on double space for multi-headlines
+                    text = '\n'.join(chunk for chunk in chunks if chunk)
 
                     # Summarize the webpage content
                     st.write(text)
