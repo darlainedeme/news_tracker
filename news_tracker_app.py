@@ -760,7 +760,7 @@ def research():
                 translated_text = result['data']['translations'][0]['translatedText']
                 return translated_text
             except:
-                translated_text
+                text
 
     if st.sidebar.button("Run Research"):
         links_list = []
