@@ -677,10 +677,6 @@ def research():
 
             return '\n'.join(summary)
 
-
-
-
-
         # Function to sort sentences based on the count of different keywords
         def sort_sentences(sentences, keywords):
             def count_unique_keywords(sentence):
@@ -874,6 +870,11 @@ def research():
                     if want_translation:
                         summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0])
 
+
+                    # Split the summary into sentences and join with newline characters
+                    summary = sent_tokenize(summary)
+                    summary = '\n'.join(summary)
+                    
                     # Display the summary in an expander
                     with st.expander("Show Summary"):
                         # summary = highlight_keywords(summary, st.session_state.translated_trans_keywords)
@@ -905,13 +906,17 @@ def research():
                                     extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
                                     sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
 
-                                    # Translate extracted sentences if needed
+                                    # Translate extracted sentences if needed and prepare them for display
                                     if want_translation:
-                                        sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0]) for sentence in sorted_sentences]
+                                        translated_sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0]) for sentence in sorted_sentences]
+                                    else:
+                                        translated_sorted_sentences = sorted_sentences
 
-                                    st.write("Extracted Sentences:")
-                                    for sentence in sorted_sentences:
-                                        st.text(sentence)
+                                    # Display the sentences in an expander
+                                    with st.expander("Extracted Sentences:"):
+                                        for sentence in translated_sorted_sentences:
+                                            st.write(sentence)  # Each sentence will be displayed on a new line
+        
                         else:
                             st.error("Failed to access the PDF.")
 
