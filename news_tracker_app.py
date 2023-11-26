@@ -1279,6 +1279,8 @@ def document_analysis():
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
 
+        st.session_state.all_summaries = all_summaries
+
         # Display individual summaries with hyperlinked titles
         with st.expander("See Individual Summaries"):
             for link, summary in zip(st.session_state.df['link'].unique(), all_summaries):
@@ -1333,7 +1335,7 @@ def document_analysis():
     # Email sending feature
     smtp_user = os.environ.get('GMAIL_USER')
     smtp_password = os.environ.get('GMAIL_PASSWORD')
-    def send_email(to_email, subject, content):
+    def send_email(to_email, subject, content, all_summaries):
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         smtp_user = os.getenv('smtp_user')
@@ -1369,7 +1371,7 @@ def document_analysis():
         if user_email:
             try:
                 content = st.session_state.final_summary  # Assuming this is your final summary
-                send_email([user_email, "darlain.edeme@iea.org"], "Document Analysis Results", content, all_summaries, st.session_state.df)
+                send_email([user_email, "darlain.edeme@iea.org"], "Document Analysis Results", content, all_summaries, st.session_state.df, st.session_state.all_summaries)
                 st.sidebar.success("Email sent successfully!")
             except Exception as e:
                 st.sidebar.error(f"An error occurred: {e}")
