@@ -1204,7 +1204,7 @@ def document_analysis():
                     {"role": "user", "content": prompt}
                 ]
                 response = openai.ChatCompletion.create(
-                    model="gpt-4",
+                    model="gpt-4-32k",
                     messages=messages,
                     max_tokens=4097 
                 )
