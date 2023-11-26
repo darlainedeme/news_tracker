@@ -1229,7 +1229,8 @@ def document_analysis():
             top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "Normalized_Count")
             extracts = "\n".join(top_sentences['sentence'])
 
-            st.write(extracts)
+            with st.expander("See Individual Summaries"):
+                st.write(extracts)
 
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
             you are asked to write 1) "Brief Summary:" summarize the document in two sentences and 2) "Key numbers": one bullet point for each key number, and a description of what it is, iwth particular focus on monetary numbers
