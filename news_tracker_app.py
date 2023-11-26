@@ -1279,7 +1279,7 @@ def document_analysis():
             progress = int((index + 1) / total_links * 100)
             progress_bar.progress(progress)
 
-        st.session_state.all_summaries = all_summaries
+            st.session_state.all_summaries = all_summaries
 
         # Display individual summaries with hyperlinked titles
         with st.expander("See Individual Summaries"):
