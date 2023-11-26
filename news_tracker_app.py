@@ -1043,6 +1043,9 @@ def run_preprocessing():
         st.warning("Please complete the previous steps first.")
         return
 
+    # Sidebar checkbox for translation
+    translate = st.sidebar.checkbox("Translate to English?", value=False)
+
     # Load the CSV
     df = pd.read_csv(st.session_state.filename, encoding='utf-8')
 
@@ -1168,7 +1171,11 @@ def run_preprocessing():
             top_sentences = sentence_df_sorted[sentence_df_sorted['link'] == row['link']].head(5)
             with st.expander(f"Top Sentences for {row['title']}"):
                 for _, sentence_row in top_sentences.iterrows():
-                    st.write(sentence_row['sentence'])
+                    text_content = sentence_row['sentence']
+                    if translate:
+                        # Assuming text_content contains the text extracted from the link
+                        text_content = translate_text_with_google_cloud(text_content, "English")
+                    st.write(text_content)
 
             # Delimiter between each item
             st.markdown("---")  # This creates a horizontal line as a delimiter
