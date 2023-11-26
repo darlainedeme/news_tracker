@@ -860,8 +860,8 @@ def research():
 
                     # Display the summary in an expander
                     with st.expander("Show Summary"):
-                        highlighted_text = highlight_keywords(text, st.session_state.translated_trans_keywords)
-                        st.write(summary)
+                        highlighted_text = highlight_keywords(summary, st.session_state.translated_trans_keywords)
+                        st.write(highlighted_text)
 
                 else:
                     with st.expander(f"PDF Document Details: {result['title']}"):
