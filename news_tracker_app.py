@@ -44,6 +44,45 @@ api_key = os.getenv('API_KEY')
 data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
 data = data[data['field_3'].notna()]
 
+        # Function to load language codes from a CSV file and create a mapping
+        def load_language_codes(filename):
+            df = pd.read_csv(filename)
+            return dict(zip(df['Name'], df['Code']))
+
+
+        # Function to translate text using the Google Cloud Translation API
+        def translate_text_with_google_cloud(text, language_name):
+            # Load the language codes
+            language_codes = load_language_codes('data/languages_codes.csv')
+
+            # Get the language code from the language name
+            target_language = language_codes.get(language_name)
+            target_language = 'en'
+
+            if not target_language:
+                raise ValueError(f"Invalid language name: {language_name}")
+
+            url = "https://translation.googleapis.com/language/translate/v2"
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            params = {
+                'q': text,
+                'target': target_language,
+                'format': 'text',
+                'key': api_key
+            }
+            response = requests.post(url, params=params)
+            try:
+                #if response.status_code == 200:
+                result = response.json()
+                translated_text = result['data']['translations'][0]['translatedText']
+                return translated_text
+            except:
+                error_text = "Error translating: " + text
+                return error_text
+                
 def welcome_page():
     st.title("Welcome to the Energy, Policy, and News Tracker")
     st.markdown("""
@@ -711,44 +750,6 @@ def research():
 
             return '\n'.join(summary)
 
-        # Function to load language codes from a CSV file and create a mapping
-        def load_language_codes(filename):
-            df = pd.read_csv(filename)
-            return dict(zip(df['Name'], df['Code']))
-
-
-        # Function to translate text using the Google Cloud Translation API
-        def translate_text_with_google_cloud(text, language_name):
-            # Load the language codes
-            language_codes = load_language_codes('data/languages_codes.csv')
-
-            # Get the language code from the language name
-            target_language = language_codes.get(language_name)
-            target_language = 'en'
-
-            if not target_language:
-                raise ValueError(f"Invalid language name: {language_name}")
-
-            url = "https://translation.googleapis.com/language/translate/v2"
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-            params = {
-                'q': text,
-                'target': target_language,
-                'format': 'text',
-                'key': api_key
-            }
-            response = requests.post(url, params=params)
-            try:
-                #if response.status_code == 200:
-                result = response.json()
-                translated_text = result['data']['translations'][0]['translatedText']
-                return translated_text
-            except:
-                error_text = "Error translating: " + text
-                return error_text
         # Function to sort sentences based on the count of different keywords
         def sort_sentences(sentences, keywords):
             def count_unique_keywords(sentence):
