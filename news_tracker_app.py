@@ -969,6 +969,7 @@ def research():
         
         # Convert the list to a DataFrame
         results_df = pd.DataFrame(data_list)
+        st.session_state.df = results_df
 
         # Save the DataFrame into a CSV file with the desired filename format
         timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M')
