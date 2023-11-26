@@ -632,14 +632,14 @@ def research():
 
         model, tokenizer = load_model()
 
-'''
+        '''
         # Function to summarize content
         def summarize_content(content, max_length=2000):
             inputs = tokenizer.encode("summarize: " + content, return_tensors="pt", max_length=3000, truncation=True)
             summary_ids = model.generate(inputs, max_length=max_length, min_length=1000, length_penalty=0, num_beams=10, early_stopping=False)
             summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
             return summary
-'''
+        '''
         def summarize_content(content, word_count=200):
             # Gensim's summarize function uses word count for the length of the summary,
             # rather than the max_length and min_length parameters.
