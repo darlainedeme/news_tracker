@@ -1211,7 +1211,7 @@ def document_analysis():
     st.dataframe(st.session_state.df)
     # Calculate and display the cost estimate
     if 'df' in st.session_state:
-        cost_estimate = calculate_cost_estimate(st.session_state.df, selected_model)
+        cost_estimate = calculate_cost_estimate(st.session_state.sentence_df, selected_model)
         st.sidebar.write(f"Estimated cost for this run: ${cost_estimate:.2f}")
 
 
