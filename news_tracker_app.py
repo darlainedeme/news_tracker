@@ -26,6 +26,7 @@ from collections import Counter
 from google.cloud import translate_v2 as translate
 import logging
 import math
+from urllib.request import urlopen
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -800,7 +801,7 @@ def research():
                     soup = BeautifulSoup(response.content, 'html.parser')
 
                     # Example: Extract text from specific tags
-                    main_content = soup.find('article')  # or soup.find('main') or another tag that usually contains the main text
+                    main_content = soup.find('main')  # or soup.find('main') or another tag that usually contains the main text
                     if main_content:
                         text = ' '.join(p.get_text() for p in main_content.find_all('p'))
                     else:
