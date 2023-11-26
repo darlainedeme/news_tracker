@@ -760,7 +760,7 @@ def research():
                 translated_text = result['data']['translations'][0]['translatedText']
                 return translated_text
             except:
-                raise Exception(f"Google Cloud Translation API error: {response.text}")
+                translated_text
 
     if st.sidebar.button("Run Research"):
         links_list = []
