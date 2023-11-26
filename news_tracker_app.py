@@ -700,7 +700,7 @@ def research():
                     table_words = ['content', 'index', 'table']
 
                     if language == 'en':
-                        table_words = [translate_text_with_google_cloud(x, language)]) for x in table_words]
+                        table_words = [translate_text_with_google_cloud(x, language) for x in table_words]
                     
                     if table_words[0] in text.lower() or table_words[1] in text.lower() or table_words[2] in text.lower():
                         index_content += text + '\n\n'
