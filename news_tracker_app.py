@@ -867,7 +867,7 @@ def research():
 
                     # Summarize the webpage content
                     # st.write(text)
-                    summary = summarize_content(text, max_word_count=1000)  # Adjust max_length as needed
+                    summary = summarize_content(text, max_word_count=500)  # Adjust max_length as needed
 
                     # Translate the summary if needed
                     if want_translation:
