@@ -27,7 +27,11 @@ from google.cloud import translate_v2 as translate
 import logging
 import math
 from urllib.request import urlopen
-from gensim.summarization import summarize
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
+from collections import defaultdict
+import string
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -640,7 +644,7 @@ def research():
             summary_ids = model.generate(inputs, max_length=max_length, min_length=1000, length_penalty=0, num_beams=10, early_stopping=False)
             summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
             return summary
-        '''
+        
         def summarize_content(content, word_count=200):
             # Gensim's summarize function uses word count for the length of the summary,
             # rather than the max_length and min_length parameters.
@@ -651,6 +655,41 @@ def research():
                 summary = content
 
             return summary
+        '''
+
+        # Ensure you have the necessary NLTK data
+        nltk.download('punkt')
+        nltk.download('stopwords')
+
+        def nltk_summarize(text, max_sentence_count=5):
+            nltk.data.path.append('/app/nltk_data/')  # Update this path if necessary
+            
+            # Tokenize the text into sentences
+            sentences = sent_tokenize(text)
+
+            # Tokenize and filter stopwords and punctuation from the words in the text
+            stop_words = set(stopwords.words('english') + list(string.punctuation))
+            words = word_tokenize(text.lower())
+            filtered_words = [word for word in words if word not in stop_words]
+
+            # Score sentences based on frequency of words
+            word_frequencies = defaultdict(int)
+            for word in filtered_words:
+                word_frequencies[word] += 1
+
+            sentence_scores = defaultdict(int)
+            for sentence in sentences:
+                for word in word_tokenize(sentence.lower()):
+                    if word in word_frequencies:
+                        sentence_scores[sentence] += word_frequencies[word]
+
+            # Select top n sentences based on scores
+            top_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)[:max_sentence_count]
+            
+            # Return the summary
+            return ' '.join(top_sentences)
+
+
 
         # Function to sort sentences based on the count of different keywords
         def sort_sentences(sentences, keywords):
