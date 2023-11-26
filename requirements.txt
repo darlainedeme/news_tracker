@@ -19,3 +19,4 @@ sentencepiece
 google-cloud-translate
 transformers
 nltk
+tiktoken
