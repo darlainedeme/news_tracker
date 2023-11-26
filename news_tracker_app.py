@@ -641,33 +641,27 @@ def research():
         nltk.download('punkt')
         nltk.download('stopwords')
 
-        def summarize_content(text, max_sentence_count=5):
+        def summarize_content(text, max_word_count=100):
             nltk.data.path.append('/app/nltk_data/')  # Update this path if necessary
             
             # Tokenize the text into sentences
             sentences = sent_tokenize(text)
 
-            # Tokenize and filter stopwords and punctuation from the words in the text
-            stop_words = set(stopwords.words('english') + list(string.punctuation))
-            words = word_tokenize(text.lower())
-            filtered_words = [word for word in words if word not in stop_words]
+            # other parts of your function...
 
-            # Score sentences based on frequency of words
-            word_frequencies = defaultdict(int)
-            for word in filtered_words:
-                word_frequencies[word] += 1
+            # Sort sentences and construct the summary based on word count
+            sorted_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)
+            summary = []
+            word_count = 0
+            for sentence in sorted_sentences:
+                sentence_word_count = len(sentence.split())
+                if word_count + sentence_word_count <= max_word_count:
+                    summary.append(sentence)
+                    word_count += sentence_word_count
+                else:
+                    break
 
-            sentence_scores = defaultdict(int)
-            for sentence in sentences:
-                for word in word_tokenize(sentence.lower()):
-                    if word in word_frequencies:
-                        sentence_scores[sentence] += word_frequencies[word]
-
-            # Select top n sentences based on scores
-            top_sentences = sorted(sentence_scores, key=sentence_scores.get, reverse=True)[:max_sentence_count]
-            
-            # Return the summary
-            return ' '.join(top_sentences)
+            return ' '.join(summary)
 
 
 
