@@ -1172,6 +1172,33 @@ def document_analysis():
     Analyze the processed data in this final step. Utilize advanced AI models to summarize and extract key insights from the collected information. This section helps in understanding the broader context and significance of the data, providing valuable conclusions and takeaways from your research.
     """)
 
+    # Function to calculate the cost estimate
+    def calculate_cost_estimate(df, selected_model):
+        encoding = tiktoken.encoding_for_model(selected_model)
+
+        input_token_count = 0
+        for link in df['link'].unique():
+            top_sentences = df[df['link'] == link].nlargest(2, "Normalized_Count")
+            extracts = "\n".join(top_sentences['sentence'])
+            prompt = f"Your prompt text here: {extracts}"
+            input_token_count += len(encoding.encode(prompt))
+
+        # Define maximum output tokens based on the model
+        max_output_tokens = 2000 if selected_model == "gpt-4" else 1000
+
+        # Token pricing per 1K tokens (update as per current rates)
+        pricing = {
+            "gpt-4": (0.03, 0.06),
+            "gpt-3.5-turbo-instruct": (0.0015, 0.002)
+        }
+
+        input_cost = (input_token_count / 1000) * pricing[selected_model][0]
+        output_cost = (max_output_tokens / 1000) * pricing[selected_model][1] * len(df['link'].unique())
+
+        total_cost = input_cost + output_cost
+        return total_cost
+
+
     # Check if preprocessing has been done
     if 'sentence_df' not in st.session_state or 'df' not in st.session_state:
         st.warning("Please run preprocessing first.")
@@ -1180,6 +1207,12 @@ def document_analysis():
     # Sidebar for GPT model selection
     models = ["gpt-3.5-turbo-instruct", "gpt-4"]
     selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
+
+    # Calculate and display the cost estimate
+    if 'df' in st.session_state:
+        cost_estimate = calculate_cost_estimate(st.session_state.df, selected_model)
+        st.sidebar.write(f"Estimated cost for this run: ${cost_estimate:.2f}")
+
 
     # Initialize the progress bar
     progress_bar = st.sidebar.progress(0)
@@ -1194,9 +1227,12 @@ def document_analysis():
         for index, link in enumerate(st.session_state.df['link'].unique()):
             top_sentences = st.session_state.sentence_df[st.session_state.sentence_df['link'] == link].nlargest(2, "Normalized_Count")
             extracts = "\n".join(top_sentences['sentence'])
+
+            st.write(extracts)
+
             prompt = f"""I created a newsletter scraper that gives you got some non ordered extracts from longer documents:
-            you are asked to draft a brief summary of its content (two sentences) and all key numbers in it explained of each
-            to be then inserted in the newsletter email. below the extract from one document: please max 100 words:\n{extracts}"""
+            you are asked to write 1) "Brief Summary:" summarize the document in two sentences and 2) "Key numbers": one bullet point for each key number, and a description of what it is, iwth particular focus on monetary numbers
+            below the extract from one document:\n{extracts}"""
 
             # Call the OpenAI API
             if selected_model == "gpt-4":
@@ -1205,9 +1241,9 @@ def document_analysis():
                     {"role": "user", "content": prompt}
                 ]
                 response = openai.ChatCompletion.create(
-                    model="gpt-4-32k",
+                    model="gpt-4",
                     messages=messages,
-                    max_tokens=4097 
+                    max_tokens=2000 
                 )
                 summary = response['choices'][0]['message']['content']
             else:
