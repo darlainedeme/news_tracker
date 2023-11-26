@@ -405,7 +405,7 @@ def define_research():
 
         # Making the API call
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo-instruct",
             messages=messages,
             max_tokens=100
         )
