@@ -641,7 +641,7 @@ def research():
         nltk.download('punkt')
         nltk.download('stopwords')
 
-        def summarize_content(text, max_word_count=100):
+        def summarize_content(text, max_word_count=1000):
             nltk.data.path.append('/app/nltk_data/')  # Update this path if necessary
             
             # Tokenize the text into sentences
@@ -867,7 +867,7 @@ def research():
 
                     # Summarize the webpage content
                     # st.write(text)
-                    summary = summarize_content(text, max_word_count=100)  # Adjust max_length as needed
+                    summary = summarize_content(text, max_word_count=1000)  # Adjust max_length as needed
 
                     # Translate the summary if needed
                     if want_translation:
