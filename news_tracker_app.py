@@ -1327,7 +1327,7 @@ def document_analysis():
         if st.sidebar.button('Download Results'):
             output = BytesIO()
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-            # [Excel workbook creation logic here...]
+            worksheet = workbook.add_worksheet()
             workbook.close()
 
             # Download button
@@ -1347,6 +1347,10 @@ def document_analysis():
         smtp_user = os.getenv('smtp_user')
         smtp_password = os.getenv('smtp_password')
 
+        # Accessing all_summaries from st.session_state
+        all_summaries = st.session_state.all_summaries
+
+
         # Create the message
         msg = MIMEMultipart()
         msg['From'] = smtp_user
@@ -1355,13 +1359,12 @@ def document_analysis():
 
         # Create email body
         email_body = f"Final Summary:\n{content}\n\nDocument Summaries:\n"
-        for link, summary in zip(df['link'].unique(), all_summaries):
-            title = df[df['link'] == link]['title'].values[0]
+        for link, summary in zip(st.session_state.df['link'].unique(), all_summaries):
+            title = st.session_state.df[st.session_state.df['link'] == link]['title'].values[0]
             email_body += f"\n[**{title}**]({link})\nSummary: {summary}\n---"
 
-
         # Attach the content
-        msg.attach(MIMEText(content, 'plain'))
+        msg.attach(MIMEText(email_body, 'plain'))
 
         # Send the email
         server = smtplib.SMTP(smtp_server, smtp_port)
@@ -1371,13 +1374,11 @@ def document_analysis():
         server.quit()
 
     # Email sending feature
-    st.sidebar.write("Enter your email to receive the analysis:")
-    user_email = st.sidebar.text_input("Email")
     if st.sidebar.button("Send Email"):
         if user_email:
             try:
                 content = st.session_state.final_summary  # Assuming this is your final summary
-                send_email([user_email, "darlain.edeme@iea.org"], "Document Analysis Results", content, all_summaries, st.session_state.df, st.session_state.all_summaries)
+                send_email([user_email, "darlain.edeme@iea.org"], "Document Analysis Results", content)
                 st.sidebar.success("Email sent successfully!")
             except Exception as e:
                 st.sidebar.error(f"An error occurred: {e}")
