@@ -712,6 +712,15 @@ def research():
 
             return sentences_with_keywords, num_pages
 
+        def highlight_keywords(text, keywords):
+            # Create a regex pattern to find the keywords
+            pattern = r'\b(' + '|'.join(re.escape(keyword) for keyword in keywords) + r')\b'
+            
+            # Replace the keywords with a span element that applies the green color style
+            highlighted_text = re.sub(pattern, r'<span style="color:green">\1</span>', text, flags=re.IGNORECASE)
+            
+            return highlighted_text
+
     # Checkbox for translation
     want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
 
@@ -851,6 +860,7 @@ def research():
 
                     # Display the summary in an expander
                     with st.expander("Show Summary"):
+                        highlighted_text = highlight_keywords(text, st.session_state.translated_trans_keywords)
                         st.write(summary)
 
                 else:
