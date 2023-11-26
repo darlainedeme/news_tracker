@@ -18,3 +18,4 @@ torch
 sentencepiece
 google-cloud-translate
 transformers
+gensim
