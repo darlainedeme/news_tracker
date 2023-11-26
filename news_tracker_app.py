@@ -1341,20 +1341,20 @@ def document_analysis():
     # Email sending feature
     smtp_user = os.environ.get('GMAIL_USER')
     smtp_password = os.environ.get('GMAIL_PASSWORD')
-    def send_email(to_email, subject, content):
+    def send_email(to_emails, subject, content):
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         smtp_user = os.getenv('smtp_user')
         smtp_password = os.getenv('smtp_password')
 
-        # Accessing all_summaries from st.session_state
-        all_summaries = st.session_state.all_summaries
-
-
         # Create the message
         msg = MIMEMultipart()
         msg['From'] = smtp_user
-        msg['To'] = to_email
+        # Handling both single and multiple recipient cases
+        if isinstance(to_emails, list):
+            msg['To'] = ', '.join(to_emails)
+        else:
+            msg['To'] = to_emails
         msg['Subject'] = subject
 
         # Create email body
