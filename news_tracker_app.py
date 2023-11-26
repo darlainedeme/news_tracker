@@ -913,9 +913,8 @@ def research():
                                         translated_sorted_sentences = sorted_sentences
 
                                     # Display the sentences in an expander
-                                    with st.expander("Extracted Sentences:"):
-                                        for sentence in translated_sorted_sentences:
-                                            st.write(sentence)  # Each sentence will be displayed on a new line
+                                    for sentence in translated_sorted_sentences:
+                                        st.write(sentence)  # Each sentence will be displayed on a new line
         
                         else:
                             st.error("Failed to access the PDF.")
