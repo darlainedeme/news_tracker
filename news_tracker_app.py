@@ -675,7 +675,8 @@ def research():
                 else:
                     break
 
-            return ' '.join(summary)
+            return '\n'.join(summary)
+
 
 
 
