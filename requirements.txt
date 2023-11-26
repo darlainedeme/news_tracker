@@ -18,4 +18,4 @@ torch
 sentencepiece
 google-cloud-translate
 transformers
-# gensim==4.0.1
+nltk
