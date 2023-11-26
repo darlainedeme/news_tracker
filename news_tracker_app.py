@@ -1374,6 +1374,9 @@ def document_analysis():
         server.quit()
 
     # Email sending feature
+    st.sidebar.write("Enter your email to receive the analysis:")
+    user_email = st.sidebar.text_input("Email")
+
     if st.sidebar.button("Send Email"):
         if user_email:
             try:
@@ -1384,8 +1387,7 @@ def document_analysis():
                 st.sidebar.error(f"An error occurred: {e}")
         else:
             st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
-
-            
+                
 pages = {
     "🏠 Welcome": welcome_page,
     "🌍  Area Selection": area_selection,
