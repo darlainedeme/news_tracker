@@ -743,6 +743,10 @@ def research():
                 raise ValueError(f"Invalid language name: {language_name}")
 
             url = "https://translation.googleapis.com/language/translate/v2"
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
             params = {
                 'q': text,
                 'target': target_language,
