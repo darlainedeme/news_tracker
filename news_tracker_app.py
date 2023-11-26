@@ -1137,46 +1137,42 @@ def run_preprocessing():
                 progress_bar.progress(progress)
 
             except requests.RequestException:
+                st.write(f"Error accessing {row['link']}")
         
         # Store processed data in session state
         st.session_state.df = df
         st.session_state.sentence_df = sentence_df
-        st.session_state.processed = True        st.write(f"Error accessing {row['link']}")
+        st.session_state.processed = True        
 
-    # Dropdown for sorting
-    sort_option = st.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
+        # Dropdown for sorting
+        sort_option = st.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
 
-    # Apply sorting based on the selected option
-    def apply_sorting(dataframe, sort_by):
-        return dataframe.sort_values(by=sort_by, ascending=False)
+        # Apply sorting based on the selected option
+        def apply_sorting(dataframe, sort_by):
+            return dataframe.sort_values(by=sort_by, ascending=False)
 
-    # Sort the dataframes based on the selected option
-    df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
-    sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        # Sort the main dataframe and sentence dataframe based on the selected option
+        df = apply_sorting(df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        sentence_df = apply_sorting(sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
 
-    # Display each row separately with hyperlinks and keyword info
-    for index, row in df_sorted.iterrows():
-        # Check if the row is selected in the multi-select box
-        if index in st.session_state.row_selection:
-            st.markdown(f"[{row['title']}]({row['link']})")
-            # Display keyword counts on one line with | separator
-            keyword_info = ' | '.join([f"{keyword}: {row[keyword]}" for keyword in st.session_state.final_selected_keywords])
-            st.write(keyword_info)
-            
-            # Display top 5 sentences in an expander
-            top_sentences = sentence_df_sorted[sentence_df_sorted['link'] == row['link']].head(5)
-            with st.expander(f"Top Sentences for {row['title']}"):
-                for _, sentence_row in top_sentences.iterrows():
-                    st.write(sentence_row['sentence'])
+        # Display each row separately with hyperlinks and keyword info
+        for index, row in df.iterrows():
+            # Check if the row is selected in the multi-select box
+            if index in st.session_state.row_selection:
+                st.markdown(f"[{row['title']}]({row['link']})")
+                # Display keyword counts except for normalized count
+                for keyword in st.session_state.final_selected_keywords:
+                    st.write(f"{keyword}: {row[keyword]}")
+                
+                # Display top 5 sentences in an expander
+                top_sentences = sentence_df[sentence_df['link'] == row['link']].head(5)
+                with st.expander(f"Top Sentences for {row['title']}"):
+                    for _, sentence_row in top_sentences.iterrows():
+                        st.write(sentence_row['sentence'])
 
-            # Delimiter between each item
-            st.markdown("---")  # This creates a horizontal line as a delimiter
-
-    # Multi-select box for row selection and dataframe update logic
-    row_ids = st.session_state.df.index.tolist()
-    st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
-                                                            options=row_ids,
-                                                            default=row_ids)
+        # Update session state
+        st.session_state.df = df
+        st.session_state.sentence_df = sentence_df
 
     # Multi-select box for row selection and dataframe update logic
     row_ids = df.index.tolist()
