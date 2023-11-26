@@ -810,7 +810,7 @@ def research():
                     text = '\n'.join(chunk for chunk in chunks if chunk)
 
                     # Summarize the webpage content
-                    st.write(text)
+                    # st.write(text)
                     summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
 
                     # Translate the summary if needed
