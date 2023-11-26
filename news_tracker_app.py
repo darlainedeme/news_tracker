@@ -686,10 +686,10 @@ def research():
             sorted_sentences = sorted(sentences, key=count_unique_keywords, reverse=True)
             return sorted_sentences
         
-        def extract_metadata_and_index(pdf):
+        def extract_metadata_and_index(pdf, language = st.session_state.selected_language[0]):
             title_name = 'title'
-            if st.session_state.selected_language[0] != 'en':
-                title_name = translate_text_with_google_cloud(title_name, st.session_state.selected_language[0])
+            if language != 'en':
+                title_name = translate_text_with_google_cloud(title_name, language)
 
             title = pdf.metadata.get(title_name, 'No Title Found')
             index_content = ''
@@ -699,8 +699,8 @@ def research():
                 if text:
                     table_words = ['content', 'index', 'table']
 
-                    if st.session_state.selected_language[0] == 'en':
-                        table_words = [translate_text_with_google_cloud(x, st.session_state.selected_language[0]) for x in table_words]
+                    if language == 'en':
+                        table_words = [translate_text_with_google_cloud(x, language]) for x in table_words]
                     
                     if table_words[0] in text.lower() or table_words[1] in text.lower() or table_words[2] in text.lower():
                         index_content += text + '\n\n'
