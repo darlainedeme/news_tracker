@@ -1038,6 +1038,10 @@ def run_preprocessing():
     Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
     """)
 
+    # Initialize row_selection in session state if not present
+    if 'row_selection' not in st.session_state:
+        st.session_state.row_selection = []
+
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
