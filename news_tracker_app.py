@@ -1341,7 +1341,7 @@ def document_analysis():
     # Email sending feature
     smtp_user = os.environ.get('GMAIL_USER')
     smtp_password = os.environ.get('GMAIL_PASSWORD')
-    def send_email(to_email, subject, content, all_summaries):
+    def send_email(to_email, subject, content):
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         smtp_user = os.getenv('smtp_user')
@@ -1387,6 +1387,7 @@ def document_analysis():
                 st.sidebar.error(f"An error occurred: {e}")
         else:
             st.sidebar.error("Please enter a valid email and ensure the summary is generated.")
+
                 
 pages = {
     "🏠 Welcome": welcome_page,
