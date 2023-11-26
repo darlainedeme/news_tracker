@@ -807,6 +807,7 @@ def research():
                         text = soup.get_text()
 
                     # Summarize the webpage content
+                    st.write(text)
                     summary = summarize_content(text, max_length=100)  # Adjust max_length as needed
 
                     # Translate the summary if needed
