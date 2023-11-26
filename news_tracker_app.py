@@ -754,11 +754,12 @@ def research():
                 'key': api_key
             }
             response = requests.post(url, params=params)
-            if response.status_code == 200:
+            try:
+                #if response.status_code == 200:
                 result = response.json()
                 translated_text = result['data']['translations'][0]['translatedText']
                 return translated_text
-            else:
+            except:
                 raise Exception(f"Google Cloud Translation API error: {response.text}")
 
     if st.sidebar.button("Run Research"):
