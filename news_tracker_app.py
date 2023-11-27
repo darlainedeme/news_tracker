@@ -237,22 +237,27 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_choice = st.sidebar.selectbox("Choose your configuration", ["Custom Configuration"] + predefined_configs_df['Config Name'].tolist())
+        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"])
 
 
-        if config_choice != "Custom Configuration":  
-            selected_config = predefined_configs_df[predefined_configs_df['Config Name'] == config_choice].iloc[0]
+        if config_type_choice == "Predefined":
+            # Dropdown to filter by research type
+            unique_research_types = predefined_configs_df['Research Type'].unique()
+            selected_research_type = st.sidebar.selectbox("Select Research Type", unique_research_types)
 
-            # Load the selected configuration into session state
-            st.session_state['research_type'] = selected_config['Research Type']
-            st.session_state['sources'] = selected_config['Sources']
-            st.session_state['limit_to_country'] = parse_boolean(selected_config['Limit to Country'])
-            st.session_state['official_sources'] = selected_config['Official Sources'].split(';')
-            st.session_state['selected_mandatory_keywords'] = selected_config['Mandatory Keywords'].split(';')
-            st.session_state['selected_keywords'] = selected_config['Topic Keywords'].split(';')
-            st.session_state['selected_comp_keywords'] = selected_config['Complementary Keywords'].split(';')
+            # Filter configurations by selected research type
+            filtered_configs = predefined_configs_df[predefined_configs_df['Research Type'] == selected_research_type]
 
-        if config_choice == "Custom Configuration":    
+            # Dropdown to select a specific configuration based on the research type
+            config_choice = st.sidebar.selectbox("Choose Configuration", filtered_configs['Config Name'].tolist())
+
+            if config_choice:
+                # Display the details of the chosen configuration
+                selected_config = filtered_configs[filtered_configs['Config Name'] == config_choice].iloc[0]
+                st.dataframe(selected_config.to_frame())
+
+
+        if config_choice == "Customize":    
             for key, value in defaults.items():
                 if key not in st.session_state:
                     st.session_state[key] = value
