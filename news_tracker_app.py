@@ -235,7 +235,7 @@ def define_research():
     st.session_state.research_type = st.radio(
         "",
         ["policies", "news", "spending tracker", "projects"],
-        index=3,
+        index=2,
         help="Select the type of research you're interested in. Options include policies, news, and projects."
     )
 
