@@ -196,6 +196,7 @@ def define_research():
     if 'subset_data' not in st.session_state or st.session_state.subset_data is None:
         st.warning("Please complete the previous steps first.")
         return
+
     st.title("Research Customization")
     st.markdown("""
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
@@ -203,7 +204,7 @@ def define_research():
 
 
     
-    else:
+    if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
             
         defaults = {
             'research_type': 'policies',
