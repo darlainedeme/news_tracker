@@ -232,17 +232,17 @@ def define_research():
         config_choice = st.sidebar.selectbox("Choose your configuration", ["Custom Configuration"] + predefined_configs_df['Config Name'].tolist())
 
 
+        if config_choice != "Custom Configuration":  
+            selected_config = predefined_configs_df[predefined_configs_df['Config Name'] == config_choice].iloc[0]
 
-        selected_config = predefined_configs_df[predefined_configs_df['Config Name'] == config_choice].iloc[0]
-
-        # Load the selected configuration into session state
-        st.session_state['research_type'] = selected_config['Research Type']
-        st.session_state['sources'] = selected_config['Sources']
-        st.session_state['official_sources'] = selected_config['Official Sources'].split(';')
-        st.session_state['selected_mandatory_keywords'] = selected_config['Mandatory Keywords'].split(';')
-        st.session_state['selected_keywords'] = selected_config['Topic Keywords'].split(';')
-        st.session_state['selected_comp_keywords'] = selected_config['Complementary Keywords'].split(';')
-        st.session_state['selected_countries'] = selected_config['Selected Countries'].split(';')
+            # Load the selected configuration into session state
+            st.session_state['research_type'] = selected_config['Research Type']
+            st.session_state['sources'] = selected_config['Sources']
+            st.session_state['official_sources'] = selected_config['Official Sources'].split(';')
+            st.session_state['selected_mandatory_keywords'] = selected_config['Mandatory Keywords'].split(';')
+            st.session_state['selected_keywords'] = selected_config['Topic Keywords'].split(';')
+            st.session_state['selected_comp_keywords'] = selected_config['Complementary Keywords'].split(';')
+            st.session_state['selected_countries'] = selected_config['Selected Countries'].split(';')
 
         if config_choice == "Custom Configuration":    
             for key, value in defaults.items():
