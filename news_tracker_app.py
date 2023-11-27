@@ -207,7 +207,7 @@ def define_research():
 
     # Function to convert 'True'/'False' strings to booleans
     def parse_boolean(bool_str):
-        return True if bool_str.lower() == 'true' else False
+        return True if bool_str == 'TRUE' else False
 
    
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
