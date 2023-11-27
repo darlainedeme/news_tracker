@@ -439,15 +439,9 @@ def define_research():
             # Constructing the prompt for translation
             translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR"
 
-            # Preparing the messages for the API call
-            messages = [
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": translation_prompt}
-            ]
-
             response = openai.Completion.create(
                 model="gpt-3.5-turbo-instruct",
-                prompt=messages,
+                prompt=translation_prompt,
                 max_tokens=100
             )
 
