@@ -200,31 +200,30 @@ def define_research():
         st.warning("Please complete the previous steps first.")
         return
     
-    # Initialize session state variables if not already set
-    if 'research_type' not in st.session_state:
-        st.session_state.research_type = 'policies'
-    if 'sources' not in st.session_state:
-        st.session_state.sources = 'predefined sources search'
-    if 'limit_to_country' not in st.session_state:
-        st.session_state.limit_to_country = True
-    if 'official_sources' not in st.session_state:
-        st.session_state.official_sources = []
-    if 'selected_predefined_links' not in st.session_state:
-        st.session_state.selected_predefined_links = []
-    if 'start_date' not in st.session_state:
-        st.session_state.start_date = datetime.date.today() - datetime.timedelta(days=1)
-    if 'end_date' not in st.session_state:
-        st.session_state.end_date = datetime.date.today()
-    if 'selected_language' not in st.session_state:
-        st.session_state.selected_language = []
-    if 'selected_mandatory_keywords' not in st.session_state:
-        st.session_state.selected_mandatory_keywords = []
-    if 'selected_keywords' not in st.session_state:
-        st.session_state.selected_keywords = []
-    if 'selected_comp_keywords' not in st.session_state:
-        st.session_state.selected_comp_keywords = []
-    if 'include_monetary_info' not in st.session_state:
-        st.session_state.include_monetary_info = False
+    defaults = {
+        'research_type': 'policies',
+        'sources': 'predefined sources search',
+        'limit_to_country': True,
+        'official_sources': [],
+        'selected_predefined_links': [],
+        'start_date': datetime.date.today() - datetime.timedelta(days=1),
+        'end_date': datetime.date.today(),
+        'selected_language': [],
+        'selected_mandatory_keywords': [],
+        'selected_keywords': [],
+        'selected_comp_keywords': [],
+        'include_monetary_info': False,
+        'selected_countries': [],  # Assuming you need this
+        'main_selected_translations': {},
+        'comp_selected_translations': {},
+        'mandatory_selected_translations': {},
+        'translated_trans_keywords': [],
+        'final_selected_keywords': []
+    }
+
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
     # Ensure that session state for research_type is initialized
     if 'research_type' not in st.session_state:
