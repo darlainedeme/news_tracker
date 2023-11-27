@@ -352,7 +352,7 @@ def define_research():
             st.session_state.selected_mandatory_keywords = []
 
         if 'selected_mandatory_keywords' in st.session_state:
-            all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(st.session_state.selected_mandatory_keywords)))
+            all_mandatory_keywords = sorted(list(set(list(all_mandatory_keywords) + list(st.session_state.selected_mandatory_keywords))))
             
         additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
 
@@ -410,7 +410,7 @@ def define_research():
             st.session_state.selected_comp_keywords = []
 
         if 'selected_comp_keywords' in st.session_state:
-            all_comp_keywords = list(set(list(all_comp_keywords) + list(st.session_state.selected_comp_keywords)))
+            all_comp_keywords = sorted(list(set(list(all_comp_keywords) + list(st.session_state.selected_comp_keywords))))
             
         custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
         if custom_comp_keywords:
