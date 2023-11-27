@@ -1,0 +1,4 @@
+﻿Config Name,Research Type,Sources,Limit to Country,Official Sources,Mandatory Keywords,Topic Keywords,Complementary Keywords
+EV infrastracture spending tracker,policies,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
+Consumer support tracker,policies,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
+Renewable energy policy news,policies,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
