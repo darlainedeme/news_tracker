@@ -449,7 +449,7 @@ def define_research():
             )
 
             # Extracting the translation from the response
-            translated_word = response['choices'][0]['message']['content']
+            translated_word = response.choices[0].text.strip()
 
             return translated_word
 
