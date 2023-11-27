@@ -518,15 +518,19 @@ def define_research():
 
 
 def research():
-    st.title("Research 📚")
-    st.markdown("""
-    Conduct your research based on the parameters set in the previous steps. This section utilizes custom search engines to gather data and information from various sources. You can review the total results, check individual entries, and gather insights relevant to your selected areas and research criteria.
-    """)
 
     # Ensure that the necessary data is in the session state
     if 'final_selected_keywords' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
+
+    else:    
+        st.title("Research 📚")
+        st.markdown("""
+        Conduct your research based on the parameters set in the previous steps. This section utilizes custom search engines to gather data and information from various sources. You can review the total results, check individual entries, and gather insights relevant to your selected areas and research criteria.
+        """)
+
+
 
     # Sidebar for selecting time period
     period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
