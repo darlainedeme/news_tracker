@@ -177,6 +177,11 @@ def area_selection():
 
 
 def selected_area_check():
+    if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
+        st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
+    else:
+        st.warning("No countries selected in the 'Area Selection' step.")
+
     st.markdown("""
     Here, you can review the geographical areas you have selected. This step is crucial to ensure that the regions of interest are correctly chosen before proceeding with the research. If the selected areas don't match your criteria, you can return to the 'Area Selection' step to adjust your choices.
     """)
@@ -184,21 +189,19 @@ def selected_area_check():
     st.write("### Check the table below, and confirm it's the region you are interested in.")
     st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
 
-    if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
-        st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
-    else:
-        st.warning("No countries selected in the 'Area Selection' step.")
+
 
 def define_research():
+    # Ensure that the necessary data is in the session state
+    if 'subset_data' not in st.session_state or st.session_state.subset_data is None:
+        st.warning("Please complete the previous steps first.")
+        return
     st.title("Research Customization")
     st.markdown("""
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
     """)
 
-    # Ensure that the necessary data is in the session state
-    if 'subset_data' not in st.session_state or st.session_state.subset_data is None:
-        st.warning("Please complete the previous steps first.")
-        return
+
     
     else:
             
