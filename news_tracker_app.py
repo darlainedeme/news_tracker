@@ -234,8 +234,8 @@ def define_research():
     st.subheader("1. Research Type")
     st.session_state.research_type = st.radio(
         "",
-        ["policies", "news", "spendings", "projects"],
-        index=3,
+        ["spendings", "news", "policies", "projects"],
+        index=["spendings", "news", "policies", "projects"].index(st.session_state.research_type),
         help="Select the type of research you're interested in. Options include policies, news, and projects."
     )
 
