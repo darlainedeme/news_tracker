@@ -237,7 +237,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"])
+        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"], default='Predefined')
 
 
         if config_type_choice == "Predefined":
