@@ -229,7 +229,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_choice = st.selectbox("Choose your configuration", ["Custom Configuration"] + predefined_configs_df['Config Name'].tolist())
+        config_choice = st.sidebar.selectbox("Choose your configuration", ["Custom Configuration"] + predefined_configs_df['Config Name'].tolist())
 
 
 
