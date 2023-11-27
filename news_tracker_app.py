@@ -399,7 +399,7 @@ def define_research():
             st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:",
                                                                     all_mandatory_keywords,
                                                                     default=st.session_state.selected_mandatory_keywords,
-                                                                    help="Select mandatory keywords. These are essential terms that must appear in the research results.")
+                                                                    help="Select mandatory keywords. These are essential terms that MUST appear in the research results.")
 
 
 
@@ -429,7 +429,7 @@ def define_research():
             st.session_state.selected_keywords = st.multiselect("Keywords:",
                                                                 filtered_topic_keywords,
                                                                 default=st.session_state.selected_keywords,
-                                                                help="Choose your topic keywords. These are the main terms related to your research topic.")
+                                                                help="Choose your topic keywords. These are the main terms related to your research topic. AT LEAST ONE OF THEM NEED TO APPEEAR IN THE DOCUMENT")
 
             st.markdown("---")
 
@@ -456,7 +456,7 @@ def define_research():
             st.session_state.selected_comp_keywords = st.multiselect("Keywords:",
                                                                     all_comp_keywords,
                                                                     default=st.session_state.selected_comp_keywords,
-                                                                    help="Select complementary keywords. These are additional terms that can enhance your research scope.")
+                                                                    help="Select complementary keywords. These are additional terms that can enhance your research scope. AT LEAST ONE OF THEM NEED TO APPEEAR IN THE DOCUMENT")
 
 
             def translate_word(word, selected_language):
