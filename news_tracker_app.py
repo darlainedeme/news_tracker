@@ -200,322 +200,324 @@ def define_research():
         st.warning("Please complete the previous steps first.")
         return
     
-    defaults = {
-        'research_type': 'policies',
-        'sources': 'predefined sources search',
-        'limit_to_country': True,
-        'official_sources': [],
-        'selected_predefined_links': [],
-        'start_date': datetime.date.today() - datetime.timedelta(days=1),
-        'end_date': datetime.date.today(),
-        'selected_language': [],
-        'selected_mandatory_keywords': [],
-        'selected_keywords': [],
-        'selected_comp_keywords': [],
-        'include_monetary_info': False,
-        'selected_countries': [],  # Assuming you need this
-        'main_selected_translations': {},
-        'comp_selected_translations': {},
-        'mandatory_selected_translations': {},
-        'translated_trans_keywords': [],
-        'final_selected_keywords': []
-    }
-
-    for key, value in defaults.items():
-        if key not in st.session_state:
-            st.session_state[key] = value
-
-    # Ensure that session state for research_type is initialized
-    if 'research_type' not in st.session_state:
-        st.session_state.research_type = "spendings"  # default value
-
-    # 1. Kind of Research
-    st.subheader("1. Research Type")
-    st.session_state.research_type = st.radio(
-        "",
-        ["policies", "news", "spending tracker", "projects"],
-        index=2,
-        help="Select the type of research you're interested in. Options include policies, news, and projects."
-    )
-
-    # Load necessary data based on the selected research type
-    if st.session_state.research_type == "spendings":
-        links_df = pd.read_csv('data/links.csv', encoding='utf-8')
-    elif st.session_state.research_type == "news":
-        links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
-    else:  # For "policies" and "projects"
-        links_df = pd.read_csv('data/energy_stakeholders_links.csv', encoding='utf-8')
-
-    # Separator
-    st.markdown("---")
-   
-    languages_df = pd.read_csv('data/languages.csv', encoding='utf-8')
-    comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
-    mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-
-    # 0. Administrative division
-    if 'selected_countries' in st.session_state and not st.session_state.subset_data.empty:
-        # Check if only one country is selected
-        if len(st.session_state.selected_countries) == 1 and st.session_state.research_type == "spendings":
-            selected_country = st.session_state.selected_countries[0]
-
-            # Filter the DataFrame for the selected country
-            country_df = links_df[links_df['Country'] == selected_country]
-
-            # Extract unique regions from the DataFrame
-            unique_regions = country_df['Region'].unique()
-
-            # Create a dropdown menu for regions
-            selected_region = st.selectbox("Select a Region", unique_regions)
-
-            # Update links_df to filter by the selected region
-            links_df = country_df[country_df['Region'] == selected_region]
-
-
-    # 2. Sources of Information
-    st.subheader("2. Information Sources")
-    if not st.session_state.subset_data.empty:
-        st.session_state.sources = st.radio("Choose a source:",
-                                        ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
-                                        index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
-                                        help="Select your preferred sources of information.")
-
-        # Limit research to country-specific domains
-        if st.session_state.sources == "general google search":
-            st.session_state.limit_to_country = st.checkbox("Limit research to country-specific domains?", value=st.session_state.limit_to_country, help="This might provide precise results for country-specific information but will exclude international sources with .com, .org, etc.")
-
-        # 2.1 Official Sources (if selected)
-        if st.session_state.sources == "predefined sources search":
-            types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
-            st.session_state.official_sources = st.multiselect("",
-                                                            types_list,
-                                                            default=types_list,
-                                                            help="Select official sources for predefined sources search.")
-
-            source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
-            st.write(source_counts)
-
-            links_list = list(set(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link))
+    else:
             
-            st.session_state.selected_predefined_links = [x for x in links_list if not (isinstance(x, float) and math.isnan(x))]
+        defaults = {
+            'research_type': 'policies',
+            'sources': 'predefined sources search',
+            'limit_to_country': True,
+            'official_sources': [],
+            'selected_predefined_links': [],
+            'start_date': datetime.date.today() - datetime.timedelta(days=1),
+            'end_date': datetime.date.today(),
+            'selected_language': [],
+            'selected_mandatory_keywords': [],
+            'selected_keywords': [],
+            'selected_comp_keywords': [],
+            'include_monetary_info': False,
+            'selected_countries': [],  # Assuming you need this
+            'main_selected_translations': {},
+            'comp_selected_translations': {},
+            'mandatory_selected_translations': {},
+            'translated_trans_keywords': [],
+            'final_selected_keywords': []
+        }
 
-    else:
-        st.session_state.sources = st.radio("Choose a source:",
-                                        ["general google search", "general twitter search", "general linkedin search"],
-                                        index=["general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
-                                        help="Select your preferred sources of information.")
+        for key, value in defaults.items():
+            if key not in st.session_state:
+                st.session_state[key] = value
 
-    # Separator
-    st.markdown("---")
+        # Ensure that session state for research_type is initialized
+        if 'research_type' not in st.session_state:
+            st.session_state.research_type = "spendings"  # default value
 
-    # 3. Language
-    st.subheader("3. Language")
-
-    # Extract all unique languages from the dataframe
-    all_languages = languages_df.melt(id_vars=['Country'], 
-                                    value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
-                                    ).dropna()['value'].unique().tolist()
-
-    # Determine the default languages based on the selected countries
-    if len(st.session_state.selected_countries) > 1:
-        default_languages = ["English"]
-    elif not st.session_state.subset_data.empty:
-        selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
-        default_languages = selected_country_languages.melt(id_vars=['Country'], 
-                                                            value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
-                                                        ).dropna()['value'].unique().tolist()
-    else:
-        default_languages = ["English"]
-
-    # Language selection multiselect widget
-    st.session_state.selected_language = st.multiselect("Language(s):",
-                                                        sorted(all_languages),
-                                                        default=default_languages,
-                                                        help="Choose the languages for your research. This will filter content based on the selected languages.")
-
-
-    # Separator
-    st.markdown("---")
-
-    # 4. Mandatory Keywords
-    st.subheader("4. Mandatory Keywords")
-    mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
-    
-    if 'selected_mandatory_keywords' not in st.session_state:
-        st.session_state.selected_mandatory_keywords = []
-
-    if 'selected_mandatory_keywords' in st.session_state:
-        all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(st.session_state.selected_mandatory_keywords)))
-        
-    additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
-
-    if additional_mandatory_keywords:
-        additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
-        for kw in additional_keywords_list:
-            if kw not in all_mandatory_keywords:
-                all_mandatory_keywords.append(kw)
-            if kw not in st.session_state.selected_mandatory_keywords:
-                st.session_state.selected_mandatory_keywords.append(kw)
-
-    st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:",
-                                                              all_mandatory_keywords,
-                                                              default=st.session_state.selected_mandatory_keywords,
-                                                              help="Select mandatory keywords. These are essential terms that must appear in the research results.")
-
-
-
-    st.markdown("---")
-    
-    # 5. Topic Keywords
-    st.subheader("5. Topic Keywords")
-    keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
-    all_topic_keywords = sorted(set(keywords_df['keyword'].tolist()))
-
-    if 'selected_keywords' not in st.session_state:
-        st.session_state.selected_keywords = []
-
-    if 'selected_keywords' in st.session_state:
-        all_topic_keywords = list(set(list(all_topic_keywords) + list(st.session_state.selected_keywords)))
-        
-    custom_keywords = st.text_input("Add additional topic keywords (comma separated):")
-    if custom_keywords:
-        custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
-        for kw in custom_keywords_list:
-            if kw not in all_topic_keywords:
-                all_topic_keywords.append(kw)
-            if kw not in st.session_state.selected_keywords:
-                st.session_state.selected_keywords.append(kw)
-
-    filtered_topic_keywords = [k for k in all_topic_keywords if k not in st.session_state.selected_mandatory_keywords]
-    st.session_state.selected_keywords = st.multiselect("Keywords:",
-                                                        filtered_topic_keywords,
-                                                        default=st.session_state.selected_keywords,
-                                                        help="Choose your topic keywords. These are the main terms related to your research topic.")
-
-    st.markdown("---")
-
-    # 6. Complementary Research Keywords
-    st.subheader("6. Complementary Research Keywords")
-    comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
-    all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
-
-    if 'selected_comp_keywords' not in st.session_state:
-        st.session_state.selected_comp_keywords = []
-
-    if 'selected_comp_keywords' in st.session_state:
-        all_comp_keywords = list(set(list(all_comp_keywords) + list(st.session_state.selected_comp_keywords)))
-        
-    custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
-    if custom_comp_keywords:
-        custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
-        for kw in custom_comp_keywords_list:
-            if kw not in all_comp_keywords:
-                all_comp_keywords.append(kw)
-            if kw not in st.session_state.selected_comp_keywords:
-                st.session_state.selected_comp_keywords.append(kw)
-
-    st.session_state.selected_comp_keywords = st.multiselect("Keywords:",
-                                                             all_comp_keywords,
-                                                             default=st.session_state.selected_comp_keywords,
-                                                             help="Select complementary keywords. These are additional terms that can enhance your research scope.")
-
-
-    def translate_word(word, selected_language):
-        """
-        Translates a given word into the specified language.
-
-        Args:
-        word (str): The word to be translated.
-        selected_language (str): The target language for translation.
-
-        Returns:
-        str: The translated word.
-        """
-
-        # Constructing the prompt for translation
-        translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR"
-
-        # Preparing the messages for the API call
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": translation_prompt}
-        ]
-
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=messages,
-            max_tokens=100
+        # 1. Kind of Research
+        st.subheader("1. Research Type")
+        st.session_state.research_type = st.radio(
+            "",
+            ["policies", "news", "spending tracker", "projects"],
+            index=2,
+            help="Select the type of research you're interested in. Options include policies, news, and projects."
         )
 
-        # Extracting the translation from the response
-        translated_word = response['choices'][0]['message']['content']
+        # Load necessary data based on the selected research type
+        if st.session_state.research_type == "spendings":
+            links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+        elif st.session_state.research_type == "news":
+            links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
+        else:  # For "policies" and "projects"
+            links_df = pd.read_csv('data/energy_stakeholders_links.csv', encoding='utf-8')
 
-        return translated_word
-
-    # Extract respective translations for the selected keywords
-    main_selected_translations = {}
-    comp_selected_translations = {}
-    mandatory_selected_translations = {}
-
-    for language in st.session_state.selected_language:
-        # Translations for mandatory keywords
-        mandatory_selected_translations[language] = [
-            mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
-            for keyword in st.session_state.selected_mandatory_keywords
-        ]
-
-        # Translations for main keywords
-        main_selected_translations[language] = [
-            keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
-            for keyword in st.session_state.selected_keywords
-        ]
-
-        # Translations for complementary keywords
-        comp_selected_translations[language] = [
-            comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
-            for keyword in st.session_state.selected_comp_keywords
-        ]
-
-    # Store translations in session state
-    st.session_state.main_selected_translations = main_selected_translations
-    st.session_state.comp_selected_translations = comp_selected_translations
-    st.session_state.mandatory_selected_translations = mandatory_selected_translations
-
-    # Create a flat list of all translated keywords
-    translated_keywords = []
-
-    # Include mandatory translated keywords
-    for language, translations in st.session_state.mandatory_selected_translations.items():
-        translated_keywords.extend(translations)
-
-    # Include main translated keywords
-    for language, translations in st.session_state.main_selected_translations.items():
-        translated_keywords.extend(translations)
-
-    # Include complementary translated keywords
-    for language, translations in st.session_state.comp_selected_translations.items():
-        translated_keywords.extend(translations)
+        # Separator
+        st.markdown("---")
     
-    # Removing potential duplicates from translated keywords
-    translated_trans_keywords = list(set(translated_keywords))
-    
-    # Create a flat list of all selected keywords (main and complementary)
-    final_selected_keywords = st.session_state.selected_mandatory_keywords + st.session_state.selected_keywords + st.session_state.selected_comp_keywords
-    
-    # Removing potential duplicates from selected keywords
-    final_selected_keywords = list(set(final_selected_keywords))
+        languages_df = pd.read_csv('data/languages.csv', encoding='utf-8')
+        comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
+        mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+        keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
 
-    # Add to session state
-    st.session_state.translated_trans_keywords = translated_trans_keywords
-    st.session_state.final_selected_keywords = final_selected_keywords
+        # 0. Administrative division
+        if 'selected_countries' in st.session_state and not st.session_state.subset_data.empty:
+            # Check if only one country is selected
+            if len(st.session_state.selected_countries) == 1 and st.session_state.research_type == "spendings":
+                selected_country = st.session_state.selected_countries[0]
 
-    # Display the final list of translated and selected keywords
-    st.write(translated_trans_keywords)
+                # Filter the DataFrame for the selected country
+                country_df = links_df[links_df['Country'] == selected_country]
 
-    # Separator
-    st.markdown("---")
+                # Extract unique regions from the DataFrame
+                unique_regions = country_df['Region'].unique()
+
+                # Create a dropdown menu for regions
+                selected_region = st.selectbox("Select a Region", unique_regions)
+
+                # Update links_df to filter by the selected region
+                links_df = country_df[country_df['Region'] == selected_region]
+
+
+        # 2. Sources of Information
+        st.subheader("2. Information Sources")
+        if not st.session_state.subset_data.empty:
+            st.session_state.sources = st.radio("Choose a source:",
+                                            ["predefined sources search", "general google search", "general twitter search", "general linkedin search"],
+                                            index=["predefined sources search", "general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
+                                            help="Select your preferred sources of information.")
+
+            # Limit research to country-specific domains
+            if st.session_state.sources == "general google search":
+                st.session_state.limit_to_country = st.checkbox("Limit research to country-specific domains?", value=st.session_state.limit_to_country, help="This might provide precise results for country-specific information but will exclude international sources with .com, .org, etc.")
+
+            # 2.1 Official Sources (if selected)
+            if st.session_state.sources == "predefined sources search":
+                types_list = links_df.loc[links_df['Country'].isin(st.session_state.selected_countries), 'Type'].unique().tolist()
+                st.session_state.official_sources = st.multiselect("",
+                                                                types_list,
+                                                                default=types_list,
+                                                                help="Select official sources for predefined sources search.")
+
+                source_counts = links_df[links_df['Country'].isin(st.session_state.selected_countries)].groupby(['Type', 'Country']).size().unstack(fill_value=0)
+                st.write(source_counts)
+
+                links_list = list(set(links_df[(links_df['Country'].isin(st.session_state.selected_countries)) & (links_df['Type'].isin(st.session_state.official_sources))].Link))
+                
+                st.session_state.selected_predefined_links = [x for x in links_list if not (isinstance(x, float) and math.isnan(x))]
+
+        else:
+            st.session_state.sources = st.radio("Choose a source:",
+                                            ["general google search", "general twitter search", "general linkedin search"],
+                                            index=["general google search", "general twitter search", "general linkedin search"].index(st.session_state.sources),
+                                            help="Select your preferred sources of information.")
+
+        # Separator
+        st.markdown("---")
+
+        # 3. Language
+        st.subheader("3. Language")
+
+        # Extract all unique languages from the dataframe
+        all_languages = languages_df.melt(id_vars=['Country'], 
+                                        value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
+                                        ).dropna()['value'].unique().tolist()
+
+        # Determine the default languages based on the selected countries
+        if len(st.session_state.selected_countries) > 1:
+            default_languages = ["English"]
+        elif not st.session_state.subset_data.empty:
+            selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
+            default_languages = selected_country_languages.melt(id_vars=['Country'], 
+                                                                value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
+                                                            ).dropna()['value'].unique().tolist()
+        else:
+            default_languages = ["English"]
+
+        # Language selection multiselect widget
+        st.session_state.selected_language = st.multiselect("Language(s):",
+                                                            sorted(all_languages),
+                                                            default=default_languages,
+                                                            help="Choose the languages for your research. This will filter content based on the selected languages.")
+
+
+        # Separator
+        st.markdown("---")
+
+        # 4. Mandatory Keywords
+        st.subheader("4. Mandatory Keywords")
+        mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+        all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
+        
+        if 'selected_mandatory_keywords' not in st.session_state:
+            st.session_state.selected_mandatory_keywords = []
+
+        if 'selected_mandatory_keywords' in st.session_state:
+            all_mandatory_keywords = list(set(list(all_mandatory_keywords) + list(st.session_state.selected_mandatory_keywords)))
+            
+        additional_mandatory_keywords = st.text_area("Additional Mandatory Keywords (comma-separated):")
+
+        if additional_mandatory_keywords:
+            additional_keywords_list = [kw.strip() for kw in additional_mandatory_keywords.split(",")]
+            for kw in additional_keywords_list:
+                if kw not in all_mandatory_keywords:
+                    all_mandatory_keywords.append(kw)
+                if kw not in st.session_state.selected_mandatory_keywords:
+                    st.session_state.selected_mandatory_keywords.append(kw)
+
+        st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:",
+                                                                all_mandatory_keywords,
+                                                                default=st.session_state.selected_mandatory_keywords,
+                                                                help="Select mandatory keywords. These are essential terms that must appear in the research results.")
+
+
+
+        st.markdown("---")
+        
+        # 5. Topic Keywords
+        st.subheader("5. Topic Keywords")
+        keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+        all_topic_keywords = sorted(set(keywords_df['keyword'].tolist()))
+
+        if 'selected_keywords' not in st.session_state:
+            st.session_state.selected_keywords = []
+
+        if 'selected_keywords' in st.session_state:
+            all_topic_keywords = list(set(list(all_topic_keywords) + list(st.session_state.selected_keywords)))
+            
+        custom_keywords = st.text_input("Add additional topic keywords (comma separated):")
+        if custom_keywords:
+            custom_keywords_list = [keyword.strip() for keyword in custom_keywords.split(',')]
+            for kw in custom_keywords_list:
+                if kw not in all_topic_keywords:
+                    all_topic_keywords.append(kw)
+                if kw not in st.session_state.selected_keywords:
+                    st.session_state.selected_keywords.append(kw)
+
+        filtered_topic_keywords = [k for k in all_topic_keywords if k not in st.session_state.selected_mandatory_keywords]
+        st.session_state.selected_keywords = st.multiselect("Keywords:",
+                                                            filtered_topic_keywords,
+                                                            default=st.session_state.selected_keywords,
+                                                            help="Choose your topic keywords. These are the main terms related to your research topic.")
+
+        st.markdown("---")
+
+        # 6. Complementary Research Keywords
+        st.subheader("6. Complementary Research Keywords")
+        comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
+        all_comp_keywords = sorted(set(comp_keywords_df['keyword'].tolist()))
+
+        if 'selected_comp_keywords' not in st.session_state:
+            st.session_state.selected_comp_keywords = []
+
+        if 'selected_comp_keywords' in st.session_state:
+            all_comp_keywords = list(set(list(all_comp_keywords) + list(st.session_state.selected_comp_keywords)))
+            
+        custom_comp_keywords = st.text_input("Add additional complementary keywords (comma separated):")
+        if custom_comp_keywords:
+            custom_comp_keywords_list = [keyword.strip() for keyword in custom_comp_keywords.split(',')]
+            for kw in custom_comp_keywords_list:
+                if kw not in all_comp_keywords:
+                    all_comp_keywords.append(kw)
+                if kw not in st.session_state.selected_comp_keywords:
+                    st.session_state.selected_comp_keywords.append(kw)
+
+        st.session_state.selected_comp_keywords = st.multiselect("Keywords:",
+                                                                all_comp_keywords,
+                                                                default=st.session_state.selected_comp_keywords,
+                                                                help="Select complementary keywords. These are additional terms that can enhance your research scope.")
+
+
+        def translate_word(word, selected_language):
+            """
+            Translates a given word into the specified language.
+
+            Args:
+            word (str): The word to be translated.
+            selected_language (str): The target language for translation.
+
+            Returns:
+            str: The translated word.
+            """
+
+            # Constructing the prompt for translation
+            translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR"
+
+            # Preparing the messages for the API call
+            messages = [
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": translation_prompt}
+            ]
+
+            response = openai.Completion.create(
+                model="gpt-3.5-turbo-instruct",
+                prompt=messages,
+                max_tokens=100
+            )
+
+            # Extracting the translation from the response
+            translated_word = response['choices'][0]['message']['content']
+
+            return translated_word
+
+        # Extract respective translations for the selected keywords
+        main_selected_translations = {}
+        comp_selected_translations = {}
+        mandatory_selected_translations = {}
+
+        for language in st.session_state.selected_language:
+            # Translations for mandatory keywords
+            mandatory_selected_translations[language] = [
+                mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                for keyword in st.session_state.selected_mandatory_keywords
+            ]
+
+            # Translations for main keywords
+            main_selected_translations[language] = [
+                keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                for keyword in st.session_state.selected_keywords
+            ]
+
+            # Translations for complementary keywords
+            comp_selected_translations[language] = [
+                comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                for keyword in st.session_state.selected_comp_keywords
+            ]
+
+        # Store translations in session state
+        st.session_state.main_selected_translations = main_selected_translations
+        st.session_state.comp_selected_translations = comp_selected_translations
+        st.session_state.mandatory_selected_translations = mandatory_selected_translations
+
+        # Create a flat list of all translated keywords
+        translated_keywords = []
+
+        # Include mandatory translated keywords
+        for language, translations in st.session_state.mandatory_selected_translations.items():
+            translated_keywords.extend(translations)
+
+        # Include main translated keywords
+        for language, translations in st.session_state.main_selected_translations.items():
+            translated_keywords.extend(translations)
+
+        # Include complementary translated keywords
+        for language, translations in st.session_state.comp_selected_translations.items():
+            translated_keywords.extend(translations)
+        
+        # Removing potential duplicates from translated keywords
+        translated_trans_keywords = list(set(translated_keywords))
+        
+        # Create a flat list of all selected keywords (main and complementary)
+        final_selected_keywords = st.session_state.selected_mandatory_keywords + st.session_state.selected_keywords + st.session_state.selected_comp_keywords
+        
+        # Removing potential duplicates from selected keywords
+        final_selected_keywords = list(set(final_selected_keywords))
+
+        # Add to session state
+        st.session_state.translated_trans_keywords = translated_trans_keywords
+        st.session_state.final_selected_keywords = final_selected_keywords
+
+        # Display the final list of translated and selected keywords
+        st.write(translated_trans_keywords)
+
+        # Separator
+        st.markdown("---")
 
 
 def research():
