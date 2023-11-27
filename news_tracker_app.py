@@ -257,7 +257,7 @@ def define_research():
                 st.dataframe(selected_config.to_frame())
 
 
-        if config_choice == "Customize":    
+        if config_type_choice == "Customize":    
             for key, value in defaults.items():
                 if key not in st.session_state:
                     st.session_state[key] = value
