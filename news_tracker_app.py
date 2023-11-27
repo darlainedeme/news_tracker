@@ -276,7 +276,7 @@ def define_research():
             )
 
             # Load necessary data based on the selected research type
-            if st.session_state.research_type == "spendings":
+            if st.session_state.research_type == "spending tracker":
                 links_df = pd.read_csv('data/links.csv', encoding='utf-8')
             elif st.session_state.research_type == "news":
                 links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
