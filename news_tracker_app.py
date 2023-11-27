@@ -1259,6 +1259,16 @@ def document_analysis():
         total_cost = input_cost + output_cost
         return total_cost
 
+    # Function to trim the prompt to fit within the token limit
+    def trim_prompt_to_fit_limit(prompt, encoding, token_limit):
+        tokens = encoding.encode(prompt)
+        if len(tokens) > token_limit:
+            # Trim tokens to fit within the limit, minus some buffer for the output
+            buffer = 500  # Adjust buffer size as needed
+            trimmed_tokens = tokens[:max(0, token_limit - buffer)]
+            trimmed_prompt = encoding.decode(trimmed_tokens)
+            return trimmed_prompt, True
+        return prompt, False
 
     # Check if preprocessing has been done
     if 'sentence_df' not in st.session_state or 'df' not in st.session_state:
@@ -1294,6 +1304,12 @@ def document_analysis():
             you are asked to write 1) "Brief Summary:" summarize the document in two sentences and 2) "Key numbers": one bullet point for each key number, and a description of what it is, iwth particular focus on monetary numbers
             below the extract from one document:\n{extracts}"""
 
+            token_limit = 8000 if selected_model == "gpt-4" else 4000
+            encoding = tiktoken.encoding_for_model(selected_model)
+
+            trimmed_prompt, was_trimmed = trim_prompt_to_fit_limit(prompt, encoding, token_limit)
+
+
             # Call the OpenAI API
             if selected_model == "gpt-4":
                 messages = [
@@ -1325,6 +1341,9 @@ def document_analysis():
         # Display individual summaries with hyperlinked titles
         with st.expander("See Individual Summaries"):
             for link, summary in zip(st.session_state.df['link'].unique(), all_summaries):
+                if was_trimmed:
+                    st.warning("The prompt was too long and had to be trimmed to fit within the token limit.")
+
                 title = st.session_state.df[st.session_state.df['link'] == link]['title'].values[0]
                 st.markdown(f"[**{title}**]({link})")  # Title as a hyperlink
                 st.write(f"Summary: {summary}")
@@ -1333,6 +1352,11 @@ def document_analysis():
         # Combine all summaries for final summary
         combined_summaries = " ".join(all_summaries)
         final_prompt = f"Summarize the following summaries in 10 sentences with the following structure; 1) Summary 2) Key numbers:\n{combined_summaries}"
+
+        token_limit = 8000 if selected_model == "gpt-4" else 4000
+        encoding = tiktoken.encoding_for_model(selected_model)
+
+        trimmed_prompt, was_trimmed = trim_prompt_to_fit_limit(final_prompt, encoding, token_limit)
 
         # Call the OpenAI API for final summary
         if selected_model == "gpt-4":
@@ -1356,6 +1380,9 @@ def document_analysis():
             st.session_state.final_summary = final_summary
         
         # Display the final summary
+        if was_trimmed:
+            st.warning("The prompt was too long and had to be trimmed to fit within the token limit.")
+
         st.write(f"Final Summary: {final_summary}")
 
         if st.sidebar.button('Download Results'):
