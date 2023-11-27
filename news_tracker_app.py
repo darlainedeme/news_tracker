@@ -343,7 +343,7 @@ def define_research():
     st.subheader("4. Mandatory Keywords")
     mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
     all_mandatory_keywords = sorted(set(mandatory_keywords_df['keyword'].tolist()))
-
+    
     if 'selected_mandatory_keywords' not in st.session_state:
         st.session_state.selected_mandatory_keywords = []
 
@@ -361,9 +361,10 @@ def define_research():
                 st.session_state.selected_mandatory_keywords.append(kw)
 
     st.session_state.selected_mandatory_keywords = st.multiselect("Mandatory Keywords:",
-                                                                  all_mandatory_keywords,
-                                                                  default=st.session_state.selected_mandatory_keywords,
-                                                                  help="Select mandatory keywords. These are essential terms that must appear in the research results.")
+                                                              all_mandatory_keywords,
+                                                              default=st.session_state.selected_mandatory_keywords,
+                                                              help="Select mandatory keywords. These are essential terms that must appear in the research results.")
+
 
 
     st.markdown("---")
