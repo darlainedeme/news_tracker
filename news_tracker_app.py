@@ -187,7 +187,7 @@ def selected_area_check():
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
         st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
     else:
-        st.write("No countries selected in the 'Area Selection' step.")
+        st.warning("No countries selected in the 'Area Selection' step.")
 
 def define_research():
     st.title("Research Customization")
@@ -196,7 +196,7 @@ def define_research():
     """)
 
     # Ensure that the necessary data is in the session state
-    if 'subset_data' not in st.session_state or st.session_state.subset_data is not None:
+    if 'subset_data' not in st.session_state or st.session_state.subset_data is None:
         st.warning("Please complete the previous steps first.")
         return
     
