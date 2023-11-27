@@ -201,6 +201,14 @@ def define_research():
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
     """)
 
+    # Function to convert date strings to datetime objects
+    def parse_date(date_str):
+        return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+
+    # Function to convert 'True'/'False' strings to booleans
+    def parse_boolean(bool_str):
+        return True if bool_str.lower() == 'true' else False
+
    
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
         
