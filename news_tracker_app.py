@@ -930,7 +930,7 @@ def research():
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
 
-            if not is_date_within_window(date_text, session_state.start_date, session_state.end_date):
+            if not is_date_within_window(date_text, st.session_state.start_date, st.session_state.end_date):
                 continue
 
             else:
