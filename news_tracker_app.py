@@ -237,7 +237,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Predefined", "Customize"])
+        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"])
 
 
         if config_type_choice == "Predefined":
@@ -890,7 +890,7 @@ def construct_query():
 
             # Append the results of the current chunk to the overall results
             all_results.extend(chunk_results)
-            
+
         # Convert all results to a DataFrame
         results_df = pd.DataFrame(all_results)
 
