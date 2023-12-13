@@ -674,7 +674,7 @@ def research():
 
     # Unpacking the tuple here
     query = construct_query_2(query, research_type)
-
+    st.write(query)
     # Check if the checkbox is checked
     if not exact_keywords and query:
         # Remove all apostrophes from the query
