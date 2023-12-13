@@ -841,6 +841,8 @@ def research():
     if st.sidebar.button("Run Research"):
         query, total_query_elements = construct_query()
         max_parameters_per_query = 32
+        print(total_query_elements)
+        print(query)
 
         # Function to break down the links into chunks of size n
         def chunk_list(lst, n):
@@ -901,7 +903,7 @@ def research():
             st.markdown(f"Sources: [{i + 1}]({url}) ")
 
         # Display the combined total estimated results after removing duplicates
-        st.markdown(f"Total combined estimated results (after removing duplicates): {total_results}")
+        st.markdown(f"Total combined estimated results: {total_results}")
 
 
         # Display the results and process for summary
