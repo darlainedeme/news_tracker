@@ -857,7 +857,7 @@ def research():
         total_results = 0
         google_search_urls = []
         # Initialize a list to hold all results
-        all_results = []
+        results = []
 
         for chunk_index, links_chunk in enumerate(link_chunks):
             predefined_sites_query = " OR ".join([f"site:{site}" for site in links_chunk])
