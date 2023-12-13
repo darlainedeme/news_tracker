@@ -891,23 +891,12 @@ def research():
             total_results += len(chunk_results)
 
             # Append the results of the current chunk to the overall results
-            all_results.extend(chunk_results)
-
-        # Convert all results to a DataFrame
-        results_df = pd.DataFrame(all_results)
-
-        # Drop duplicates based on a relevant column, for example 'link'
-        results_df = results_df.drop_duplicates(subset='link')
-
-        # Update the total results count after removing duplicates
-        total_results = len(results_df)
+            results.extend(chunk_results)
 
         # Displaying the total estimated results and links for each chunk
         st.markdown(f"Total estimated results: {total_results}")
         for i, url in enumerate(google_search_urls):
             st.markdown(f"Sources: [{i + 1}]({url}) ")
-
-
 
         # Display the results and process for summary
         progress_bar = st.progress(0)
