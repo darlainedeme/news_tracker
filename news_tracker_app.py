@@ -841,8 +841,8 @@ def research():
     if st.sidebar.button("Run Research"):
         query, total_query_elements = construct_query()
         max_parameters_per_query = 32
-        write(total_query_elements)
-        write(query)
+        st.write(total_query_elements)
+        st.write(query)
 
         # Function to break down the links into chunks of size n
         def chunk_list(lst, n):
