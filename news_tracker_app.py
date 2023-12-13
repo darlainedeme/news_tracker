@@ -903,7 +903,7 @@ def research():
         total_results = len(results_df)
 
         # Displaying the total estimated results and links for each chunk
-        st.markdown(f"Total estimated results (after removing duplicates): {total_results}")
+        st.markdown(f"Total estimated results: {total_results}")
         for i, url in enumerate(google_search_urls):
             st.markdown(f"Sources: [{i + 1}]({url}) ")
 
@@ -911,7 +911,7 @@ def research():
 
         # Display the results and process for summary
         progress_bar = st.progress(0)
-        for i, result in enumerate(results_df.link):
+        for i, result in enumerate(results):
             if want_summary:
                 if i >= num_links_to_summarize and want_summary:
                     break
