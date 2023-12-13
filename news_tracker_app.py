@@ -840,6 +840,8 @@ def research():
 
     if st.sidebar.button("Run Research"):
         query, total_query_elements = construct_query()
+        total_query_elements = total_query_elements + len(st.session_state.selected_predefined_links)
+
         max_parameters_per_query = 32
         st.write(total_query_elements)
         st.write(query)
