@@ -909,11 +909,9 @@ def research():
 
 
 
-
-
         # Display the results and process for summary
         progress_bar = st.progress(0)
-        for i, result in enumerate(results):
+        for i, result in enumerate(results_df.link):
             if want_summary:
                 if i >= num_links_to_summarize and want_summary:
                     break
