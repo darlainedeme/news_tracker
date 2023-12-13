@@ -1027,62 +1027,6 @@ def research():
         filename = f"results/results_df_{timestamp}_{st.session_state.selected_countries[0]}.csv"
         results_df.to_csv(filename, encoding='utf-8', index=False)
 
-        # Store the filename in session state for download
-        st.session_state.filename = filename
-        
-        class PDF(FPDF):
-            def header(self):
-                # Arial bold 15
-                self.set_font('Arial', 'B', 15)
-                # Title
-                self.cell(0, 10, 'Webpage Content', 0, 1, 'C')
-        
-            def footer(self):
-                # Position at 1.5 cm from bottom
-                self.set_y(-15)
-                # Arial italic 8
-                self.set_font('Arial', 'I', 8)
-                # Page number
-                self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
-        
-        def download_links_as_pdfs(links, folder_path):
-            # Ensure the directory exists
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-            
-            i = 0
-            for link in links:
-                i += 1
-                if not link.startswith(("http://", "https://")):
-                    link = "https://" + link
-                    
-                try:
-                    response = requests.get(link)
-                    soup = BeautifulSoup(response.content, 'html.parser')
-        
-                    # Remove all script and style elements
-                    for script in soup(["script", "style"]):
-                        script.extract()
-                    text_content = soup.stripped_strings
-                    content = "\n".join(text_content)
-        
-                    # Only generate PDF if content exists
-                    if content:
-                        pdf = PDF()
-                        pdf.add_page()
-                        pdf.set_font("Arial", size=12)
-                        pdf.multi_cell(0, 10, content.encode('latin-1', 'replace').decode('latin-1'))  # Handle encoding issues
-        
-                        pdf_name = os.path.join(folder_path, str(i) + "_" + link.split('//')[-1].replace("/", "_") + ".pdf")
-                        pdf.output(pdf_name)
-                    else:
-                        print(f"No content found for link {link}")
-        
-                except Exception as e:
-                    print(f"Failed to process link {link}. Error: {e}")
-            
-        folder_path = "results/results"
-        download_links_as_pdfs(links_list, folder_path)
 
 def run_preprocessing():
     st.title("Run Preprocessing 💻")
