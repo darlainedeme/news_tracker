@@ -893,10 +893,16 @@ def research():
             # Append the results of the current chunk to the overall results
             results.extend(chunk_results)
 
-        # Displaying the total estimated results and links for each chunk
-        st.markdown(f"Total estimated results: {total_results}")
-        for i, url in enumerate(google_search_urls):
+        # Displaying the total estimated results for each chunk and their corresponding links
+        for i, (url, chunk_results) in enumerate(zip(google_search_urls, link_chunks)):
+            # Calculate the number of results for the current chunk
+            chunk_results_count = len([result for result in all_results if result in chunk_results])
+            st.markdown(f"Chunk {i + 1} - Estimated results: {chunk_results_count}")
             st.markdown(f"Sources: [{i + 1}]({url}) ")
+
+        # Display the combined total estimated results after removing duplicates
+        st.markdown(f"Total combined estimated results (after removing duplicates): {total_results}")
+
 
         # Display the results and process for summary
         progress_bar = st.progress(0)
