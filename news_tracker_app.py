@@ -33,6 +33,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from collections import defaultdict
 import string
 import tiktoken
+from dateutil.parser import parse
+from datetime import datetime
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -591,7 +593,16 @@ def research():
         }
         st.session_state.start_date = st.session_state.end_date - time_deltas[st.session_state.selected_period]
 
-
+    # Function to check if the date in the snippet is within the selected time window
+    def is_date_within_window(date_text, start_date, end_date):
+        try:
+            # Attempt to parse the date from the snippet
+            snippet_date = parse(date_text, fuzzy=True)
+            # Check if the date falls within the start and end dates
+            return start_date <= snippet_date.date() <= end_date
+        except ValueError:
+            # If parsing fails, we can't determine the date, so return False
+            return False
 
     def construct_query():
         query_parts = []
@@ -918,106 +929,111 @@ def research():
 
             # Extract the date from the snippet
             date_text = result['snippet'].split(' ... ')[0]
-            snippet_without_date = result['snippet'].replace(date_text, '').strip()
 
-            # Determine the document type
-            if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
-                doc_type = result['link'].split('.')[-1]  # Get the file extension
-            else:
-                doc_type = "webpage"
-
-            # Check if translation is needed
-            if want_translation:
-                # Translate title, snippet, and summary
-                translated_title = translate_text_with_google_cloud(result['title'], st.session_state.selected_language[0])
-                translated_snippet = translate_text_with_google_cloud(snippet_without_date, st.session_state.selected_language[0])
-
-                # Display translated title and snippet
-                st.subheader(f"[{translated_title}]({result['link']})")
-                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-                st.write(f"Snippet: {translated_snippet}")
+            if not is_date_within_window(date_text, start_date, end_date):
+                continue
 
             else:
-                # Existing code to display the result
-                st.subheader(f"[{result['title']}]({result['link']})")
-                st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
-                st.write(f"Snippet: {snippet_without_date}")
+                snippet_without_date = result['snippet'].replace(date_text, '').strip()
 
+                # Determine the document type
+                if '.' in result['link'][-6:]:  # Check if the last part of the URL contains a dot (.)
+                    doc_type = result['link'].split('.')[-1]  # Get the file extension
+                else:
+                    doc_type = "webpage"
 
-            if want_summary:
-                # Determine if it's a webpage or a PDF and process accordingly
-                if doc_type != "pdf":
-                    # Scrape the webpage content
-                    response = requests.get(result['link'])
-                    soup = BeautifulSoup(response.content, 'html.parser')
+                # Check if translation is needed
+                if want_translation:
+                    # Translate title, snippet, and summary
+                    translated_title = translate_text_with_google_cloud(result['title'], st.session_state.selected_language[0])
+                    translated_snippet = translate_text_with_google_cloud(snippet_without_date, st.session_state.selected_language[0])
 
-                    # Remove all script and style elements
-                    for script_or_style in soup(["script", "style"]):
-                        script_or_style.extract()  # Remove the element
-
-                    # Get text and clean it
-                    lines = (line.strip() for line in soup.get_text().splitlines())
-                    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))  # Split on double space for multi-headlines
-                    text = '\n'.join(chunk for chunk in chunks if chunk)
-
-                    # Summarize the webpage content
-                    # st.write(text)
-                    summary = summarize_content(text, max_word_count=500)  # Adjust max_length as needed
-
-                    # Translate the summary if needed
-                    if want_translation:
-                        summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0])
-
-
-                    # Split the summary into sentences and join with newline characters
-                    summary = sent_tokenize(summary)
-                    summary = '\n'.join(summary)
-                    
-                    # Display the summary in an expander
-                    with st.expander("Show Summary"):
-                        # summary = highlight_keywords(summary, st.session_state.translated_trans_keywords)
-                        st.write(summary)
+                    # Display translated title and snippet
+                    st.subheader(f"[{translated_title}]({result['link']})")
+                    st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                    st.write(f"Snippet: {translated_snippet}")
 
                 else:
-                    with st.expander(f"PDF Document Details: {result['title']}"):
+                    # Existing code to display the result
+                    st.subheader(f"[{result['title']}]({result['link']})")
+                    st.write(f"Source: {result['displayLink']} | Date: {date_text} | Type: {doc_type}")
+                    st.write(f"Snippet: {snippet_without_date}")
+
+
+                if want_summary:
+                    # Determine if it's a webpage or a PDF and process accordingly
+                    if doc_type != "pdf":
+                        # Scrape the webpage content
                         response = requests.get(result['link'])
-                        if response.status_code == 200:
-                            with pdfplumber.open(BytesIO(response.content)) as pdf:
-                                # Extract PDF metadata and index
-                                title, index_content = extract_metadata_and_index(pdf)
+                        soup = BeautifulSoup(response.content, 'html.parser')
 
-                                # Display title and index/content
-                                st.subheader(f"PDF Title: {title}")
-                                st.write(f"Number of Pages in PDF: {len(pdf.pages)}")
-                                if index_content:
-                                    # If index or contents are found, display them
-                                    st.write("Index / Contents:")
+                        # Remove all script and style elements
+                        for script_or_style in soup(["script", "style"]):
+                            script_or_style.extract()  # Remove the element
 
-                                    if want_translation:
-                                        st.text(translate_text_with_google_cloud(index_content, st.session_state.selected_language[0]))
+                        # Get text and clean it
+                        lines = (line.strip() for line in soup.get_text().splitlines())
+                        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))  # Split on double space for multi-headlines
+                        text = '\n'.join(chunk for chunk in chunks if chunk)
 
+                        # Summarize the webpage content
+                        # st.write(text)
+                        summary = summarize_content(text, max_word_count=500)  # Adjust max_length as needed
+
+                        # Translate the summary if needed
+                        if want_translation:
+                            summary = translate_text_with_google_cloud(summary, st.session_state.selected_language[0])
+
+
+                        # Split the summary into sentences and join with newline characters
+                        summary = sent_tokenize(summary)
+                        summary = '\n'.join(summary)
+                        
+                        # Display the summary in an expander
+                        with st.expander("Show Summary"):
+                            # summary = highlight_keywords(summary, st.session_state.translated_trans_keywords)
+                            st.write(summary)
+
+                    else:
+                        with st.expander(f"PDF Document Details: {result['title']}"):
+                            response = requests.get(result['link'])
+                            if response.status_code == 200:
+                                with pdfplumber.open(BytesIO(response.content)) as pdf:
+                                    # Extract PDF metadata and index
+                                    title, index_content = extract_metadata_and_index(pdf)
+
+                                    # Display title and index/content
+                                    st.subheader(f"PDF Title: {title}")
+                                    st.write(f"Number of Pages in PDF: {len(pdf.pages)}")
+                                    if index_content:
+                                        # If index or contents are found, display them
+                                        st.write("Index / Contents:")
+
+                                        if want_translation:
+                                            st.text(translate_text_with_google_cloud(index_content, st.session_state.selected_language[0]))
+
+                                        else:
+                                            st.text(index_content)
                                     else:
-                                        st.text(index_content)
-                                else:
-                                    # If no index/content, extract and display sentences with keywords
-                                    keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
-                                    extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
-                                    sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
+                                        # If no index/content, extract and display sentences with keywords
+                                        keywords = st.session_state.final_selected_keywords  # Adjust based on your app's structure
+                                        extracted_sentences = extract_sentences_from_pdf(result['link'], keywords)[0]
+                                        sorted_sentences = sort_sentences(extracted_sentences, keywords)[0:20]  # Adjust number as needed
 
-                                    # Translate extracted sentences if needed and prepare them for display
-                                    if want_translation:
-                                        translated_sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0]) for sentence in sorted_sentences]
-                                    else:
-                                        translated_sorted_sentences = sorted_sentences
+                                        # Translate extracted sentences if needed and prepare them for display
+                                        if want_translation:
+                                            translated_sorted_sentences = [translate_text_with_google_cloud(sentence, st.session_state.selected_language[0]) for sentence in sorted_sentences]
+                                        else:
+                                            translated_sorted_sentences = sorted_sentences
 
-                                    # Display the sentences in an expander
-                                    for sentence in translated_sorted_sentences:
-                                        st.write(sentence)  # Each sentence will be displayed on a new line
-        
-                        else:
-                            st.error("Failed to access the PDF.")
+                                        # Display the sentences in an expander
+                                        for sentence in translated_sorted_sentences:
+                                            st.write(sentence)  # Each sentence will be displayed on a new line
+            
+                            else:
+                                st.error("Failed to access the PDF.")
 
-            st.markdown("---")
+                st.markdown("---")
 
 
         # Create a list of dictionaries from results
