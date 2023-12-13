@@ -673,6 +673,7 @@ def research():
     )
 
     # Modify the query based on the research type selected
+    query, total_query_elements = construct_query()  # Unpacking the tuple here
     query = construct_query_2(query, research_type)
 
     # Check if the checkbox is checked
