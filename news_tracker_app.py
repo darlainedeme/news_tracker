@@ -237,7 +237,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"])
+        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Predefined", "Customize"])
 
 
         if config_type_choice == "Predefined":
@@ -562,8 +562,6 @@ def research():
         Conduct your research based on the parameters set in the previous steps. This section utilizes custom search engines to gather data and information from various sources. You can review the total results, check individual entries, and gather insights relevant to your selected areas and research criteria.
         """)
 
-
-
     # Sidebar for selecting time period
     period_options = ["custom", "last 24h", "last week", "last two weeks", "last month", 
                       "last three months", "last 6 months", "last year", "last 2y", 
@@ -593,71 +591,65 @@ def research():
         }
         st.session_state.start_date = st.session_state.end_date - time_deltas[st.session_state.selected_period]
 
-    def construct_query():
-        query_parts = []
+
+
+def construct_query():
+    query_parts = []
+    total_query_elements = 0
+
+    # Function to add query part and count elements
+    def add_query_part(query_part):
+        nonlocal total_query_elements
+        total_query_elements += len(query_part.split(' '))
+        query_parts.append(query_part)
+
+    # Incorporate translations into the main keywords query
+    main_translations_query_parts = []
+    for language, translations in st.session_state.main_selected_translations.items():
+        translations_query = " OR ".join([f'"{translation}"' for translation in translations])
+        if translations_query:
+            main_translations_query_parts.append(translations_query)
+    if main_translations_query_parts:
+        add_query_part(f"({' OR '.join(main_translations_query_parts)})")
     
-        # Incorporate translations into the main keywords query
-        main_translations_query_parts = []
-        for language, translations in st.session_state.main_selected_translations.items():
-            translations_query = " OR ".join([f'"{translation}"' for translation in translations])
-            if translations_query:  # ensure the list isn't empty
-                main_translations_query_parts.append(translations_query)
-        if main_translations_query_parts:
-            query_parts.append(f"({' OR '.join(main_translations_query_parts)})")
-        
-        # Mandatory keywords need to be present, so we'll include them in the query
-        mandatory_translations_query_parts = []
-        for language, translations in st.session_state.mandatory_selected_translations.items():
-            mandatory_translations_query = " AND ".join([f'"{translation}"' for translation in translations])
-            if mandatory_translations_query:  # ensure the list isn't empty
-                mandatory_translations_query_parts.append(mandatory_translations_query)
-        if mandatory_translations_query_parts:
-            query_parts.append(f"({' AND '.join(mandatory_translations_query_parts)})")
-        
-# =============================================================================
-#         # Incorporate selected countries into the mandatory keywords
-#         if 'selected_countries' in st.session_state:
-#             countries_query = " AND ".join([f'"{country}"' for country in st.session_state.selected_countries])
-#             if countries_query:  # ensure the list isn't empty
-#                 query_parts.append(f"({countries_query})")
-# =============================================================================
-        
-        # If the monetary information checkbox is selected, include complementary keywords in the query
-        
-        comp_translations_query_parts = []
-        for language, translations in st.session_state.comp_selected_translations.items():
-            comp_translations_query = " OR ".join([f'"{translation}"' for translation in translations])
-            if comp_translations_query:  # ensure the list isn't empty
-                comp_translations_query_parts.append(comp_translations_query)
-        if comp_translations_query_parts:
-            query_parts.append(f"({' OR '.join(comp_translations_query_parts)})")
-    
-        # Include date range
-        start_date_str = st.session_state.start_date.strftime('%Y-%m-%d')
-        end_date_str = st.session_state.end_date.strftime('%Y-%m-%d')
-        date_query = f'after:{start_date_str} before:{end_date_str}'
-        query_parts.append(date_query)
-    
-        # Depending on the research source:
-        if st.session_state.sources == "predefined sources search":
-            predefined_sites_query = " OR ".join([f"site:{site}" for site in st.session_state.selected_predefined_links])
-            query_parts.append(f"({predefined_sites_query})")
-        elif st.session_state.sources == "general google search":
-            # Excluding specific domains
-            excluded_sites_query = " -site:iea.org -site:iea.blob.core.windows.net -site:en.wikipedia.org -site:irena.org"
-            query_parts.append(excluded_sites_query)
-            # If the option to limit the search to country-specific domains is selected
-            if st.session_state.limit_to_country and 'selected_countries' in st.session_state:
-                country_specific_sites_query = " OR ".join([f"site:{code.lower()}" for code in st.session_state.country_codes])
-                query_parts.append(f"({country_specific_sites_query})")
-        elif st.session_state.sources == "general twitter search":
-            query_parts.append('site:twitter.com')
-        elif st.session_state.sources == "general linkedin search":
-            query_parts.append('site:linkedin.com')
-    
-        # Join the query parts using ' AND ' separator
-        return ' AND '.join(query_parts)
-    
+    # Mandatory keywords
+    mandatory_translations_query_parts = []
+    for language, translations in st.session_state.mandatory_selected_translations.items():
+        mandatory_translations_query = " AND ".join([f'"{translation}"' for translation in translations])
+        if mandatory_translations_query:
+            mandatory_translations_query_parts.append(mandatory_translations_query)
+    if mandatory_translations_query_parts:
+        add_query_part(f"({' AND '.join(mandatory_translations_query_parts)})")
+
+    # Complementary keywords
+    comp_translations_query_parts = []
+    for language, translations in st.session_state.comp_selected_translations.items():
+        comp_translations_query = " OR ".join([f'"{translation}"' for translation in translations])
+        if comp_translations_query:
+            comp_translations_query_parts.append(comp_translations_query)
+    if comp_translations_query_parts:
+        add_query_part(f"({' OR '.join(comp_translations_query_parts)})")
+
+    # Date range
+    start_date_str = st.session_state.start_date.strftime('%Y-%m-%d')
+    end_date_str = st.session_state.end_date.strftime('%Y-%m-%d')
+    date_query = f'after:{start_date_str} before:{end_date_str}'
+    add_query_part(date_query)
+
+    # Other query elements based on research source
+    if st.session_state.sources == "general twitter search":
+        add_query_part('site:twitter.com')
+    elif st.session_state.sources == "general linkedin search":
+        add_query_part('site:linkedin.com')
+    elif st.session_state.sources == "general google search":
+        excluded_sites_query = " -site:iea.org -site:iea.blob.core.windows.net -site:en.wikipedia.org -site:irena.org"
+        add_query_part(excluded_sites_query)
+        if st.session_state.limit_to_country and 'selected_countries' in st.session_state:
+            country_specific_sites_query = " OR ".join([f"site:{code.lower()}" for code in st.session_state.country_codes])
+            add_query_part(f"({country_specific_sites_query})")
+
+    return ' AND '.join(query_parts), total_query_elements
+
     # Create a sidebar with a checkbox
     exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
     query = construct_query()
@@ -847,38 +839,74 @@ def research():
     want_translation = st.sidebar.checkbox('Do you want to translate to English?', value=False)
 
     if st.sidebar.button("Run Research"):
-        links_list = []
-        # Clear previous results
-         
-        # Define the endpoint URL (replace with your own endpoint and API key)
-        url = "https://www.googleapis.com/customsearch/v1"
-        results = []  # Store all results across pages
-        for start_index in range(1, 101, 10):  # Start indices for pagination
-            params = {
-                'q': query,
-                'cx': cse_id,
-                'key': api_key,
-                'num': 10,
-                'start': start_index
-            }
-            response = requests.get(url, params=params)
-            results.extend(response.json().get("items", []))
-    
-        total_results = len(results)
-        # URL encode the query string
-        encoded_query = urllib.parse.quote_plus(query)  
-        
-        # Create the hyperlink URL for the query on Google
-        google_search_url = f"https://www.google.com/search?q={encoded_query}"
-    
-        # Display the estimated total number of search results and the link
-        st.markdown(f"Total estimated results: [{total_results}]({google_search_url})")
-    
-        # Reset the session_state for results to ensure new results overwrite previous ones
-        st.session_state.results = []
-        
-        # Store the results in session_state, overwriting any previous results
-        st.session_state.results = results
+        query, total_query_elements = construct_query()
+        max_parameters_per_query = 32
+
+        # Function to break down the links into chunks of size n
+        def chunk_list(lst, n):
+            for i in range(0, len(lst), n):
+                yield lst[i:i + n]
+
+        # Breaking down the selected predefined links into chunks if necessary
+        if st.session_state.sources == "predefined sources search" and total_query_elements > max_parameters_per_query:
+            remaining_elements = max_parameters_per_query - (total_query_elements - len(st.session_state.selected_predefined_links))
+            link_chunks = list(chunk_list(st.session_state.selected_predefined_links, remaining_elements))
+        else:
+            link_chunks = [st.session_state.selected_predefined_links]
+
+        total_results = 0
+        google_search_urls = []
+
+        for chunk_index, links_chunk in enumerate(link_chunks):
+            predefined_sites_query = " OR ".join([f"site:{site}" for site in links_chunk])
+            # Adjust the main query with the current chunk's predefined sites query
+            if 'predefined_sites_query' in query:
+                chunk_query = query.replace('predefined_sites_query', predefined_sites_query)
+            else:
+                chunk_query = query + ' AND (' + predefined_sites_query + ')'
+
+            # URL encode the chunk query string
+            encoded_query = urllib.parse.quote_plus(chunk_query)
+
+            # Create the hyperlink URL for the chunk query on Google
+            google_search_url = f"https://www.google.com/search?q={encoded_query}"
+            google_search_urls.append(google_search_url)
+
+            # Making the API calls
+            url = "https://www.googleapis.com/customsearch/v1"
+            chunk_results = []
+            for start_index in range(1, 101, 10):  # Start indices for pagination
+                params = {
+                    'q': chunk_query,
+                    'cx': cse_id,
+                    'key': api_key,
+                    'num': 10,
+                    'start': start_index
+                }
+                response = requests.get(url, params=params)
+                chunk_results.extend(response.json().get("items", []))
+
+            total_results += len(chunk_results)
+
+            # Append the results of the current chunk to the overall results
+            all_results.extend(chunk_results)
+            
+        # Convert all results to a DataFrame
+        results_df = pd.DataFrame(all_results)
+
+        # Drop duplicates based on a relevant column, for example 'link'
+        results_df = results_df.drop_duplicates(subset='link')
+
+        # Update the total results count after removing duplicates
+        total_results = len(results_df)
+
+        # Displaying the total estimated results and links for each chunk
+        st.markdown(f"Total estimated results (after removing duplicates): {total_results}")
+        for i, url in enumerate(google_search_urls):
+            st.markdown(f"Sources: [{i + 1}]({url}) ")
+
+
+
 
 
         # Display the results and process for summary
