@@ -652,7 +652,7 @@ def research():
 
     # Create a sidebar with a checkbox
     exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
-    query = construct_query()
+    query, total_query_elements = construct_query()
 
     def construct_query_2(base_query, research_type):
         if research_type == "Only PDF":
@@ -672,8 +672,7 @@ def research():
         index=0  # Default to Mixed Research
     )
 
-    # Modify the query based on the research type selected
-    query, total_query_elements = construct_query()  # Unpacking the tuple here
+    # Unpacking the tuple here
     query = construct_query_2(query, research_type)
 
     # Check if the checkbox is checked
