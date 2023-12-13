@@ -845,7 +845,7 @@ def research():
         max_parameters_per_query = 32
         
         st.write(total_query_elements)
-        st.write(len(st.session_state.selected_predefined_links)))
+        st.write(len(st.session_state.selected_predefined_links))
 
 
         # Function to break down the links into chunks of size n
