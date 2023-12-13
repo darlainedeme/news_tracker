@@ -650,75 +650,75 @@ def research():
 
         return ' AND '.join(query_parts), total_query_elements
 
-        # Create a sidebar with a checkbox
-        exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
-        query = construct_query()
+    # Create a sidebar with a checkbox
+    exact_keywords = st.sidebar.checkbox('Do you want exact keywords?', value=True)
+    query = construct_query()
 
-        def construct_query_2(base_query, research_type):
-            if research_type == "Only PDF":
-                # Add ".pdf" at the beginning of the query
-                return f"'.pdf' {base_query}"
-            elif research_type == "Exclude PDF":
-                # Add "-filetype:pdf" at the end of the query
-                return f"{base_query} -filetype:pdf"
-            else:
-                # Mixed research, return the base query
-                return base_query
+    def construct_query_2(base_query, research_type):
+        if research_type == "Only PDF":
+            # Add ".pdf" at the beginning of the query
+            return f"'.pdf' {base_query}"
+        elif research_type == "Exclude PDF":
+            # Add "-filetype:pdf" at the end of the query
+            return f"{base_query} -filetype:pdf"
+        else:
+            # Mixed research, return the base query
+            return base_query
 
-        # Dropdown menu for research type
-        research_type = st.sidebar.selectbox(
-            "Choose the type of research",
-            ["Mixed Research", "Only PDF", "Exclude PDF"],
-            index=0  # Default to Mixed Research
-        )
+    # Dropdown menu for research type
+    research_type = st.sidebar.selectbox(
+        "Choose the type of research",
+        ["Mixed Research", "Only PDF", "Exclude PDF"],
+        index=0  # Default to Mixed Research
+    )
 
-        # Modify the query based on the research type selected
-        query = construct_query_2(query, research_type)
+    # Modify the query based on the research type selected
+    query = construct_query_2(query, research_type)
 
-        # Check if the checkbox is checked
-        if not exact_keywords and query:
-            # Remove all apostrophes from the query
-            query = query.replace('"', '')
+    # Check if the checkbox is checked
+    if not exact_keywords and query:
+        # Remove all apostrophes from the query
+        query = query.replace('"', '')
 
-        if st.session_state.sources == "general google search":
-            if len(st.session_state.selected_countries) > 1:
-                query = " OR ".join([f'"{country}"' for country in st.session_state.selected_countries]) + " " + query 
+    if st.session_state.sources == "general google search":
+        if len(st.session_state.selected_countries) > 1:
+            query = " OR ".join([f'"{country}"' for country in st.session_state.selected_countries]) + " " + query 
 
-            else:
-                query = str(st.session_state.selected_countries[0]) + " " + query 
+        else:
+            query = str(st.session_state.selected_countries[0]) + " " + query 
 
-        # Function to translate text using the Google Cloud Translation API
-        def translate_text_with_google_cloud(text, language_name):
-            # Load the language codes
-            language_codes = load_language_codes('data/languages_codes.csv')
+    # Function to translate text using the Google Cloud Translation API
+    def translate_text_with_google_cloud(text, language_name):
+        # Load the language codes
+        language_codes = load_language_codes('data/languages_codes.csv')
 
-            # Get the language code from the language name
-            target_language = language_codes.get(language_name)
-            target_language = 'en'
+        # Get the language code from the language name
+        target_language = language_codes.get(language_name)
+        target_language = 'en'
 
-            if not target_language:
-                raise ValueError(f"Invalid language name: {language_name}")
+        if not target_language:
+            raise ValueError(f"Invalid language name: {language_name}")
 
-            url = "https://translation.googleapis.com/language/translate/v2"
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-            params = {
-                'q': text,
-                'target': target_language,
-                'format': 'text',
-                'key': api_key
-            }
-            response = requests.post(url, params=params)
-            try:
-                #if response.status_code == 200:
-                result = response.json()
-                translated_text = result['data']['translations'][0]['translatedText']
-                return translated_text
-            except:
-                error_text = "Error translating: " + text
-                return error_text
+        url = "https://translation.googleapis.com/language/translate/v2"
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        params = {
+            'q': text,
+            'target': target_language,
+            'format': 'text',
+            'key': api_key
+        }
+        response = requests.post(url, params=params)
+        try:
+            #if response.status_code == 200:
+            result = response.json()
+            translated_text = result['data']['translations'][0]['translatedText']
+            return translated_text
+        except:
+            error_text = "Error translating: " + text
+            return error_text
                 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
