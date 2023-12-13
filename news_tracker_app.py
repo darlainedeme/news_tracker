@@ -678,7 +678,9 @@ def research():
     # Check if the checkbox is checked
     if not exact_keywords and query:
         # Remove all apostrophes from the query
+        st.write(query)
         query = query.replace('"', '')
+        st.write(query)
 
     if st.session_state.sources == "general google search":
         if len(st.session_state.selected_countries) > 1:
