@@ -844,10 +844,6 @@ def research():
 
         max_parameters_per_query = 32
         
-        st.write(total_query_elements)
-        st.write(len(st.session_state.selected_predefined_links))
-
-
         # Function to break down the links into chunks of size n
         def chunk_list(lst, n):
             for i in range(0, len(lst), n):
@@ -899,15 +895,9 @@ def research():
             # Append the results of the current chunk to the overall results
             results.extend(chunk_results)
 
-        # Displaying the total estimated results for each chunk and their corresponding links
-        for i, (url, chunk_results) in enumerate(zip(google_search_urls, link_chunks)):
-            # Calculate the number of results for the current chunk
-            chunk_results_count = len([result for result in results if result in chunk_results])
-            st.markdown(f"Chunk {i + 1} - Estimated results: {chunk_results_count}")
-            st.markdown(f"Sources: [{i + 1}]({url}) ")
-
-        # Display the combined total estimated results after removing duplicates
-        st.markdown(f"Total combined estimated results: {total_results}")
+        total_results_summary = f"Total combined estimated results: {total_results} | Sources: "
+        source_links = ', '.join([f"[{i + 1}]({url})" for i, url in enumerate(google_search_urls)])
+        st.markdown(total_results_summary + source_links)
 
 
         # Display the results and process for summary
