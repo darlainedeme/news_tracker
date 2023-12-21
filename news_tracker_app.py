@@ -3,7 +3,7 @@ import geopandas as gpd
 import folium
 import os
 from streamlit_folium import folium_static
-import datetime
+import datetime as date
 import pandas as pd
 import requests
 import urllib.parse
@@ -204,7 +204,7 @@ def define_research():
 
     # Function to convert date strings to datetime objects
     def parse_date(date_str):
-        return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+        return date.datetime.strptime(date_str, '%Y-%m-%d').date()
 
     # Function to convert 'True'/'False' strings to booleans
     def parse_boolean(bool_str):
@@ -222,8 +222,8 @@ def define_research():
             'limit_to_country': True,
             'official_sources': [],
             'selected_predefined_links': [],
-            'start_date': datetime.date.today() - datetime.timedelta(days=1),
-            'end_date': datetime.date.today(),
+            'start_date': date.date.today() - date.timedelta(days=1),
+            'end_date': date.date.today(),
             'selected_language': [],
             'selected_mandatory_keywords': [],
             'selected_keywords': [],
