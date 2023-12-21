@@ -1081,12 +1081,14 @@ def run_preprocessing():
 
     # Dropdown for sorting
     sort_option = st.sidebar.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
+    st.session_state.first = False
 
     # Apply sorting based on the selected option
     def apply_sorting(dataframe, sort_by):
         return dataframe.sort_values(by=sort_by, ascending=False)
 
     if st.sidebar.button("Run Preprocessing"):
+        st.session_state.first = True
         progress_bar = st.sidebar.progress(0)
         total_links = len(df)
         for keyword in st.session_state.final_selected_keywords:
@@ -1176,8 +1178,6 @@ def run_preprocessing():
         st.session_state.df = df
         st.session_state.sentence_df = sentence_df
         st.session_state.processed = True      
-        st.session_state.first = True  
-
 
         # Check if the data has been processed and stored in the session state
         if 'processed' in st.session_state and st.session_state.processed and st.session_state.first:
