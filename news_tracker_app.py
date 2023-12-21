@@ -3,7 +3,7 @@ import geopandas as gpd
 import folium
 import os
 from streamlit_folium import folium_static
-import datetime as date
+import datetime
 import pandas as pd
 import requests
 import urllib.parse
@@ -34,7 +34,7 @@ from collections import defaultdict
 import string
 import tiktoken
 from dateutil.parser import parse
-from datetime import datetime
+# from datetime import datetime
 
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -180,14 +180,15 @@ def area_selection():
 
 def selected_area_check():
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
+        st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
+
         st.markdown("""
         Here, you can review the geographical areas you have selected. This step is crucial to ensure that the regions of interest are correctly chosen before proceeding with the research. If the selected areas don't match your criteria, you can return to the 'Area Selection' step to adjust your choices.
         """)
 
         st.write("### Check the table below, and confirm it's the region you are interested in.")
         st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
-        st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
-
+        
     else:
         st.warning("No countries selected in the 'Area Selection' step.")
 
@@ -204,7 +205,7 @@ def define_research():
 
     # Function to convert date strings to datetime objects
     def parse_date(date_str):
-        return date.datetime.strptime(date_str, '%Y-%m-%d').date()
+        return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
 
     # Function to convert 'True'/'False' strings to booleans
     def parse_boolean(bool_str):
@@ -222,8 +223,8 @@ def define_research():
             'limit_to_country': True,
             'official_sources': [],
             'selected_predefined_links': [],
-            'start_date': date.date.today() - date.timedelta(days=1),
-            'end_date': date.date.today(),
+            'start_date': datetime.date.today() - datetime.timedelta(days=1),
+            'end_date': datetime.date.today(),
             'selected_language': [],
             'selected_mandatory_keywords': [],
             'selected_keywords': [],
