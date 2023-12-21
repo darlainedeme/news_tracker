@@ -1214,7 +1214,7 @@ def run_preprocessing():
                                                                     default=row_ids,
                                                                     key=1)
             
-             st.session_state.first = False
+            st.session_state.first = False
 
     # Check if the data has been processed and stored in the session state
     if 'processed' in st.session_state and st.session_state.processed and not st.session_state.first:
