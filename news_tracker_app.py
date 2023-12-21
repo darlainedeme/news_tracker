@@ -1175,11 +1175,12 @@ def run_preprocessing():
         # Store processed data in session state
         st.session_state.df = df
         st.session_state.sentence_df = sentence_df
-        st.session_state.processed = True        
+        st.session_state.processed = True      
+        st.session_state.first = True  
 
 
         # Check if the data has been processed and stored in the session state
-        if 'processed' in st.session_state and st.session_state.processed:
+        if 'processed' in st.session_state and st.session_state.processed and st.session_state.first:
             # Sort the dataframes based on the selected option
             df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
             sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
@@ -1212,9 +1213,11 @@ def run_preprocessing():
                                                                     options=row_ids,
                                                                     default=row_ids,
                                                                     key=1)
+            
+             st.session_state.first = False
 
     # Check if the data has been processed and stored in the session state
-    if 'processed' in st.session_state and st.session_state.processed:
+    if 'processed' in st.session_state and st.session_state.processed and not st.session_state.first:
         # Sort the dataframes based on the selected option
         df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
         sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
