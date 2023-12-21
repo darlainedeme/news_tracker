@@ -1046,6 +1046,7 @@ def research():
         timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M')
         filename = f"results/results_df_{timestamp}_{st.session_state.selected_countries[0]}.csv"
         results_df.to_csv(filename, encoding='utf-8', index=False)
+        st.session_state.filename = filename
 
 
 def run_preprocessing():
@@ -1054,6 +1055,8 @@ def run_preprocessing():
     Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
     """)
 
+    filename = st.session_state.filename
+    
     # Initialize row_selection in session state if not present
     if 'row_selection' not in st.session_state:
         st.session_state.row_selection = []
