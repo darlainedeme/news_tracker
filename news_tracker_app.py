@@ -1054,9 +1054,7 @@ def run_preprocessing():
     st.markdown("""
     Preprocess the gathered data for analysis in this step. This involves data cleaning, normalization, and preparation for detailed analysis. The process ensures that the data is in the right format and structure, enabling effective and accurate analysis in the next steps.
     """)
-
-    filename = st.session_state.filename
-    
+   
     # Initialize row_selection in session state if not present
     if 'row_selection' not in st.session_state:
         st.session_state.row_selection = []
@@ -1066,6 +1064,8 @@ def run_preprocessing():
         st.warning("Please complete the previous steps first.")
         return
 
+    filename = st.session_state.filename
+    
     # Sidebar checkbox for translation
     translate = st.sidebar.checkbox("Translate to English?", value=False)
 
