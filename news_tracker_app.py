@@ -1062,7 +1062,7 @@ def run_preprocessing():
         st.session_state.row_selection = []
 
     # Ensure that the necessary data is in the session state
-    if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state:
+    if 'final_selected_keywords' not in st.session_state or 'translated_trans_keywords' not in st.session_state or 'filename' not in st.session_state:
         st.warning("Please complete the previous steps first.")
         return
 
