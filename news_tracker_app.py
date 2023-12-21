@@ -1065,7 +1065,7 @@ def run_preprocessing():
         return
 
     filename = st.session_state.filename
-    
+
     # Sidebar checkbox for translation
     translate = st.sidebar.checkbox("Translate to English?", value=False)
 
@@ -1210,7 +1210,8 @@ def run_preprocessing():
             row_ids = st.session_state.df.index.tolist()
             st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
                                                                     options=row_ids,
-                                                                    default=row_ids)
+                                                                    default=row_ids,
+                                                                    key=1)
 
     # Check if the data has been processed and stored in the session state
     if 'processed' in st.session_state and st.session_state.processed:
@@ -1244,7 +1245,8 @@ def run_preprocessing():
         row_ids = st.session_state.df.index.tolist()
         st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
                                                                 options=row_ids,
-                                                                default=row_ids)
+                                                                default=row_ids,
+                                                                key=2)
 def document_analysis():
     st.title("Run Document Analysis 📚")
     st.markdown("""
