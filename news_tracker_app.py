@@ -1081,12 +1081,14 @@ def run_preprocessing():
 
     # Dropdown for sorting
     sort_option = st.sidebar.selectbox('Sort by', ['Overall'] + st.session_state.final_selected_keywords)
+    st.session_state.first = False
 
     # Apply sorting based on the selected option
     def apply_sorting(dataframe, sort_by):
         return dataframe.sort_values(by=sort_by, ascending=False)
 
     if st.sidebar.button("Run Preprocessing"):
+        st.session_state.first = True
         progress_bar = st.sidebar.progress(0)
         total_links = len(df)
         for keyword in st.session_state.final_selected_keywords:
@@ -1177,43 +1179,75 @@ def run_preprocessing():
         st.session_state.sentence_df = sentence_df
         st.session_state.processed = True      
 
-        # Check if the data has been processed and stored in the session state
-        if 'processed' in st.session_state and st.session_state.processed and st.session_state.first:
-            # Sort the dataframes based on the selected option
-            df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
-            sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        # Sort the dataframes based on the selected option
+        df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
 
-            # Display each row separately with hyperlinks and keyword info
-            for index, row in df_sorted.iterrows():
-                # Check if the row is selected in the multi-select box
-                if index in st.session_state.row_selection:
-                    st.markdown(f"### [{row['title']}]({row['link']})")
-                    # Display keyword counts on one line with | separator
-                    keyword_info = ' | '.join([f"{keyword}: {row[keyword]}" for keyword in st.session_state.final_selected_keywords])
-                    st.write(keyword_info)
-                    
-                    # Display top 5 sentences in an expander
-                    top_sentences = sentence_df_sorted[sentence_df_sorted['link'] == row['link']].head(5)
-                    with st.expander(f"Top Sentences for {row['title']}"):
-                        for _, sentence_row in top_sentences.iterrows():
-                            text_content = sentence_row['sentence']
-                            if translate:
-                                # Assuming text_content contains the text extracted from the link
-                                text_content = translate_text_with_google_cloud(text_content, "English")
-                            st.write(text_content)
+        # Display each row separately with hyperlinks and keyword info
+        for index, row in df_sorted.iterrows():
+            # Check if the row is selected in the multi-select box
+            if index in st.session_state.row_selection:
+                st.markdown(f"### [{row['title']}]({row['link']})")
+                # Display keyword counts on one line with | separator
+                keyword_info = ' | '.join([f"{keyword}: {row[keyword]}" for keyword in st.session_state.final_selected_keywords])
+                st.write(keyword_info)
+                
+                # Display top 5 sentences in an expander
+                top_sentences = sentence_df_sorted[sentence_df_sorted['link'] == row['link']].head(5)
+                with st.expander(f"Top Sentences for {row['title']}"):
+                    for _, sentence_row in top_sentences.iterrows():
+                        text_content = sentence_row['sentence']
+                        if translate:
+                            # Assuming text_content contains the text extracted from the link
+                            text_content = translate_text_with_google_cloud(text_content, "English")
+                        st.write(text_content)
 
-                    # Delimiter between each item
-                    st.markdown("---")  # This creates a horizontal line as a delimiter
+                # Delimiter between each item
+                st.markdown("---")  # This creates a horizontal line as a delimiter
 
-            # Multi-select box for row selection and dataframe update logic
-            row_ids = st.session_state.df.index.tolist()
-            st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
-                                                                    options=row_ids,
-                                                                    default=row_ids,
-                                                                    key=1)
-            
+        # Multi-select box for row selection and dataframe update logic
+        row_ids = st.session_state.df.index.tolist()
+        st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
+                                                                options=row_ids,
+                                                                default=row_ids,
+                                                                key=1)
+        
+        st.session_state.first = False
 
+    # Check if the data has been processed and stored in the session state
+    if 'processed' in st.session_state and st.session_state.processed and st.session_state.first is False:
+        # Sort the dataframes based on the selected option
+        df_sorted = apply_sorting(st.session_state.df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
+        sentence_df_sorted = apply_sorting(st.session_state.sentence_df, 'Normalized_Count' if sort_option == 'Overall' else sort_option)
 
+        # Display each row separately with hyperlinks and keyword info
+        for index, row in df_sorted.iterrows():
+            # Check if the row is selected in the multi-select box
+            if index in st.session_state.row_selection:
+                st.markdown(f"### [{row['title']}]({row['link']})")
+                # Display keyword counts on one line with | separator
+                keyword_info = ' | '.join([f"{keyword}: {row[keyword]}" for keyword in st.session_state.final_selected_keywords])
+                st.write(keyword_info)
+                
+                # Display top 5 sentences in an expander
+                top_sentences = sentence_df_sorted[sentence_df_sorted['link'] == row['link']].head(5)
+                with st.expander(f"Top Sentences for {row['title']}"):
+                    for _, sentence_row in top_sentences.iterrows():
+                        text_content = sentence_row['sentence']
+                        if translate:
+                            # Assuming text_content contains the text extracted from the link
+                            text_content = translate_text_with_google_cloud(text_content, "English")
+                        st.write(text_content)
+
+                # Delimiter between each item
+                st.markdown("---")  # This creates a horizontal line as a delimiter
+
+        # Multi-select box for row selection and dataframe update logic
+        row_ids = st.session_state.df.index.tolist()
+        st.session_state.row_selection = st.sidebar.multiselect('Select rows to include in further analysis:',
+                                                                options=row_ids,
+                                                                default=row_ids,
+                                                                key=2)
 def document_analysis():
     st.title("Run Document Analysis 📚")
     st.markdown("""
