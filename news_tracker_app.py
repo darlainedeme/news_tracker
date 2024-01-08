@@ -264,6 +264,21 @@ def define_research():
                 st.session_state.selected_mandatory_keywords = selected_config['Mandatory Keywords'].split(';')
                 st.session_state.selected_keywords = selected_config['Topic Keywords'].split(';')
                 st.session_state.selected_comp_keywords = selected_config['Complementary Keywords'].split(';')
+                
+                            all_languages = languages_df.melt(id_vars=['Country'], 
+                                            value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
+                                            ).dropna()['value'].unique().tolist()
+
+                # Determine the default languages based on the selected countries
+                if len(st.session_state.selected_countries) > 1:
+                    default_languages = ["English"]
+                elif not st.session_state.subset_data.empty:
+                    selected_country_languages = languages_df[languages_df['Country'].isin(st.session_state.selected_countries)]
+                    default_languages = selected_country_languages.melt(id_vars=['Country'], 
+                                                                        value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
+                                                                    ).dropna()['value'].unique().tolist()
+                else:
+                    default_languages = ["English"]
 
 
 
@@ -470,106 +485,106 @@ def define_research():
 
 
 
-            def translate_word(word, selected_language):
-                """
-                Translates a given word into the specified language.
+        def translate_word(word, selected_language):
+            """
+            Translates a given word into the specified language.
 
-                Args:
-                word (str): The word to be translated.
-                selected_language (str): The target language for translation.
+            Args:
+            word (str): The word to be translated.
+            selected_language (str): The target language for translation.
 
-                Returns:
-                str: The translated word.
-                """
+            Returns:
+            str: The translated word.
+            """
 
-                # Constructing the prompt for translation
-                translation_prompt = f"Your are a google translate. Translate the following word into {selected_language}: {word}. Tell me only the translation without including any additional text and no quotes"
+            # Constructing the prompt for translation
+            translation_prompt = f"Your are a google translate. Translate the following word into {selected_language}: {word}. Tell me only the translation without including any additional text and no quotes"
 
-                response = openai.Completion.create(
-                    model="gpt-3.5-turbo-instruct",
-                    prompt=translation_prompt,
-                    max_tokens=100
-                )
+            response = openai.Completion.create(
+                model="gpt-3.5-turbo-instruct",
+                prompt=translation_prompt,
+                max_tokens=100
+            )
 
-                # Extracting the translation from the response
-                translated_word = response.choices[0].text.strip()
+            # Extracting the translation from the response
+            translated_word = response.choices[0].text.strip()
 
-                return translated_word
+            return translated_word
 
-            # Extract respective translations for the selected keywords
-            main_selected_translations = {}
-            comp_selected_translations = {}
-            mandatory_selected_translations = {}
+        # Extract respective translations for the selected keywords
+        main_selected_translations = {}
+        comp_selected_translations = {}
+        mandatory_selected_translations = {}
 
-            def is_quoted(keyword):
-                return keyword[1:-1] if keyword.startswith('"') and keyword.endswith('"') else keyword
+        def is_quoted(keyword):
+            return keyword[1:-1] if keyword.startswith('"') and keyword.endswith('"') else keyword
 
-            for language in st.session_state.selected_language:
-                # Translations for mandatory keywords
-                mandatory_selected_translations[language] = [
-                    is_quoted(keyword) if is_quoted(keyword) != keyword else
-                    (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
-                    if keyword in mandatory_keywords_df['keyword'].tolist() else
-                    translate_word(keyword, st.session_state.selected_language[0]))
-                    for keyword in st.session_state.selected_mandatory_keywords
-                ]
+        for language in st.session_state.selected_language:
+            # Translations for mandatory keywords
+            mandatory_selected_translations[language] = [
+                is_quoted(keyword) if is_quoted(keyword) != keyword else
+                (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
+                if keyword in mandatory_keywords_df['keyword'].tolist() else
+                translate_word(keyword, st.session_state.selected_language[0]))
+                for keyword in st.session_state.selected_mandatory_keywords
+            ]
 
-                # Translations for main keywords
-                main_selected_translations[language] = [
-                    is_quoted(keyword) if is_quoted(keyword) != keyword else
-                    (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
-                    if keyword in keywords_df['keyword'].tolist() else
-                    translate_word(keyword, st.session_state.selected_language[0]))
-                    for keyword in st.session_state.selected_keywords
-                ]
+            # Translations for main keywords
+            main_selected_translations[language] = [
+                is_quoted(keyword) if is_quoted(keyword) != keyword else
+                (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
+                if keyword in keywords_df['keyword'].tolist() else
+                translate_word(keyword, st.session_state.selected_language[0]))
+                for keyword in st.session_state.selected_keywords
+            ]
 
-                # Translations for complementary keywords
-                comp_selected_translations[language] = [
-                    is_quoted(keyword) if is_quoted(keyword) != keyword else
-                    (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
-                    if keyword in comp_keywords_df['keyword'].tolist() else
-                    translate_word(keyword, st.session_state.selected_language[0]))
-                    for keyword in st.session_state.selected_comp_keywords
-                ]
+            # Translations for complementary keywords
+            comp_selected_translations[language] = [
+                is_quoted(keyword) if is_quoted(keyword) != keyword else
+                (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
+                if keyword in comp_keywords_df['keyword'].tolist() else
+                translate_word(keyword, st.session_state.selected_language[0]))
+                for keyword in st.session_state.selected_comp_keywords
+            ]
 
-            # Store translations in session state
-            st.session_state.main_selected_translations = main_selected_translations
-            st.session_state.comp_selected_translations = comp_selected_translations
-            st.session_state.mandatory_selected_translations = mandatory_selected_translations
+        # Store translations in session state
+        st.session_state.main_selected_translations = main_selected_translations
+        st.session_state.comp_selected_translations = comp_selected_translations
+        st.session_state.mandatory_selected_translations = mandatory_selected_translations
 
-            # Create a flat list of all translated keywords
-            translated_keywords = []
+        # Create a flat list of all translated keywords
+        translated_keywords = []
 
-            # Include mandatory translated keywords
-            for language, translations in st.session_state.mandatory_selected_translations.items():
-                translated_keywords.extend(translations)
+        # Include mandatory translated keywords
+        for language, translations in st.session_state.mandatory_selected_translations.items():
+            translated_keywords.extend(translations)
 
-            # Include main translated keywords
-            for language, translations in st.session_state.main_selected_translations.items():
-                translated_keywords.extend(translations)
+        # Include main translated keywords
+        for language, translations in st.session_state.main_selected_translations.items():
+            translated_keywords.extend(translations)
 
-            # Include complementary translated keywords
-            for language, translations in st.session_state.comp_selected_translations.items():
-                translated_keywords.extend(translations)
-            
-            # Removing potential duplicates from translated keywords
-            translated_trans_keywords = list(set(translated_keywords))
-            
-            # Create a flat list of all selected keywords (main and complementary)
-            final_selected_keywords = st.session_state.selected_mandatory_keywords + st.session_state.selected_keywords + st.session_state.selected_comp_keywords
-            
-            # Removing potential duplicates from selected keywords
-            final_selected_keywords = list(set(final_selected_keywords))
+        # Include complementary translated keywords
+        for language, translations in st.session_state.comp_selected_translations.items():
+            translated_keywords.extend(translations)
+        
+        # Removing potential duplicates from translated keywords
+        translated_trans_keywords = list(set(translated_keywords))
+        
+        # Create a flat list of all selected keywords (main and complementary)
+        final_selected_keywords = st.session_state.selected_mandatory_keywords + st.session_state.selected_keywords + st.session_state.selected_comp_keywords
+        
+        # Removing potential duplicates from selected keywords
+        final_selected_keywords = list(set(final_selected_keywords))
 
-            # Add to session state
-            st.session_state.translated_trans_keywords = translated_trans_keywords
-            st.session_state.final_selected_keywords = final_selected_keywords
+        # Add to session state
+        st.session_state.translated_trans_keywords = translated_trans_keywords
+        st.session_state.final_selected_keywords = final_selected_keywords
 
-            # Display the final list of translated and selected keywords
-            st.write(translated_trans_keywords)
+        # Display the final list of translated and selected keywords
+        st.write(translated_trans_keywords)
 
-            # Separator
-            st.markdown("---")
+        # Separator
+        st.markdown("---")
 
 
 def research():
