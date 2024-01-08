@@ -475,7 +475,7 @@ def define_research():
                 """
 
                 # Constructing the prompt for translation
-                translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR. I REPEAT, THE OUTPUT SHOULD BE TRANSLATION ONLY and only provide one translation"
+                translation_prompt = f"Your are a google translate. Translate the following word into {selected_language}: {word}. Tell me only the translation without including any additional text"
 
                 response = openai.Completion.create(
                     model="gpt-3.5-turbo-instruct",
