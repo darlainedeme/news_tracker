@@ -499,7 +499,7 @@ def define_research():
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
                 mandatory_selected_translations[language] = [
-                    keyword if is_quoted(keyword) else
+                    is_quoted(keyword) if is_quoted(keyword) != keyword else
                     (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
                     if keyword in mandatory_keywords_df['keyword'].tolist() else
                     translate_word(keyword, st.session_state.selected_language[0]))
@@ -508,7 +508,7 @@ def define_research():
 
                 # Translations for main keywords
                 main_selected_translations[language] = [
-                    keyword if is_quoted(keyword) else
+                    is_quoted(keyword) if is_quoted(keyword) != keyword else
                     (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
                     if keyword in keywords_df['keyword'].tolist() else
                     translate_word(keyword, st.session_state.selected_language[0]))
@@ -517,7 +517,7 @@ def define_research():
 
                 # Translations for complementary keywords
                 comp_selected_translations[language] = [
-                    keyword if is_quoted(keyword) else
+                    is_quoted(keyword) if is_quoted(keyword) != keyword else
                     (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
                     if keyword in comp_keywords_df['keyword'].tolist() else
                     translate_word(keyword, st.session_state.selected_language[0]))
