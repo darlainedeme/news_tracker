@@ -243,10 +243,7 @@ def define_research():
             'comp_selected_translations': {},
             'mandatory_selected_translations': {},
             'translated_trans_keywords': [],
-            'final_selected_keywords': [],
-            'config_type_choice': [],
-            'selected_research_type': [],
-            'config_choice': []
+            'final_selected_keywords': []
             
         }
 
