@@ -1,4 +1,4 @@
 ﻿Config Name,Research Type,Sources,Limit to Country,Official Sources,Mandatory Keywords,Topic Keywords,Complementary Keywords
-EV infrastructure spending tracker,policies,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
-Consumer support tracker,spending tracker,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
-Renewable energy policy news,news,predefined sources search,TRUE,Source1;Source2,keyword1;keyword2,topic1;topic2,comp1;comp2
+EV infrastructure spending tracker,policies,predefined sources search,TRUE,Official Ministry website,energy;policy,renewables;hydrogen,billion;million
+Consumer support tracker,spending tracker,predefined sources search,TRUE,Official Ministry website,energy;budget,renewables;hydrogen,billion;million
+Renewable energy policy news,news,predefined sources search,TRUE,Official Ministry website,energy;news,renewables;hydrogen,billion;million
