@@ -235,8 +235,8 @@ def define_research():
             'translated_trans_keywords': [],
             'final_selected_keywords': [],
             'config_type_choice': [],
-            'selected_research_type': [],
-            'config_choice': []
+            'selected_research_type': None,
+            'config_choice': None
             
         }
 
