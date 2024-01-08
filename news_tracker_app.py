@@ -182,7 +182,7 @@ def selected_area_check():
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
         st.write("### Check the table below, and confirm it's the region you are interested in.")
         st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
-        
+
         st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
 
         st.markdown("""
@@ -461,7 +461,54 @@ def define_research():
                                                                     help="Select complementary keywords. These are additional terms that can enhance your research scope. AT LEAST ONE OF THEM NEED TO APPEEAR IN THE DOCUMENT")
 
 
+
             def translate_word(word, selected_language):
+                """
+                Translates a given word into the specified language using Google Translate API.
+
+                Args:
+                word (str): The word to be translated.
+                selected_language (str): The target language for translation.
+
+                Returns:
+                str: The translated word.
+                """
+
+                # Load the language codes (assuming you have a similar setup as in your reference function)
+                language_codes = load_language_codes('data/languages_codes.csv')
+
+                # Get the language code from the language name
+                target_language = language_codes.get(selected_language)
+                if not target_language:
+                    raise ValueError(f"Invalid language name: {selected_language}")
+
+                # Define the URL and headers for the Google Translate API request
+                url = "https://translation.googleapis.com/language/translate/v2"
+                headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+                params = {
+                    'q': word,
+                    'target': target_language,
+                    'format': 'text',
+                    'key': api_key  
+                }
+
+                # Send the request to Google Translate API
+                response = requests.post(url, headers=headers, json=params)
+                try:
+                    if response.status_code == 200:
+                        result = response.json()
+                        translated_word = result['data']['translations'][0]['translatedText']
+                        return translated_word
+                    else:
+                        return "Error in translation API response"
+                except Exception as e:
+                    return f"Error translating: {e}"
+
+            # Remember to replace 'api_key' with your actual Google Cloud API key and ensure 'load_language_codes' function is defined.
+
                 """
                 Translates a given word into the specified language.
 
