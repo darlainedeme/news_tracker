@@ -115,7 +115,7 @@ def area_selection():
 
     # Sidebar menu for selecting the category
     menu_options = ['Country', 'Continent', 'WEO Region', 'UN Region', 'World', 'No specific area']
-    selection = st.sidebar.selectbox("Choose a category", menu_options, index=0)
+    selection = st.sidebar.radio("Choose a category", menu_options, index=0)
 
     data = gpd.read_file(os.path.join('data', 'merged_file.gpkg'))
     data = data[data['field_3'].notna()]
