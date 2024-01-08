@@ -237,7 +237,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.radio("Configuration Type", ('Custom', 'Predefined'))
+        config_type_choice = st.sidebar.radio("Configuration Type", ('Customize', 'Predefined'))
 
 
         if config_type_choice == "Predefined":
@@ -257,6 +257,14 @@ def define_research():
                 # Display the details of the chosen configuration
                 selected_config = filtered_configs[filtered_configs['Config Name'] == config_choice].iloc[0]
                 st.dataframe(selected_config.to_frame())
+
+                sources = selected_config['Sources']
+                limit_to_country = selected_config['Limit to Country'] == 'TRUE'
+                official_sources = selected_config['Official Sources'].split(';')
+                mandatory_keywords = selected_config['Mandatory Keywords'].split(';')
+                topic_keywords = selected_config['Topic Keywords'].split(';')
+                complementary_keywords = selected_config['Complementary Keywords'].split(';')
+
 
 
         if config_type_choice == "Customize":    
