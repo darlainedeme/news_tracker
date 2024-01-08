@@ -265,9 +265,9 @@ def define_research():
                 st.session_state.selected_keywords = selected_config['Topic Keywords'].split(';')
                 st.session_state.selected_comp_keywords = selected_config['Complementary Keywords'].split(';')
                 
-                            all_languages = languages_df.melt(id_vars=['Country'], 
-                                            value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
-                                            ).dropna()['value'].unique().tolist()
+                all_languages = languages_df.melt(id_vars=['Country'], 
+                                value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
+                                ).dropna()['value'].unique().tolist()
 
                 # Determine the default languages based on the selected countries
                 if len(st.session_state.selected_countries) > 1:
