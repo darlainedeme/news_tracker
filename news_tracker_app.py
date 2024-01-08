@@ -493,22 +493,34 @@ def define_research():
             comp_selected_translations = {}
             mandatory_selected_translations = {}
 
+            def is_quoted(keyword):
+                return keyword.startswith('"') and keyword.endswith('"')
+            
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
                 mandatory_selected_translations[language] = [
-                    mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                    keyword if is_quoted(keyword) else
+                    (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
+                    if keyword in mandatory_keywords_df['keyword'].tolist() else
+                    translate_word(keyword, st.session_state.selected_language[0]))
                     for keyword in st.session_state.selected_mandatory_keywords
                 ]
 
                 # Translations for main keywords
                 main_selected_translations[language] = [
-                    keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                    keyword if is_quoted(keyword) else
+                    (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
+                    if keyword in keywords_df['keyword'].tolist() else
+                    translate_word(keyword, st.session_state.selected_language[0]))
                     for keyword in st.session_state.selected_keywords
                 ]
 
                 # Translations for complementary keywords
                 comp_selected_translations[language] = [
-                    comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
+                    keyword if is_quoted(keyword) else
+                    (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
+                    if keyword in comp_keywords_df['keyword'].tolist() else
+                    translate_word(keyword, st.session_state.selected_language[0]))
                     for keyword in st.session_state.selected_comp_keywords
                 ]
 
