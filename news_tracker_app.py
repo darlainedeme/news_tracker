@@ -530,7 +530,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in mandatory_keywords_df['keyword'].tolist() else
-                translate_word(keyword, st.session_state.selected_language[0]))
+                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_mandatory_keywords
             ]
 
@@ -539,7 +539,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in keywords_df['keyword'].tolist() else
-                translate_word(keyword, st.session_state.selected_language[0]))
+                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_keywords
             ]
 
@@ -548,7 +548,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in comp_keywords_df['keyword'].tolist() else
-                translate_word(keyword, st.session_state.selected_language[0]))
+                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_comp_keywords
             ]
 
@@ -773,6 +773,39 @@ def research():
         except:
             error_text = "Error translating: " + text
             return error_text
+
+    # Function to translate text using the Google Cloud Translation API
+    def reverse_translate_text_with_google_cloud(text, language_name):
+        # Load the language codes
+        language_codes = load_language_codes('data/languages_codes.csv')
+
+        # Get the language code from the language name
+        target_language = language_codes.get(language_name)
+
+        if not target_language:
+            raise ValueError(f"Invalid language name: {language_name}")
+
+        url = "https://translation.googleapis.com/language/translate/v2"
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+        params = {
+            'q': text,
+            'target': target_language,
+            'format': 'text',
+            'key': api_key
+        }
+        response = requests.post(url, params=params)
+        try:
+            #if response.status_code == 200:
+            result = response.json()
+            translated_text = result['data']['translations'][0]['translatedText']
+            return translated_text
+        except:
+            error_text = "Error translating: " + text
+            return error_text
+                
                 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
