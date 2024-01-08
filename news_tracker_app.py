@@ -180,14 +180,14 @@ def area_selection():
 
 def selected_area_check():
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
+        st.write("### Check the table below, and confirm it's the region you are interested in.")
+        st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
+        
         st.table(st.session_state.subset_data[['field_3', 'continent', 'Code_Region']].rename(columns={'field_3': 'Country'}))
 
         st.markdown("""
         Here, you can review the geographical areas you have selected. This step is crucial to ensure that the regions of interest are correctly chosen before proceeding with the research. If the selected areas don't match your criteria, you can return to the 'Area Selection' step to adjust your choices.
         """)
-
-        st.write("### Check the table below, and confirm it's the region you are interested in.")
-        st.write("If it matches your criteria, proceed to the next step. Otherwise, return to the 'Area Selection' step to adjust your choices.")
         
     else:
         st.warning("No countries selected in the 'Area Selection' step.")
