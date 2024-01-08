@@ -260,7 +260,7 @@ def define_research():
             # Use session state value as default if available
             default_research_type_index = 0 if st.session_state.selected_research_type not in unique_research_types else list(unique_research_types).index(st.session_state.selected_research_type)
             selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types, index=default_research_type_index)
-            st.session_state.selected_research_type = selected_research_type
+            
 
             # Filter configurations by selected research type
             filtered_configs = predefined_configs_df[predefined_configs_df['Research Type'] == selected_research_type]
@@ -269,7 +269,7 @@ def define_research():
             if st.session_state.config_choice not in filtered_configs['Config Name'].tolist():
                 st.session_state.config_choice = None  # Reset if previous choice is not in the new list
             config_choice = st.sidebar.selectbox("Choose Configuration", filtered_configs['Config Name'].tolist(), index=filtered_configs['Config Name'].tolist().index(st.session_state.config_choice) if st.session_state.config_choice in filtered_configs['Config Name'].tolist() else 0)
-            st.session_state.config_choice = config_choice
+            
         
             if config_choice:
                 # Display the details of the chosen configuration
@@ -302,6 +302,10 @@ def define_research():
                                                                     ).dropna()['value'].unique().tolist()
                 else:
                     default_languages = ["English"]
+                
+                st.session_state.selected_research_type = selected_research_type
+                st.session_state.config_choice = config_choice
+
 
 
         if config_type_choice == "Customize":    
