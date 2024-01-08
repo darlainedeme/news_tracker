@@ -213,9 +213,7 @@ def define_research():
 
    
     if 'subset_data' in st.session_state and st.session_state.subset_data is not None:
-        
-        # Read predefined configurations
-        predefined_configs_df = pd.read_csv('data/predefined_configs.csv')
+       
 
         defaults = {
             'research_type': 'policies',
@@ -239,10 +237,12 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.selectbox("Configuration Type", ["Customize", "Predefined"])
+        config_type_choice = st.sidebar.radio("Configuration Type", ('Custom', 'Predefined'))
 
 
         if config_type_choice == "Predefined":
+            predefined_configs_df = pd.read_csv('data/predefined_configs.csv')
+            
             # Dropdown to filter by research type
             unique_research_types = predefined_configs_df['Research Type'].unique()
             selected_research_type = st.sidebar.selectbox("Select Research Type", unique_research_types)
