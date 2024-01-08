@@ -496,8 +496,6 @@ def define_research():
             def is_quoted(keyword):
                 return keyword[1:-1] if keyword.startswith('"') and keyword.endswith('"') else keyword
 
-
-            
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
                 mandatory_selected_translations[language] = [
