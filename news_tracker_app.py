@@ -233,11 +233,13 @@ def define_research():
             'comp_selected_translations': {},
             'mandatory_selected_translations': {},
             'translated_trans_keywords': [],
-            'final_selected_keywords': []
+            'final_selected_keywords': [],
+            'config_type_choice': []
         }
 
         # Allow user to choose between predefined or custom configuration
         config_type_choice = st.sidebar.radio("Configuration Type", ('Customize', 'Predefined'))
+        st.session_state.config_type_choice = config_type_choice
 
 
         if config_type_choice == "Predefined":
