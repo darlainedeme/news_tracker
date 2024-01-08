@@ -265,7 +265,11 @@ def define_research():
                 st.session_state.selected_keywords = selected_config['Topic Keywords'].split(';')
                 st.session_state.selected_comp_keywords = selected_config['Complementary Keywords'].split(';')
                 
-                languages_df = pd.read_csv('data/languages.csv', encoding='utf-8')
+                languages_df = pd.read_csv('data/languages.csv', encoding='utf-8') 
+                comp_keywords_df = pd.read_csv('data/complementary_keywords.csv', encoding='utf-8')
+                mandatory_keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+                keywords_df = pd.read_csv('data/keywords.csv', encoding='utf-8')
+            
                 all_languages = languages_df.melt(id_vars=['Country'], 
                                 value_vars=['Language#1', 'Language#2', 'Language#3', 'Language#4']
                                 ).dropna()['value'].unique().tolist()
