@@ -234,7 +234,10 @@ def define_research():
             'mandatory_selected_translations': {},
             'translated_trans_keywords': [],
             'final_selected_keywords': [],
-            'config_type_choice': []
+            'config_type_choice': [],
+            'selected_research_type': [],
+            'config_choice': []
+            
         }
 
         # Allow user to choose between predefined or custom configuration
@@ -244,17 +247,23 @@ def define_research():
 
         if config_type_choice == "Predefined":
             predefined_configs_df = pd.read_csv('data/predefined_configs.csv')
-            
+
             # Dropdown to filter by research type
             unique_research_types = predefined_configs_df['Research Type'].unique()
-            selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types)
+            # Use session state value as default if available
+            default_research_type_index = 0 if st.session_state.selected_research_type not in unique_research_types else list(unique_research_types).index(st.session_state.selected_research_type)
+            selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types, index=default_research_type_index)
+            st.session_state.selected_research_type = selected_research_type
 
             # Filter configurations by selected research type
             filtered_configs = predefined_configs_df[predefined_configs_df['Research Type'] == selected_research_type]
 
             # Dropdown to select a specific configuration based on the research type
-            config_choice = st.sidebar.selectbox("Choose Configuration", filtered_configs['Config Name'].tolist())
-
+            if st.session_state.config_choice not in filtered_configs['Config Name'].tolist():
+                st.session_state.config_choice = None  # Reset if previous choice is not in the new list
+            config_choice = st.sidebar.selectbox("Choose Configuration", filtered_configs['Config Name'].tolist(), index=filtered_configs['Config Name'].tolist().index(st.session_state.config_choice) if st.session_state.config_choice in filtered_configs['Config Name'].tolist() else 0)
+            st.session_state.config_choice = config_choice
+        
             if config_choice:
                 # Display the details of the chosen configuration
                 selected_config = filtered_configs[filtered_configs['Config Name'] == config_choice].iloc[0]
