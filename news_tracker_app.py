@@ -205,13 +205,13 @@ def define_research():
 
     # Initialize variables in session state if not present
     if 'config_type_choice' not in st.session_state:
-        st.session_state.config_type_choice = 'Customize'
+        st.session_state.config_type_choice = 'Customize'  # or 'Predefined' as default
 
     if 'selected_research_type' not in st.session_state:
-        st.session_state.selected_research_type = None
+        st.session_state.selected_research_type = None  # Default value for research type
 
     if 'config_choice' not in st.session_state:
-        st.session_state.config_choice = None
+        st.session_state.config_choice = None  # Default value for configuration choice
         
     # Function to convert date strings to datetime objects
     def parse_date(date_str):
@@ -257,17 +257,19 @@ def define_research():
 
             # Dropdown to filter by research type
             unique_research_types = predefined_configs_df['Research Type'].unique()
+            # Use session state value as default if available
+            default_research_type_index = 0 if st.session_state.selected_research_type not in unique_research_types else list(unique_research_types).index(st.session_state.selected_research_type)
+            selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types, index=default_research_type_index)
+            st.session_state.selected_research_type = selected_research_type
 
-            # Temporary variable for initial selection
-            initial_research_type = st.session_state.selected_research_type if st.session_state.selected_research_type in unique_research_types else unique_research_types[0]
-            
-            selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types, index=list(unique_research_types).index(initial_research_type))
+            # Filter configurations by selected research type
+            filtered_configs = predefined_configs_df[predefined_configs_df['Research Type'] == selected_research_type]
 
-            # Update the session state after the selection
-            if selected_research_type != st.session_state.selected_research_type:
-                st.session_state.selected_research_type = selected_research_type
-                st.session_state.config_choice = None  # Reset config choice when research type changes
-
+            # Dropdown to select a specific configuration based on the research type
+            if st.session_state.config_choice not in filtered_configs['Config Name'].tolist():
+                st.session_state.config_choice = None  # Reset if previous choice is not in the new list
+            config_choice = st.sidebar.selectbox("Choose Configuration", filtered_configs['Config Name'].tolist(), index=filtered_configs['Config Name'].tolist().index(st.session_state.config_choice) if st.session_state.config_choice in filtered_configs['Config Name'].tolist() else 0)
+            st.session_state.config_choice = config_choice
         
             if config_choice:
                 # Display the details of the chosen configuration
