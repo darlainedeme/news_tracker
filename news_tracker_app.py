@@ -85,38 +85,6 @@ def translate_text_with_google_cloud(text, language_name):
         error_text = "Error translating: " + text
         return error_text
             
-
-# Function to translate text using the Google Cloud Translation API
-def reverse_translate_text_with_google_cloud(text, language_name):
-    # Load the language codes
-    language_codes = load_language_codes('data/languages_codes.csv')
-
-    # Get the language code from the language name
-    target_language = language_codes.get(language_name)
-    # target_language = 'en'
-
-    if not target_language:
-        raise ValueError(f"Invalid language name: {language_name}")
-
-    url = "https://translation.googleapis.com/language/translate/v2"
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-    params = {
-        'q': text,
-        'target': target_language,
-        'format': 'text',
-        'key': api_key
-    }
-    response = requests.post(url, params=params)
-
-    result = response.json()
-    st.write(result)
-    translated_text = result['data']['translations'][0]['translatedText']
-    
-    return translated_text
-
 def welcome_page():
     st.title("Welcome to the Energy, Policy, and News Tracker")
     st.markdown("""
@@ -493,6 +461,33 @@ def define_research():
                                                                     help="Select complementary keywords. These are additional terms that can enhance your research scope. AT LEAST ONE OF THEM NEED TO APPEEAR IN THE DOCUMENT")
 
 
+
+            def translate_word(word, selected_language):
+                """
+                Translates a given word into the specified language.
+
+                Args:
+                word (str): The word to be translated.
+                selected_language (str): The target language for translation.
+
+                Returns:
+                str: The translated word.
+                """
+
+                # Constructing the prompt for translation
+                translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR. I REPEAT, THE OUTPUT SHOULD BE TRANSLATION ONLY"
+
+                response = openai.Completion.create(
+                    model="gpt-3.5-turbo-instruct",
+                    prompt=translation_prompt,
+                    max_tokens=100
+                )
+
+                # Extracting the translation from the response
+                translated_word = response.choices[0].text.strip()
+
+                return translated_word
+
             # Extract respective translations for the selected keywords
             main_selected_translations = {}
             comp_selected_translations = {}
@@ -501,19 +496,19 @@ def define_research():
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
                 mandatory_selected_translations[language] = [
-                    mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_mandatory_keywords
                 ]
 
                 # Translations for main keywords
                 main_selected_translations[language] = [
-                    keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_keywords
                 ]
 
                 # Translations for complementary keywords
                 comp_selected_translations[language] = [
-                    comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_word(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_comp_keywords
                 ]
 
