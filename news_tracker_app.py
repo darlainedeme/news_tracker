@@ -203,6 +203,16 @@ def define_research():
     Customize your research parameters in this section. You can select the type of research (policies, news, projects), choose information sources, set languages, and define keywords. These parameters will guide the data collection process, ensuring that the research is tailored to your specific needs and interests.
     """)
 
+    # Initialize variables in session state if not present
+    if 'config_type_choice' not in st.session_state:
+        st.session_state.config_type_choice = 'Customize'  # or 'Predefined' as default
+
+    if 'selected_research_type' not in st.session_state:
+        st.session_state.selected_research_type = None  # Default value for research type
+
+    if 'config_choice' not in st.session_state:
+        st.session_state.config_choice = None  # Default value for configuration choice
+        
     # Function to convert date strings to datetime objects
     def parse_date(date_str):
         return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
@@ -235,8 +245,8 @@ def define_research():
             'translated_trans_keywords': [],
             'final_selected_keywords': [],
             'config_type_choice': [],
-            'selected_research_type': None,
-            'config_choice': None
+            'selected_research_type': [],
+            'config_choice': []
             
         }
 
