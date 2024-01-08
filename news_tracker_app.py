@@ -110,14 +110,10 @@ def reverse_translate_text_with_google_cloud(text, language_name):
         'key': api_key
     }
     response = requests.post(url, params=params)
-    try:
-        #if response.status_code == 200:
-        result = response.json()
-        translated_text = result['data']['translations'][0]['translatedText']
-        return translated_text
-    except:
-        error_text = "Error translating: " + text
-        return error_text
+
+    result = response.json()
+    translated_text = result['data']['translations'][0]['translatedText']
+    return translated_text
 
 def welcome_page():
     st.title("Welcome to the Energy, Policy, and News Tracker")
