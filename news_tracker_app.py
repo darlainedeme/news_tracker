@@ -475,7 +475,7 @@ def define_research():
                 """
 
                 # Constructing the prompt for translation
-                translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR. I REPEAT, THE OUTPUT SHOULD BE TRANSLATION ONLY"
+                translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR. I REPEAT, THE OUTPUT SHOULD BE TRANSLATION ONLY and only provide one translation"
 
                 response = openai.Completion.create(
                     model="gpt-3.5-turbo-instruct",
@@ -494,7 +494,9 @@ def define_research():
             mandatory_selected_translations = {}
 
             def is_quoted(keyword):
-                return keyword.startswith('"') and keyword.endswith('"')
+                return keyword[1:-1] if keyword.startswith('"') and keyword.endswith('"') else keyword
+
+
             
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
