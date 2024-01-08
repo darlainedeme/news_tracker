@@ -490,7 +490,7 @@ def define_research():
 
 
 
-        def translate_word(word, selected_language):
+        def translate_word(text, language_name):
             # Load the language codes
             language_codes = load_language_codes('data/languages_codes.csv')
 
