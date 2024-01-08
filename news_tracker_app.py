@@ -245,7 +245,7 @@ def define_research():
             
             # Dropdown to filter by research type
             unique_research_types = predefined_configs_df['Research Type'].unique()
-            selected_research_type = st.sidebar.selectbox("Select Research Type", unique_research_types)
+            selected_research_type = st.sidebar.radio("Select Research Type", unique_research_types)
 
             # Filter configurations by selected research type
             filtered_configs = predefined_configs_df[predefined_configs_df['Research Type'] == selected_research_type]
