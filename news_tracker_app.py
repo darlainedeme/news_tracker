@@ -85,6 +85,40 @@ def translate_text_with_google_cloud(text, language_name):
         error_text = "Error translating: " + text
         return error_text
             
+
+# Function to translate text using the Google Cloud Translation API
+def reverse_translate_text_with_google_cloud(text, language_name):
+    # Load the language codes
+    language_codes = load_language_codes('data/languages_codes.csv')
+
+    # Get the language code from the language name
+    target_language = language_codes.get(language_name)
+    # target_language = 'en'
+
+    if not target_language:
+        raise ValueError(f"Invalid language name: {language_name}")
+
+    url = "https://translation.googleapis.com/language/translate/v2"
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+    params = {
+        'q': text,
+        'target': target_language,
+        'format': 'text',
+        'key': api_key
+    }
+    response = requests.post(url, params=params)
+    try:
+        #if response.status_code == 200:
+        result = response.json()
+        translated_text = result['data']['translations'][0]['translatedText']
+        return translated_text
+    except:
+        error_text = "Error translating: " + text
+        return error_text
+
 def welcome_page():
     st.title("Welcome to the Energy, Policy, and News Tracker")
     st.markdown("""
@@ -469,19 +503,19 @@ def define_research():
             for language in st.session_state.selected_language:
                 # Translations for mandatory keywords
                 mandatory_selected_translations[language] = [
-                    mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in mandatory_keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_mandatory_keywords
                 ]
 
                 # Translations for main keywords
                 main_selected_translations[language] = [
-                    keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_keywords
                 ]
 
                 # Translations for complementary keywords
                 comp_selected_translations[language] = [
-                    comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
+                    comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0] if keyword in comp_keywords_df['keyword'].tolist() else reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]) 
                     for keyword in st.session_state.selected_comp_keywords
                 ]
 
