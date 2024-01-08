@@ -491,30 +491,35 @@ def define_research():
 
 
         def translate_word(word, selected_language):
-            """
-            Translates a given word into the specified language.
+            # Load the language codes
+            language_codes = load_language_codes('data/languages_codes.csv')
 
-            Args:
-            word (str): The word to be translated.
-            selected_language (str): The target language for translation.
+            # Get the language code from the language name
+            target_language = language_codes.get(language_name)
 
-            Returns:
-            str: The translated word.
-            """
+            if not target_language:
+                raise ValueError(f"Invalid language name: {language_name}")
 
-            # Constructing the prompt for translation
-            translation_prompt = f"Your are a google translate. Translate the following word into {selected_language}: {word}. Tell me only the translation without including any additional text and no quotes"
-
-            response = openai.Completion.create(
-                model="gpt-3.5-turbo-instruct",
-                prompt=translation_prompt,
-                max_tokens=100
-            )
-
-            # Extracting the translation from the response
-            translated_word = response.choices[0].text.strip()
-
-            return translated_word
+            url = "https://translation.googleapis.com/language/translate/v2"
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            params = {
+                'q': text,
+                'target': target_language,
+                'format': 'text',
+                'key': api_key
+            }
+            response = requests.post(url, params=params)
+            try:
+                #if response.status_code == 200:
+                result = response.json()
+                translated_text = result['data']['translations'][0]['translatedText']
+                return translated_text
+            except:
+                error_text = "Error translating: " + text
+                return error_text
 
         # Extract respective translations for the selected keywords
         main_selected_translations = {}
@@ -530,7 +535,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (mandatory_keywords_df.loc[mandatory_keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in mandatory_keywords_df['keyword'].tolist() else
-                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
+                translate_word(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_mandatory_keywords
             ]
 
@@ -539,7 +544,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (keywords_df.loc[keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in keywords_df['keyword'].tolist() else
-                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
+                translate_word(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_keywords
             ]
 
@@ -548,7 +553,7 @@ def define_research():
                 is_quoted(keyword) if is_quoted(keyword) != keyword else
                 (comp_keywords_df.loc[comp_keywords_df['keyword'] == keyword, language].tolist()[0]
                 if keyword in comp_keywords_df['keyword'].tolist() else
-                reverse_translate_text_with_google_cloud(keyword, st.session_state.selected_language[0]))
+                translate_word(keyword, st.session_state.selected_language[0]))
                 for keyword in st.session_state.selected_comp_keywords
             ]
 
@@ -774,38 +779,6 @@ def research():
             error_text = "Error translating: " + text
             return error_text
 
-    # Function to translate text using the Google Cloud Translation API
-    def reverse_translate_text_with_google_cloud(text, language_name):
-        # Load the language codes
-        language_codes = load_language_codes('data/languages_codes.csv')
-
-        # Get the language code from the language name
-        target_language = language_codes.get(language_name)
-
-        if not target_language:
-            raise ValueError(f"Invalid language name: {language_name}")
-
-        url = "https://translation.googleapis.com/language/translate/v2"
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-        params = {
-            'q': text,
-            'target': target_language,
-            'format': 'text',
-            'key': api_key
-        }
-        response = requests.post(url, params=params)
-        try:
-            #if response.status_code == 200:
-            result = response.json()
-            translated_text = result['data']['translations'][0]['translatedText']
-            return translated_text
-        except:
-            error_text = "Error translating: " + text
-            return error_text
-                
                 
     # Checkbox for summary
     want_summary = st.sidebar.checkbox('Do you want a summary?', value=False)
