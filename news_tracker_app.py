@@ -112,7 +112,9 @@ def reverse_translate_text_with_google_cloud(text, language_name):
     response = requests.post(url, params=params)
 
     result = response.json()
+    st.write(result)
     translated_text = result['data']['translations'][0]['translatedText']
+    
     return translated_text
 
 def welcome_page():
