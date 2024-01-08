@@ -507,33 +507,6 @@ def define_research():
                 except Exception as e:
                     return f"Error translating: {e}"
 
-            # Remember to replace 'api_key' with your actual Google Cloud API key and ensure 'load_language_codes' function is defined.
-
-                """
-                Translates a given word into the specified language.
-
-                Args:
-                word (str): The word to be translated.
-                selected_language (str): The target language for translation.
-
-                Returns:
-                str: The translated word.
-                """
-
-                # Constructing the prompt for translation
-                translation_prompt = f"Translate the following word into {selected_language}: {word}. GIVE ME AS AN OUTPUT ONLY THE TRANSLATED WORD. FOR TECHNICAL WORD ASSUME THE BEST TRANSLATION IN THE ENERGY SECTOR"
-
-                response = openai.Completion.create(
-                    model="gpt-3.5-turbo-instruct",
-                    prompt=translation_prompt,
-                    max_tokens=100
-                )
-
-                # Extracting the translation from the response
-                translated_word = response.choices[0].text.strip()
-
-                return translated_word
-
             # Extract respective translations for the selected keywords
             main_selected_translations = {}
             comp_selected_translations = {}
