@@ -258,12 +258,12 @@ def define_research():
                 selected_config = filtered_configs[filtered_configs['Config Name'] == config_choice].iloc[0]
                 st.dataframe(selected_config.to_frame())
 
-                sources = selected_config['Sources']
-                limit_to_country = selected_config['Limit to Country'] == 'TRUE'
-                official_sources = selected_config['Official Sources'].split(';')
-                mandatory_keywords = selected_config['Mandatory Keywords'].split(';')
-                topic_keywords = selected_config['Topic Keywords'].split(';')
-                complementary_keywords = selected_config['Complementary Keywords'].split(';')
+                st.session_state.sources = selected_config['Sources']
+                st.session_state.limit_to_country = selected_config['Limit to Country'] == 'TRUE'
+                st.session_state.official_sources = selected_config['Official Sources'].split(';')
+                st.session_state.selected_mandatory_keywords = selected_config['Mandatory Keywords'].split(';')
+                st.session_state.selected_keywords = selected_config['Topic Keywords'].split(';')
+                st.session_state.selected_comp_keywords = selected_config['Complementary Keywords'].split(';')
 
 
 
