@@ -248,7 +248,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.radio("Configuration Type", ('Customize', 'Predefined'), index=('Customize', 'Predefined').index(st.session_state.config_type_choice))
+        config_type_choice = st.sidebar.radio("Configuration Type", ('Predefined', 'Customize'), index=('Customize', 'Predefined').index(st.session_state.config_type_choice))
         st.session_state.config_type_choice = config_type_choice
 
 
@@ -275,6 +275,16 @@ def define_research():
                 # Display the details of the chosen configuration
                 selected_config = filtered_configs[filtered_configs['Config Name'] == config_choice].iloc[0]
                 st.dataframe(selected_config.to_frame())
+
+                st.session_state.research_type = selected_config['Research Type']
+                
+                # Load necessary data based on the selected research type
+                if st.session_state.research_type == "spending tracker":
+                    links_df = pd.read_csv('data/links.csv', encoding='utf-8')
+                elif st.session_state.research_type == "news":
+                    links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
+                else:  # For "policies" and "projects"
+                    links_df = pd.read_csv('data/energy_stakeholders_links.csv', encoding='utf-8')
 
                 st.session_state.sources = selected_config['Sources']
                 st.session_state.limit_to_country = selected_config['Limit to Country'] == 'TRUE'
