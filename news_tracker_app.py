@@ -312,7 +312,14 @@ def define_research():
                                                                     ).dropna()['value'].unique().tolist()
                 else:
                     default_languages = ["English"]
-                
+
+                # Language selection multiselect widget
+                st.session_state.selected_language = st.multiselect("Language(s):",
+                                                                    sorted(all_languages),
+                                                                    default=default_languages,
+                                                                    help="Choose the languages for your research. This will filter content based on the selected languages.")
+
+
                 st.session_state.selected_research_type = selected_research_type
                 st.session_state.config_choice = config_choice
 
