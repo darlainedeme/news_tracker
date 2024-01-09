@@ -279,7 +279,7 @@ def define_research():
                 st.session_state.research_type = selected_config['Research Type']
                 
                 # Load necessary data based on the selected research type
-                if st.session_state.research_type == "spending tracker":
+                if st.session_state.research_type == "spendings":
                     links_df = pd.read_csv('data/links.csv', encoding='utf-8')
                 elif st.session_state.research_type == "news":
                     links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
@@ -349,7 +349,7 @@ def define_research():
             )
 
             # Load necessary data based on the selected research type
-            if st.session_state.research_type == "spending tracker":
+            if st.session_state.research_type == "spendings":
                 links_df = pd.read_csv('data/links.csv', encoding='utf-8')
             elif st.session_state.research_type == "news":
                 links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
