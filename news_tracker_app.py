@@ -348,8 +348,8 @@ def define_research():
                 help="Select the type of research you're interested in. Options include policies, news, and projects."
             )
 
-# Update the session_state with the current selection
-st.session_state.selected_research_type = research_options.index(st.session_state.research_type)
+            # Update the session_state with the current selection
+            st.session_state.selected_research_type = research_options.index(st.session_state.research_type)
 
             # Load necessary data based on the selected research type
             if st.session_state.research_type == "spending tracker":
