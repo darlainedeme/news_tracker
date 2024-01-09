@@ -279,7 +279,7 @@ def define_research():
                 st.session_state.research_type = selected_config['Research Type']
                 
                 # Load necessary data based on the selected research type
-                if st.session_state.research_type == "spending tracker":
+                if st.session_state.research_type == "spendings":
                     links_df = pd.read_csv('data/links.csv', encoding='utf-8')
                 elif st.session_state.research_type == "news":
                     links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
@@ -336,15 +336,20 @@ def define_research():
 
             # 1. Kind of Research
             st.subheader("1. Research Type")
+
+            # Determine the default index based on the current session state
+            default_index = ["policies", "news", "spendings", "projects"].index(st.session_state.research_type)
+
+            # Update the radio button selection and save it to the session state
             st.session_state.research_type = st.radio(
                 "",
-                ["policies", "news", "spending tracker", "projects"],
-                index=2,
+                ["policies", "news", "spendings", "projects"],
+                index=default_index,
                 help="Select the type of research you're interested in. Options include policies, news, and projects."
             )
 
             # Load necessary data based on the selected research type
-            if st.session_state.research_type == "spending tracker":
+            if st.session_state.research_type == "spendings":
                 links_df = pd.read_csv('data/links.csv', encoding='utf-8')
             elif st.session_state.research_type == "news":
                 links_df = pd.read_csv('data/news_links.csv', encoding='utf-8')
