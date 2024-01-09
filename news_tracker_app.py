@@ -248,7 +248,7 @@ def define_research():
         }
 
         # Allow user to choose between predefined or custom configuration
-        config_type_choice = st.sidebar.radio("Configuration Type", ('Predefined', 'Customize'), index=('Customize', 'Predefined').index(st.session_state.config_type_choice))
+        config_type_choice = st.sidebar.radio("Configuration Type", ('Predefined', 'Customize'), index=('Predefined', 'Customize').index(st.session_state.config_type_choice))
         st.session_state.config_type_choice = config_type_choice
 
 
