@@ -330,18 +330,26 @@ def define_research():
                 if key not in st.session_state:
                     st.session_state[key] = value
 
-            # Ensure that session state for research_type is initialized
-            if 'research_type' not in st.session_state:
-                st.session_state.research_type = "spendings"  # default value
-
             # 1. Kind of Research
             st.subheader("1. Research Type")
+
+            # Check if 'selected_research_type' is already set in session_state
+            if 'selected_research_type' not in st.session_state:
+                # Default index if not set
+                st.session_state.selected_research_type = 2
+
+            # Set the radio button with the index from session_state
+            selected_index = st.session_state.selected_research_type
+            research_options = ["policies", "news", "spending tracker", "projects"]
             st.session_state.research_type = st.radio(
                 "",
-                ["policies", "news", "spending tracker", "projects"],
-                index=2,
+                research_options,
+                index=selected_index,
                 help="Select the type of research you're interested in. Options include policies, news, and projects."
             )
+
+# Update the session_state with the current selection
+st.session_state.selected_research_type = research_options.index(st.session_state.research_type)
 
             # Load necessary data based on the selected research type
             if st.session_state.research_type == "spending tracker":
