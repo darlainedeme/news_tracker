@@ -972,6 +972,8 @@ def research():
             else:
                 chunk_query = query + ' AND (' + predefined_sites_query + ')'
 
+            if st.session_state.sources != "predefined sources search":
+                chunk_query = chunk_query.replace("remove this text AND ", "").replace("(site:https://www.google.com)", "")
             # URL encode the chunk query string
             encoded_query = urllib.parse.quote_plus(chunk_query)
 
