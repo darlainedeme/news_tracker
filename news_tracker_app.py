@@ -956,8 +956,8 @@ def research():
         if st.session_state.sources == "predefined sources search" and total_query_elements > max_parameters_per_query:
             remaining_elements = max_parameters_per_query - (total_query_elements - len(st.session_state.selected_predefined_links))
             link_chunks = list(chunk_list(st.session_state.selected_predefined_links, remaining_elements))
-        #else:
-            #link_chunks = [st.session_state.selected_predefined_links]
+        else:
+            link_chunks = []
 
         total_results = 0
         google_search_urls = []
