@@ -782,7 +782,7 @@ def research():
         query = query.replace('"', '')
 
 
-    if st.session_state.sources == "general google search" or st.session_state.research_type = "news":
+    if st.session_state.sources == "general google search" or st.session_state.research_type == "news":
         if len(st.session_state.selected_countries) > 1:
             query = " OR ".join([f'"{country}"' for country in st.session_state.selected_countries]) + " " + query 
 
