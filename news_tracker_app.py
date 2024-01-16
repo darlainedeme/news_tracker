@@ -787,7 +787,7 @@ def research():
             query = " OR ".join([f'"{country}"' for country in st.session_state.selected_countries]) + " " + query 
 
         else:
-            query = str(st.session_state.selected_countries[0]) + " " + query 
+            query = '"' + "str(st.session_state.selected_countries[0]) + '" ' + query 
 
     # Function to translate text using the Google Cloud Translation API
     def translate_text_with_google_cloud(text, language_name):
