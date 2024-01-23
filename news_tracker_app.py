@@ -958,7 +958,7 @@ def research():
                 remaining_elements = max_parameters_per_query - (total_query_elements - len(st.session_state.selected_predefined_links))
                 link_chunks = list(chunk_list(st.session_state.selected_predefined_links, remaining_elements))
             else:
-            link_chunks = [st.session_state.selected_predefined_links)]
+            link_chunks = [st.session_state.selected_predefined_links]
 
         else:
             link_chunks = [["https://www.google.com"]]
