@@ -953,11 +953,12 @@ def research():
                 yield lst[i:i + n]
 
         # Breaking down the selected predefined links into chunks if necessary
-        if st.session_state.sources == "predefined sources search" and total_query_elements > max_parameters_per_query:
-            remaining_elements = max_parameters_per_query - (total_query_elements - len(st.session_state.selected_predefined_links))
-            link_chunks = list(chunk_list(st.session_state.selected_predefined_links, remaining_elements))
-        else:
-            link_chunks = [["https://www.google.com"]]
+        if st.session_state.sources == "predefined sources search":
+            if total_query_elements > max_parameters_per_query:
+                remaining_elements = max_parameters_per_query - (total_query_elements - len(st.session_state.selected_predefined_links))
+                link_chunks = list(chunk_list(st.session_state.selected_predefined_links, remaining_elements))
+            else:
+                link_chunks = [["https://www.google.com"]]
 
         total_results = 0
         google_search_urls = []
