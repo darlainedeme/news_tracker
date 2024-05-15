@@ -1331,11 +1331,11 @@ def document_analysis():
             input_token_count += len(encoding.encode(prompt))
 
         # Define maximum output tokens based on the model
-        max_output_tokens = 2000 if selected_model == "gpt-4" else 1000
+        max_output_tokens = 100000 if selected_model == "gpt-4o" else 1000
 
         # Token pricing per 1K tokens (update as per current rates)
         pricing = {
-            "gpt-4": (0.03, 0.06),
+            "gpt-4o": (0.03, 0.06),
             "gpt-3.5-turbo-instruct": (0.0015, 0.002)
         }
 
@@ -1362,7 +1362,7 @@ def document_analysis():
         return
 
     # Sidebar for GPT model selection
-    models = ["gpt-3.5-turbo-instruct", "gpt-4"]
+    models = ["gpt-3.5-turbo-instruct", "gpt-4o"]
     selected_model = st.sidebar.selectbox("Select OpenAI Model:", models, index=0, key="model_select_key")
 
     st.dataframe(st.session_state.df)
@@ -1390,20 +1390,20 @@ def document_analysis():
             you are asked to write 1) "Brief Summary:" summarize the document in two sentences and 2) "Key numbers": one bullet point for each key number, and a description of what it is, iwth particular focus on monetary numbers
             below the extract from one document:\n{extracts}"""
 
-            token_limit = 8000 if selected_model == "gpt-4" else 4000
+            token_limit = 8000 if selected_model == "gpt-4o" else 4000
             encoding = tiktoken.encoding_for_model(selected_model)
 
             trimmed_prompt, was_trimmed = trim_prompt_to_fit_limit(prompt, encoding, token_limit)
 
 
             # Call the OpenAI API
-            if selected_model == "gpt-4":
+            if selected_model == "gpt-4o":
                 messages = [
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": prompt}
                 ]
                 response = openai.ChatCompletion.create(
-                    model="gpt-4",
+                    model="gpt-4o",
                     messages=messages,
                     max_tokens=1000 
                 )
@@ -1439,19 +1439,19 @@ def document_analysis():
         combined_summaries = " ".join(all_summaries)
         final_prompt = f"Summarize the following summaries in 10 sentences with the following structure; 1) Summary 2) Key numbers:\n{combined_summaries}"
 
-        token_limit = 8000 if selected_model == "gpt-4" else 4000
+        token_limit = 100000 if selected_model == "gpt-4o" else 4000
         encoding = tiktoken.encoding_for_model(selected_model)
 
         trimmed_prompt, was_trimmed = trim_prompt_to_fit_limit(final_prompt, encoding, token_limit)
 
         # Call the OpenAI API for final summary
-        if selected_model == "gpt-4":
+        if selected_model == "gpt-4o":
             messages = [
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": final_prompt}
             ]
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-4o",
                 messages=messages,
                 max_tokens=1000 
             )
@@ -1462,7 +1462,7 @@ def document_analysis():
                 prompt=final_prompt,
                 max_tokens=2000
             )
-            final_summary = response['choices'][0]['message']['content'] if selected_model == "gpt-4" else response.choices[0].text.strip()
+            final_summary = response['choices'][0]['message']['content'] if selected_model == "gpt-4o" else response.choices[0].text.strip()
             st.session_state.final_summary = final_summary
         
         # Display the final summary
